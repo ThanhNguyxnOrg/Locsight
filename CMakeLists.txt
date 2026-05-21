@@ -23,8 +23,12 @@ set(SOURCES
     src/main.cpp
     src/FileAnalyzer.cpp
     src/CppAnalyzer.cpp
+    src/CAnalyzer.cpp
     src/PythonAnalyzer.cpp
-    src/WebAnalyzer.cpp
+    src/HtmlAnalyzer.cpp
+    src/CssAnalyzer.cpp
+    src/JavaScriptAnalyzer.cpp
+    src/TypeScriptAnalyzer.cpp
     src/JavaAnalyzer.cpp
     src/CSharpAnalyzer.cpp
     src/DirectoryScanner.cpp

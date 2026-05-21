@@ -7,42 +7,49 @@
 namespace cba {
 
 /**
- * @brief Loại ngôn ngữ được nhận diện cho mỗi tệp tin.
+ * @brief Recognized language type for each source file.
+ *
+ * Each language has its own enum value, allowing accurate
+ * per-language statistics and reporting.
  */
 enum class Language {
-    Cpp,
-    Python,
-    Web,     // HTML / CSS / JS / TS
-    Java,
-    CSharp,
+    Cpp,           // C++ (.cpp, .hpp, .cxx, .cc, .hxx, .hh)
+    C,             // C    (.c, .h)
+    Python,        // Python (.py)
+    Java,          // Java (.java)
+    CSharp,        // C# (.cs)
+    HTML,          // HTML (.html, .htm)
+    CSS,           // CSS (.css)
+    JavaScript,    // JavaScript (.js, .jsx)
+    TypeScript,    // TypeScript (.ts, .tsx)
     Unknown
 };
 
 /**
- * @brief Lớp cơ sở trừu tượng cho mọi loại tệp mã nguồn.
+ * @brief Abstract base class for all source file analyzers.
  *
- * Định nghĩa giao diện chung và chứa các thuộc tính số liệu cốt lõi:
- * codeLines, commentLines, blankLines. Các lớp con triển khai phương thức
- * analyze() để phân tích cú pháp riêng cho từng ngôn ngữ.
+ * Defines the common interface and holds core metric properties:
+ * codeLines, commentLines, blankLines. Subclasses implement
+ * analyze() with language-specific comment parsing logic.
  */
 class FileAnalyzer {
 public:
     explicit FileAnalyzer(std::filesystem::path filePath);
     virtual ~FileAnalyzer() = default;
 
-    // Không cho copy để tránh nhân đôi tài nguyên / chỉ số.
+    // Disable copy to prevent duplicating resources / metrics.
     FileAnalyzer(const FileAnalyzer&) = delete;
     FileAnalyzer& operator=(const FileAnalyzer&) = delete;
     FileAnalyzer(FileAnalyzer&&) = default;
     FileAnalyzer& operator=(FileAnalyzer&&) = default;
 
-    /// Phương thức ảo thuần túy - các lớp con phải override.
+    /// Pure virtual method - subclasses must override.
     virtual void analyze() = 0;
 
-    /// Tên ngôn ngữ hiển thị trong báo cáo (ví dụ: "C++", "Python").
+    /// Human-readable language name for reports (e.g. "C++", "Python").
     [[nodiscard]] virtual std::string languageName() const = 0;
 
-    /// Loại ngôn ngữ (enum).
+    /// Language type (enum).
     [[nodiscard]] virtual Language language() const = 0;
 
     // ---- Getters ----
@@ -65,10 +72,10 @@ protected:
     std::size_t commentLines_{0};
     std::size_t blankLines_{0};
 
-    /// Tiện ích kiểm tra dòng có rỗng (chỉ chứa khoảng trắng) hay không.
+    /// Check whether a line is blank (contains only whitespace).
     static bool isBlank(const std::string& line) noexcept;
 
-    /// Xoá khoảng trắng đầu / cuối chuỗi (in-place).
+    /// Strip leading and trailing whitespace from a string (in-place).
     static void trim(std::string& s) noexcept;
 };
 

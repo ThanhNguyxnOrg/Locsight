@@ -1,7 +1,11 @@
 #include "DirectoryScanner.hpp"
 #include "CppAnalyzer.hpp"
+#include "CAnalyzer.hpp"
 #include "PythonAnalyzer.hpp"
-#include "WebAnalyzer.hpp"
+#include "HtmlAnalyzer.hpp"
+#include "CssAnalyzer.hpp"
+#include "JavaScriptAnalyzer.hpp"
+#include "TypeScriptAnalyzer.hpp"
 #include "JavaAnalyzer.hpp"
 #include "CSharpAnalyzer.hpp"
 #include <algorithm>
@@ -29,15 +33,40 @@ std::unique_ptr<FileAnalyzer> DirectoryScanner::createAnalyzer(const std::filesy
     std::string ext = path.extension().string();
     std::transform(ext.begin(), ext.end(), ext.begin(), [](unsigned char c) { return std::tolower(c); });
 
-    if (ext == ".cpp" || ext == ".h" || ext == ".hpp" || ext == ".c") {
+    // ── C++ ──
+    if (ext == ".cpp" || ext == ".hpp" || ext == ".cxx" || ext == ".cc" || ext == ".hxx" || ext == ".hh") {
         return std::make_unique<CppAnalyzer>(path);
-    } else if (ext == ".py") {
+    }
+    // ── C ── (.c and .h are C by convention; .hpp is C++)
+    if (ext == ".c" || ext == ".h") {
+        return std::make_unique<CAnalyzer>(path);
+    }
+    // ── Python ──
+    if (ext == ".py") {
         return std::make_unique<PythonAnalyzer>(path);
-    } else if (ext == ".html" || ext == ".css" || ext == ".js" || ext == ".ts") {
-        return std::make_unique<WebAnalyzer>(path);
-    } else if (ext == ".java") {
+    }
+    // ── HTML ──
+    if (ext == ".html" || ext == ".htm") {
+        return std::make_unique<HtmlAnalyzer>(path);
+    }
+    // ── CSS ──
+    if (ext == ".css") {
+        return std::make_unique<CssAnalyzer>(path);
+    }
+    // ── JavaScript ──
+    if (ext == ".js" || ext == ".jsx") {
+        return std::make_unique<JavaScriptAnalyzer>(path);
+    }
+    // ── TypeScript ──
+    if (ext == ".ts" || ext == ".tsx") {
+        return std::make_unique<TypeScriptAnalyzer>(path);
+    }
+    // ── Java ──
+    if (ext == ".java") {
         return std::make_unique<JavaAnalyzer>(path);
-    } else if (ext == ".cs") {
+    }
+    // ── C# ──
+    if (ext == ".cs") {
         return std::make_unique<CSharpAnalyzer>(path);
     }
 
