@@ -11,20 +11,20 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            artifact_name: codebase-analyzer-linux
+            artifact_file: codebase-analyzer-linux
             binary_path: build/stage/bin/codebase_analyzer
           - os: macos-latest
-            artifact_name: codebase-analyzer-macos
+            artifact_file: codebase-analyzer-macos
             binary_path: build/stage/bin/codebase_analyzer
           - os: windows-latest
-            artifact_name: codebase-analyzer-windows
+            artifact_file: codebase-analyzer-windows.exe
             binary_path: build/stage/bin/codebase_analyzer.exe
     runs-on: ${{ matrix.os }}
     defaults:
       run:
         shell: pwsh
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Configure
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -42,8 +42,17 @@ jobs:
         env:
           BINARY_PATH: ${{ matrix.binary_path }}
 
+      - name: Prepare artifact
+        run: |
+          New-Item -ItemType Directory -Force build/package | Out-Null
+          Move-Item -Force $env:BINARY_PATH (Join-Path build/package $env:ARTIFACT_FILE)
+        env:
+          BINARY_PATH: ${{ matrix.binary_path }}
+          ARTIFACT_FILE: ${{ matrix.artifact_file }}
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.artifact_name }}
-          path: ${{ matrix.binary_path }}
+          path: build/package/${{ matrix.artifact_file }}
+          archive: false
+          if-no-files-found: error
