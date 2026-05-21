@@ -1,139 +1,256 @@
-# Codebase Analyzer
-> Local codebase analysis app with a real desktop UI.
+<div align="center">
 
-[![C++](https://img.shields.io/badge/C++-23-blue.svg?logo=c%2B%2B)](https://isocpp.org/)
-[![CMake](https://img.shields.io/badge/CMake-3.20+-green.svg?logo=cmake)](https://cmake.org/)
-[![OOP](https://img.shields.io/badge/Architecture-OOP-orange.svg)]()
-[![Team](https://img.shields.io/badge/Team-404_Not_Found-ff69b4.svg)]()
+# 🧠 Codebase Analyzer
 
----
+### ⚡ Local Source Code Analysis Tool with Desktop UI & C++ OOP Core
 
-## 👥 Về Dự Án & Đội Ngũ
-- **Nhóm thực hiện:** 404 Team Not Found 🕵️‍♂️
-- **Thành viên:** Nguyễn Tuấn Thành (Mã SV: 25112107) 👨‍💻
-- **Ngôn ngữ triển khai:** C++ (Tiêu chuẩn C++23) ⚙️
+<p>
+  <img src="https://img.shields.io/badge/C++-23-blue?style=for-the-badge&logo=cplusplus" />
+  <img src="https://img.shields.io/badge/CMake-3.20+-064F8C?style=for-the-badge&logo=cmake" />
+  <img src="https://img.shields.io/badge/Electron-Desktop-47848F?style=for-the-badge&logo=electron" />
+  <img src="https://img.shields.io/badge/React-TypeScript-61DAFB?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey?style=for-the-badge" />
+</p>
 
----
+<p>
+  <b>Analyze local repositories, count real source lines, detect comments/blank lines, and visualize project structure through a clean desktop interface.</b>
+</p>
 
-## 🎯 Mục Tiêu & Đối Tượng Người Dùng
-
-👨‍🎓 **Đối tượng người dùng chính:**
-Sinh viên ngành Công nghệ thông tin, kỹ sư phần mềm, quản lý dự án hoặc bất kỳ ai có nhu cầu đánh giá, kiểm tra cấu trúc và quy mô của một kho lưu trữ mã nguồn cục bộ (Local Codebase).
-
-🏁 **Mục tiêu của dự án:**
-Xây dựng một ứng dụng desktop hiệu năng cao mang tên **Codebase Analyzer**. Ứng dụng giúp tự động hóa quy trình phân tích cấu trúc mã nguồn thông qua việc quét đệ quy các thư mục, nhận diện chính xác các loại tệp tin lập trình phổ biến (như C++, Python, HTML/CSS/JS, Java, C#).
-
-## 🌍 Ngôn Ngữ Hỗ Trợ (Supported Languages)
-
-Hệ thống được thiết kế linh hoạt, nhận diện và bóc tách cấu trúc của các ngôn ngữ sau:
-
-| Ngôn Ngữ / Nền tảng | Đuôi file (Extensions) | Loại Comment Hỗ Trợ |
-| :--- | :--- | :--- |
-| **C / C++** | `.c`, `.cpp`, `.h`, `.hpp` | `//` (Dòng đơn) và `/* ... */` (Khối) |
-| **Java** | `.java` | `//` (Dòng đơn) và `/* ... */` (Khối) |
-| **C#** | `.cs` | `//` (Dòng đơn) và `/* ... */` (Khối) |
-| **Python** | `.py` | `#` (Dòng đơn) và `""" ... """`, `''' ... '''` (Khối / Docstring) |
-| **Web (Frontend)** | `.html`, `.css`, `.js`, `.ts` | `<!-- ... -->`, `/* ... */`, `//` |
+</div>
 
 ---
 
-## ✨ Tính Năng Nổi Bật
+## 📌 Overview
 
-- **Phân tích siêu tốc đa ngôn ngữ:** Xử lý hàng loạt các file mã nguồn ở trên chỉ trong nháy mắt.
-- **Phân loại chính xác:** Tách bạch rõ ràng số lượng dòng code thực thi, dòng comment và dòng trống.
-- **Desktop app thật:** UI có thể quét snapshot của chính repo này hoặc một folder local được chọn trong app.
+**Codebase Analyzer** is a local source code analysis application built for an Object-Oriented Programming project.
 
----
+The project started as a **C++ CLI analyzer** and is now extended with a **desktop UI layer** to make the workflow easier to use, easier to demo, and more visually professional.
 
-## ⚙️ Core Logic & Workflow (Luồng Xử Lý Lõi)
+It helps users quickly understand:
 
-Chương trình hoạt động dựa trên một chu trình khép kín, tối ưu hóa I/O để đạt hiệu suất quét cực nhanh:
-
-1. **Khởi tạo (Initialization):** Hàm `main()` tiếp nhận đường dẫn thư mục nguồn. Lớp `DirectoryScanner` được khởi tạo với đường dẫn này.
-2. **Quét thư mục (Directory Scanning):** Sử dụng `std::filesystem::recursive_directory_iterator`, hệ thống quét toàn bộ cây thư mục. 
-   - 🗑️ **Bộ lọc:** Tự động loại bỏ các thư mục rác (ví dụ: `.git`, `node_modules`, `build`, `venv`).
-   - 🔍 **Nhận diện tệp:** Nếu là tệp tin hợp lệ (`.cpp`, `.py`, `.html`...), một đối tượng đa hình (polymorphic object) tương ứng của `FileAnalyzer` sẽ được tạo và đẩy vào vector lưu trữ.
-3. **Phân tích (Analysis & Parsing):** Hệ thống duyệt qua danh sách các tệp tin đã nạp, gọi phương thức ảo `analyze()`. Mỗi Analyzer (`CppAnalyzer`, `PythonAnalyzer`, `WebAnalyzer`) sẽ chạy thuật toán Parser dòng-theo-dòng (line-by-line) riêng biệt để bóc tách:
-   - Các dòng trống.
-   - Các dòng Comment (dòng đơn hoặc block/multi-line comment).
-   - Code logic thực sự.
-4. **Tổng hợp & Báo cáo (Report Generation):** Cuối cùng, `ReportGenerator` tính toán số liệu tổng (Total LOC, Comment, Blank) và phân bổ phần trăm % cho từng ngôn ngữ, sau đó kết xuất ra Console và file `codebase_report.md`.
+- 📁 How many source files exist in a project
+- 🧾 How many lines are actual code
+- 💬 How many lines are comments
+- ⬜ How many lines are blank
+- 🌐 Which programming languages are used
+- 📊 How the codebase is distributed across files and languages
 
 ---
 
-## 🧩 Sơ Đồ Thiết Kế UML (UML Diagrams)
+## ✨ Key Features
 
-Dưới đây là các sơ đồ thiết kế hệ thống được dựng bằng **PlantUML** bám sát theo Proposal của nhóm.
-
-### 1. Use Case Diagram
-
-![Use Case Diagram](assets/image_01.png)
-
-### 2. Class Diagram (OOP Architecture)
-
-Hệ thống được thiết kế theo đúng triết lý Lập trình Hướng Đối Tượng (OOP) đảm bảo khả năng mở rộng (Tính kế thừa, đa hình, và tính đóng gói thành phần).
-
-![Class Diagram](assets/image_02.png)
-
----
-
-## 💻 Stack Công Nghệ & Thư Viện
-
-Dự án sử dụng sức mạnh tối đa của **C++23** nhằm tối ưu hóa triệt để tốc độ xử lý I/O luồng dữ liệu file:
-
-- 📂 `<filesystem>`: Duyệt đệ quy qua toàn bộ cây thư mục an toàn, đa nền tảng.
-- 🛡️ **Smart Pointers** (`<memory>`): Sử dụng `std::unique_ptr` để quản lý vòng đời của các đối tượng đa hình, ngăn ngừa 100% lỗi rò rỉ bộ nhớ (Memory Leak).
-- 🧹 `<algorithm>` & `<string>`: Áp dụng thuật toán tiêu chuẩn để tối ưu hóa quá trình khớp mẫu.
+| Feature | Description |
+|---|---|
+| 📂 **Local Folder Selection** | Users must choose a real local project folder before analysis starts |
+| 🔍 **Recursive Directory Scan** | Traverse nested folders and detect valid source files automatically |
+| 🚫 **Noise Folder Filtering** | Skip folders such as `.git`, `build`, `node_modules`, `dist`, and generated outputs |
+| 🧠 **Language-aware Analysis** | Detect and analyze source files based on file extensions |
+| 💬 **Comment Detection** | Count single-line and block comments depending on language syntax |
+| 📊 **Dashboard UI** | Display project statistics through a clean desktop interface |
+| 📝 **Markdown Report** | Export summarized analysis into `codebase_report.md` |
+| 🧩 **OOP-based Core Design** | Apply abstraction, inheritance, polymorphism, and encapsulation in the analyzer core |
 
 ---
 
-## 🗺️ Lộ Trình Triển Khai (Roadmap)
+## 🖼️ Desktop UI Flow
 
-✅ **Tuần 1:**
-- Hoàn thiện tài liệu Proposal & Bản vẽ sơ đồ UML (Use Case, Class Diagram).
-- Xây dựng Codebase nền tảng có khả năng quét thư mục đệ quy với `<filesystem>`.
-- Phát triển thành công module `DirectoryScanner`.
+```mermaid
+flowchart TD
+    A[🚀 Open App] --> B[📂 Choose Source Folder]
+    B --> C[🔍 Scan Project Directory]
+    C --> D[🧠 Analyze Source Files]
+    D --> E[📊 Render Dashboard]
+    E --> F[📝 Export Markdown Report]
+```
 
-✅ **Tuần 2:**
-- Hiện thực hóa chi tiết phương thức ảo `analyze()` tại `CppAnalyzer`, `PythonAnalyzer`, `WebAnalyzer`.
-- Xử lý thuật toán loại bỏ comment khối, comment dòng đơn chuẩn xác.
-- Xây dựng module kết xuất dữ liệu thống kê ra Console và File Markdown.
-- Hoàn thiện mã nguồn (100% sạch bug) và sẵn sàng báo cáo nghiệm thu.
+> ✅ The app does **not** analyze a bundled sample by default.  
+> Users must choose a real local folder before the analysis process begins.
 
 ---
 
-## 🛠️ Hướng Dẫn Cài Đặt & Sử Dụng
+## 🧱 Project Architecture
 
-### 1. Build Dự Án 🏗️
+```mermaid
+flowchart LR
+    UI[🖥️ Electron + React UI] --> Scanner[📂 File Scanner / IPC Layer]
+    Scanner --> Core[⚙️ Analyzer Core]
+    Core --> Report[📝 Report Generator]
+    Report --> UI
+```
 
-Yêu cầu máy tính có cài đặt trình biên dịch hỗ trợ **C++23** và **CMake (v3.20+)**.
+### 🧠 Core OOP Design
+
+```mermaid
+classDiagram
+    class FileAnalyzer {
+        <<abstract>>
+        - string filePath
+        - string fileName
+        - size_t fileSize
+        - int codeLines
+        - int commentLines
+        - int blankLines
+        + analyze()* void
+        + printInfo() void
+    }
+
+    class CppAnalyzer
+    class JavaAnalyzer
+    class CSharpAnalyzer
+    class PythonAnalyzer
+    class JavaScriptAnalyzer
+    class TypeScriptAnalyzer
+    class WebAnalyzer
+
+    class DirectoryScanner {
+        - string rootPath
+        - vector~unique_ptr~FileAnalyzer~~ files
+        + scanDirectory() void
+        + runAnalysis() void
+        + getFiles()
+    }
+
+    class ReportGenerator {
+        + generateReport(files) void
+    }
+
+    FileAnalyzer <|-- CppAnalyzer
+    FileAnalyzer <|-- JavaAnalyzer
+    FileAnalyzer <|-- CSharpAnalyzer
+    FileAnalyzer <|-- PythonAnalyzer
+    FileAnalyzer <|-- JavaScriptAnalyzer
+    FileAnalyzer <|-- TypeScriptAnalyzer
+    FileAnalyzer <|-- WebAnalyzer
+
+    DirectoryScanner --> FileAnalyzer
+    ReportGenerator --> FileAnalyzer
+```
+
+---
+
+## 🧩 OOP Principles Applied
+
+| OOP Principle | How it is applied |
+|---|---|
+| 🧊 **Abstraction** | `FileAnalyzer` defines a common interface for all file analyzers |
+| 🧬 **Inheritance** | Specific analyzers inherit from `FileAnalyzer` |
+| 🔁 **Polymorphism** | `analyze()` is overridden and called dynamically through base-class pointers |
+| 🔒 **Encapsulation** | Each class owns one clear responsibility: scanning, analyzing, or reporting |
+| 🧱 **Separation of Concerns** | UI, scanning, analysis, and report generation are separated into clear modules |
+
+---
+
+## 🌐 Supported Source Types
+
+| Language / Platform | Extensions |
+|---|---|
+| ⚙️ C / C++ | `.c`, `.cpp`, `.h`, `.hpp` |
+| ☕ Java | `.java` |
+| 🟣 C# | `.cs` |
+| 🐍 Python | `.py` |
+| 🟨 JavaScript | `.js`, `.jsx`, `.mjs`, `.cjs` |
+| 🔷 TypeScript | `.ts`, `.tsx`, `.mts`, `.cts` |
+| 🌐 Web Frontend | `.html`, `.css` |
+
+> 📌 Non-source files such as `.md`, `.json`, `.yml`, `.png`, and generated build files are treated as project metadata or ignored by the analyzer.
+
+---
+
+## 🛠️ Tech Stack
+
+### ⚙️ Core
+
+- 🚀 **C++23**
+- 🧱 **CMake 3.20+**
+- 📁 `std::filesystem`
+- 🧠 Smart pointers: `std::unique_ptr`
+- 📦 STL containers: `std::vector`, `std::map`, `std::string`
+
+### 🖥️ Desktop UI
+
+- ⚡ **Electron**
+- ⚛️ **React**
+- 🔷 **TypeScript**
+- 🎨 **Tailwind CSS**
+- 📦 **Vite**
+
+### 🤖 Automation
+
+- 🧪 GitHub Actions build workflow
+- 📦 Cross-platform artifact generation for Windows, Linux, and macOS
+
+---
+
+## 📁 Repository Structure
+
+```txt
+Codebase-Analyzer/
+├── include/                  # C++ header files
+│   ├── FileAnalyzer.hpp
+│   ├── DirectoryScanner.hpp
+│   └── ReportGenerator.hpp
+│
+├── src/                      # C++ analyzer core
+│   ├── main.cpp
+│   ├── DirectoryScanner.cpp
+│   ├── CppAnalyzer.cpp
+│   ├── PythonAnalyzer.cpp
+│   ├── JavaScriptAnalyzer.cpp
+│   ├── TypeScriptAnalyzer.cpp
+│   └── ReportGenerator.cpp
+│
+├── ui_design/                # Desktop UI source
+│   ├── electron/             # Electron main process
+│   ├── src/                  # React + TypeScript frontend
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── CMakeLists.txt            # C++ build configuration
+├── README.md                 # Project documentation
+└── codebase_report.md        # Generated report output
+```
+
+---
+
+## 🚀 Getting Started
+
+### ✅ Requirements
+
+Make sure these tools are installed:
+
+- 🧩 **Git**
+- ⚙️ **CMake 3.20+**
+- 🧠 A C++ compiler with C++23 support
+- 📦 **Node.js + npm**
+- 🖥️ Windows, Linux, or macOS
+
+---
+
+## ⚙️ Build C++ CLI Core
 
 ```bash
-# Clone dự án về máy
 git clone https://github.com/ThanhNguyn/Codebase-Analyzer.git
 cd Codebase-Analyzer
 
-# Khởi tạo thư mục build & Cấu hình CMake
-cmake -B build
-
-# Biên dịch mã nguồn thành file thực thi
+cmake -S . -B build
 cmake --build build
 ```
 
-### 2. Chạy UI desktop
+Run the analyzer:
 
 ```bash
-cd ui_design
-npm ci
-npm run dist
+./build/codebase-analyzer .
 ```
 
-Kết quả build nằm trong `ui_design/release/`:
-- Windows: `codebase-analyzer-win.exe`
-- macOS: `codebase-analyzer-mac.dmg`
-- Linux: `codebase-analyzer-linux.AppImage`
+On Windows, the executable path may be:
 
-### 3. Chạy UI web dev
+```powershell
+.\build\Debug\codebase-analyzer.exe .
+```
+
+---
+
+## 🖥️ Run Desktop UI in Development
 
 ```bash
 cd ui_design
@@ -141,7 +258,99 @@ npm install
 npm run dev
 ```
 
-### 4. GitHub Actions
+The desktop app will open and ask the user to choose a local project folder.
 
-Workflow tại `.github/workflows/ci.yml` sẽ build desktop app trên Windows, macOS, và Linux, rồi upload artifact native riêng cho từng OS.
-Windows nhận một file `.exe` chạy trực tiếp, macOS nhận `.dmg`, và Linux nhận `.AppImage`.
+---
+
+## 📦 Build Desktop Release
+
+```bash
+cd ui_design
+npm run build
+npm run dist
+```
+
+Release files will be generated inside:
+
+```txt
+ui_design/release/
+```
+
+---
+
+## 📊 Example Report Output
+
+```md
+# Codebase Analysis Report
+
+## Summary
+
+- Total files: 17
+- Total lines: 882
+- Code lines: 716
+- Comment lines: 17
+- Blank lines: 149
+```
+
+---
+
+## 🧪 Testing Notes
+
+The project was primarily tested on **Windows**.
+
+Linux and macOS builds can be generated through GitHub Actions, but full runtime verification should be performed on real machines when available.
+
+---
+
+## 🗺️ Roadmap
+
+- [x] ✅ C++ CLI analyzer core
+- [x] ✅ Recursive directory scanner
+- [x] ✅ Markdown report generation
+- [x] ✅ Desktop UI prototype
+- [x] ✅ Local folder selection flow
+- [x] ✅ Windows desktop build
+- [ ] 🔜 Connect UI directly to C++ analyzer executable
+- [ ] 🔜 Add PDF / HTML report export
+- [ ] 🔜 Add charts for language distribution
+- [ ] 🔜 Add more language analyzers
+- [ ] 🔜 Add deeper GitHub Actions smoke tests
+
+---
+
+## 🎓 Project Context
+
+This project was developed as part of an **Object-Oriented Programming course project**.
+
+The main academic goal is to demonstrate:
+
+- 🧠 Object-oriented design
+- 🧬 Class inheritance
+- 🔁 Runtime polymorphism
+- 🔒 Encapsulation
+- 🧩 Maintainable software architecture
+- 🖥️ Practical UI integration for a local analysis tool
+
+---
+
+## 👨‍💻 Author
+
+**Nguyễn Tuấn Thành**  
+Student ID: `25112107`  
+Team: **404 Team Not Found**
+
+---
+
+## 📜 License
+
+This project is intended for academic and educational purposes.
+
+---
+
+<div align="center">
+
+### ⭐ If this project is useful, consider giving it a star!
+
+**Made with 💙 C++23, Electron, React, TypeScript, and OOP design.**
+
+</div>
