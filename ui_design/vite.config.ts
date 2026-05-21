@@ -109,6 +109,7 @@ function gitBranch(repoRoot: string) {
 }
 
 export default defineConfig({
+  base: './',
   plugins: [
     repositorySnapshotPlugin(),
     react(),
