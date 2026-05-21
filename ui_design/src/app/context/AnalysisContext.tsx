@@ -6,6 +6,7 @@ import {
   type AnalysisResult,
   type LogEntry,
   type SourceFile,
+  type ScanStats,
 } from "../lib/analysisEngine";
 
 type ContextValue = {
@@ -41,7 +42,7 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
       source: AnalysisResult["source"],
       files: SourceFile[],
       ignores: string[],
-      options?: { preserveLogs?: boolean },
+      options?: { preserveLogs?: boolean; scanStats?: Partial<ScanStats> },
     ) => {
       setAnalyzing(true);
       setError(null);
@@ -55,6 +56,7 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
           source,
           files,
           ignores,
+          scanStats: options?.scanStats,
           onLog: addLog,
           onProgress: setProgress,
         });
@@ -79,8 +81,8 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
       setLogs([]);
 
       try {
-        const { rootPath, files } = await collectDirectoryFiles(ignores, addLog);
-        await runSourceAnalysis(rootPath, "directory", files, ignores, { preserveLogs: true });
+        const { rootPath, files, scanStats } = await collectDirectoryFiles(ignores, addLog);
+        await runSourceAnalysis(rootPath, "directory", files, ignores, { preserveLogs: true, scanStats });
       } catch (err) {
         setAnalyzing(false);
         const message = err instanceof Error ? err.message : "Unable to read selected folder.";
@@ -101,8 +103,8 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
 
       try {
         addLog("scan", `Reading ${fileList.length} uploaded files`);
-        const { rootPath, files } = await collectUploadedFiles(fileList);
-        await runSourceAnalysis(rootPath, "upload", files, ignores, { preserveLogs: true });
+        const { rootPath, files, scanStats } = await collectUploadedFiles(fileList, ignores);
+        await runSourceAnalysis(rootPath, "upload", files, ignores, { preserveLogs: true, scanStats });
       } catch (err) {
         setAnalyzing(false);
         const message = err instanceof Error ? err.message : "Unable to read uploaded folder.";

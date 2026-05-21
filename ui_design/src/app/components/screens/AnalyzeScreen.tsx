@@ -124,7 +124,7 @@ export function AnalyzeScreen({ onComplete }: { onComplete: () => void }) {
         </div>
 
         <div className="mt-4 rounded-lg border border-[#1f2430] bg-[#0d1117]">
-          <PanelHeader label="ignore.patterns" right={`${ignores.length} rules`} />
+          <PanelHeader label="ignore.patterns" right={`${ignores.length} default rules + .gitignore`} />
           <div className="p-4">
             <div className="flex flex-wrap gap-1.5">
               {ignores.map((rule) => (
@@ -166,6 +166,9 @@ export function AnalyzeScreen({ onComplete }: { onComplete: () => void }) {
                 <RotateCcw size={10} /> reset
               </button>
             </div>
+            <p className="mt-3 text-[11px] font-mono text-[#6b7280]">
+              .gitignore in the selected folder is detected automatically and merged with these rules.
+            </p>
           </div>
         </div>
 

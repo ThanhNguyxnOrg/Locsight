@@ -19,6 +19,18 @@ export type FileRow = {
   size: number;
 };
 
+export type ScanStats = {
+  scannedFiles: number;
+  ignoredFolders: number;
+  ignoredFiles: number;
+  unsupportedFiles: number;
+  gitignoreFiles?: number;
+  defaultIgnoreRules?: string[];
+  customIgnoreRules?: string[];
+  gitignoreRules?: string[];
+  appliedIgnoreRules?: string[];
+};
+
 export type AnalysisResult = {
   path: string;
   timestamp: string;
@@ -26,8 +38,12 @@ export type AnalysisResult = {
   source: "repository" | "directory" | "upload";
   langs: LangStat[];
   files: FileRow[];
+  scannedFiles: number;
+  ignoredFolders: number;
   ignoredFiles: number;
   unsupportedFiles: number;
+  gitignoreFiles: number;
+  gitignoreRules: string[];
   ignores: string[];
 };
 
@@ -57,6 +73,7 @@ type AnalyzeOptions = {
   source: AnalysisResult["source"];
   files: SourceFile[];
   ignores: string[];
+  scanStats?: Partial<ScanStats>;
   onLog?: (kind: LogEntry["kind"], message: string) => void;
   onProgress?: (value: number) => void;
 };
@@ -75,8 +92,14 @@ type LanguageSpec = {
   kind: "cLike" | "css" | "html" | "python";
 };
 
+type DirectoryCollection = {
+  rootPath: string;
+  files: SourceFile[];
+  scanStats: ScanStats;
+};
+
 type DesktopBridge = {
-  pickDirectory: () => Promise<{ rootPath: string; files: SourceFile[] } | null>;
+  pickDirectory: (ignoreRules?: string[]) => Promise<DirectoryCollection | null>;
 };
 
 export const DEFAULT_IGNORES = [".git", "build", "release", "node_modules", "bin", "dist", "venv", ".next", "coverage"];
@@ -114,11 +137,17 @@ export async function analyzeSources(options: AnalyzeOptions): Promise<AnalysisR
   const started = performance.now();
   const ignores = normalizeIgnores(options.ignores);
   const rows: FileRow[] = [];
-  let ignoredFiles = 0;
-  let unsupportedFiles = 0;
+  const providedStats = options.scanStats ?? {};
+  const scannedFiles = providedStats.scannedFiles ?? options.files.length;
+  const ignoredFolders = providedStats.ignoredFolders ?? 0;
+  let ignoredFiles = providedStats.ignoredFiles ?? 0;
+  let unsupportedFiles = providedStats.unsupportedFiles ?? 0;
+  const gitignoreFiles = providedStats.gitignoreFiles ?? 0;
+  const gitignoreRules = providedStats.gitignoreRules ?? [];
+  const appliedIgnoreRules = providedStats.appliedIgnoreRules ?? ignores;
 
   options.onProgress?.(4);
-  options.onLog?.("scan", `Loaded ${options.files.length} files from ${options.path}`);
+  options.onLog?.("scan", `Loaded ${options.files.length} supported files from ${options.path}`);
 
   for (let index = 0; index < options.files.length; index++) {
     const sourceFile = options.files[index];
@@ -171,21 +200,27 @@ export async function analyzeSources(options: AnalyzeOptions): Promise<AnalysisR
     source: options.source,
     langs,
     files: rows,
+    scannedFiles,
+    ignoredFolders,
     ignoredFiles,
     unsupportedFiles,
-    ignores,
+    gitignoreFiles,
+    gitignoreRules,
+    ignores: appliedIgnoreRules,
   };
 }
 
 export async function collectDirectoryFiles(ignores: string[], onLog?: (kind: LogEntry["kind"], message: string) => void) {
   const desktopBridge = getDesktopBridge();
   if (desktopBridge) {
-    const result = await desktopBridge.pickDirectory();
+    const result = await desktopBridge.pickDirectory(ignores);
     if (!result) {
       throw new Error("No folder selected.");
     }
 
     onLog?.("scan", `Reading ${result.rootPath}`);
+    onLog?.("info", `Applied ${result.scanStats.appliedIgnoreRules?.length ?? ignores.length} ignore rules (${result.scanStats.gitignoreRules?.length ?? 0} from .gitignore)`);
+    onLog?.("info", `Skipped ${result.scanStats.ignoredFolders} ignored folders, ${result.scanStats.ignoredFiles} ignored files, and ${result.scanStats.unsupportedFiles} unsupported files`);
     return result;
   }
 
@@ -196,15 +231,23 @@ export async function collectDirectoryFiles(ignores: string[], onLog?: (kind: Lo
   const picker = (window as Window & { showDirectoryPicker: () => Promise<FileSystemDirectoryHandle> }).showDirectoryPicker;
   const root = await picker.call(window);
   const files: SourceFile[] = [];
+  const scanStats = createScanStats();
   const normalizedIgnores = normalizeIgnores(ignores);
+  const gitignoreRules = await readGitignoreFromHandle(root);
+  const appliedIgnores = uniqueRules([...normalizedIgnores, ...gitignoreRules]);
+  scanStats.defaultIgnoreRules = [...DEFAULT_IGNORES];
+  scanStats.customIgnoreRules = normalizedIgnores;
+  scanStats.gitignoreRules = gitignoreRules;
+  scanStats.gitignoreFiles = gitignoreRules.length > 0 ? 1 : 0;
+  scanStats.appliedIgnoreRules = appliedIgnores;
 
   onLog?.("scan", `Reading ${root.name}`);
-  await walkDirectoryHandle(root, "", normalizedIgnores, files);
-  return { rootPath: root.name, files };
+  await walkDirectoryHandle(root, "", appliedIgnores, files, scanStats);
+  return { rootPath: root.name, files, scanStats };
 }
 
-export async function collectUploadedFiles(fileList: FileList): Promise<{ rootPath: string; files: SourceFile[] }> {
-  const files = await Promise.all(
+export async function collectUploadedFiles(fileList: FileList, ignores: string[] = DEFAULT_IGNORES): Promise<DirectoryCollection> {
+  const rawFiles = await Promise.all(
     Array.from(fileList).map(async (file) => {
       const relativePath = normalizePath((file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name);
       return {
@@ -216,9 +259,48 @@ export async function collectUploadedFiles(fileList: FileList): Promise<{ rootPa
     }),
   );
 
-  const firstPath = files[0]?.path ?? "uploaded-folder";
+  const firstPath = rawFiles[0]?.path ?? "uploaded-folder";
   const rootPath = firstPath.includes("/") ? firstPath.split("/")[0] : "uploaded-folder";
-  return { rootPath, files };
+  const rootPrefix = rootPath === "uploaded-folder" ? "" : `${rootPath}/`;
+  const gitignoreFile = rawFiles.find((file) => file.path === `${rootPrefix}.gitignore` || file.path === ".gitignore");
+  const gitignoreRules = gitignoreFile ? parseGitignore(gitignoreFile.text) : [];
+  const normalizedIgnores = normalizeIgnores(ignores);
+  const appliedIgnores = uniqueRules([...normalizedIgnores, ...gitignoreRules]);
+  const scanStats = createScanStats();
+  scanStats.defaultIgnoreRules = [...DEFAULT_IGNORES];
+  scanStats.customIgnoreRules = normalizedIgnores;
+  scanStats.gitignoreRules = gitignoreRules;
+  scanStats.gitignoreFiles = gitignoreFile ? 1 : 0;
+  scanStats.appliedIgnoreRules = appliedIgnores;
+
+  const files: SourceFile[] = [];
+  const ignoredDirectories = new Set<string>();
+
+  for (const file of rawFiles) {
+    const relativeToRoot = rootPrefix && file.path.startsWith(rootPrefix) ? file.path.slice(rootPrefix.length) : file.path;
+    const segments = relativeToRoot.split("/");
+    const ignoredDirectory = segments.slice(0, -1).find((_, index) => isIgnored(segments.slice(0, index + 1).join("/"), appliedIgnores));
+    if (ignoredDirectory) {
+      ignoredDirectories.add(ignoredDirectory);
+      continue;
+    }
+
+    if (isIgnored(relativeToRoot, appliedIgnores)) {
+      scanStats.ignoredFiles++;
+      continue;
+    }
+
+    scanStats.scannedFiles++;
+    if (!detectLanguage(relativeToRoot)) {
+      scanStats.unsupportedFiles++;
+      continue;
+    }
+
+    files.push({ ...file, path: relativeToRoot });
+  }
+
+  scanStats.ignoredFolders = ignoredDirectories.size;
+  return { rootPath, files, scanStats };
 }
 
 function aggregateLanguages(rows: FileRow[]): LangStat[] {
@@ -395,27 +477,70 @@ function finalizeCounter(counter: Counter): Counter {
   return counter;
 }
 
+function parseGitignore(text: string) {
+  return text
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0 && !line.startsWith("#"));
+}
+
+async function readGitignoreFromHandle(root: FileSystemDirectoryHandle) {
+  try {
+    const gitignore = await root.getFileHandle(".gitignore");
+    const file = await gitignore.getFile();
+    return parseGitignore(await file.text());
+  } catch {
+    return [];
+  }
+}
+
 function normalizeIgnores(ignores: string[]) {
-  return ignores.map((rule) => rule.trim()).filter(Boolean);
+  return uniqueRules(ignores.map((rule) => rule.trim()).filter(Boolean));
+}
+
+function uniqueRules(rules: string[]) {
+  return Array.from(new Set(rules));
 }
 
 function isIgnored(filePath: string, ignores: string[]) {
   const path = normalizePath(filePath);
   const segments = path.split("/");
+  let ignored = false;
 
-  return ignores.some((rule) => {
-    const normalizedRule = normalizePath(rule);
-    if (segments.includes(normalizedRule)) return true;
-    if (path === normalizedRule || path.startsWith(`${normalizedRule}/`)) return true;
-    if (path.includes(`/${normalizedRule}/`)) return true;
-    if (normalizedRule.includes("*")) return wildcardToRegExp(normalizedRule).test(path);
-    return false;
-  });
+  for (const rawRule of ignores) {
+    const negate = rawRule.startsWith("!");
+    const normalizedRule = normalizePath((negate ? rawRule.slice(1) : rawRule).replace(/^\/+/, "").replace(/\/+$/, ""));
+    if (!normalizedRule) continue;
+
+    const hasWildcard = /[*?[]/.test(normalizedRule);
+    const hasSlash = normalizedRule.includes("/");
+    let matched = false;
+
+    if (!hasSlash) {
+      matched = hasWildcard
+        ? segments.some((segment) => wildcardToRegExp(normalizedRule, true).test(segment))
+        : segments.includes(normalizedRule);
+    } else if (hasWildcard) {
+      matched = wildcardToRegExp(normalizedRule).test(path);
+    } else {
+      matched = path === normalizedRule || path.startsWith(`${normalizedRule}/`) || path.includes(`/${normalizedRule}/`);
+    }
+
+    if (matched) ignored = !negate;
+  }
+
+  return ignored;
 }
 
-function wildcardToRegExp(pattern: string) {
-  const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*");
-  return new RegExp(`(^|/)${escaped}($|/)`);
+function wildcardToRegExp(pattern: string, basenameOnly = false) {
+  const escaped = pattern
+    .replace(/[.+^${}()|[\]\\]/g, "\\$&")
+    .replace(/\*\*/g, ".*")
+    .replace(/\*/g, "[^/]*")
+    .replace(/\?/g, "[^/]");
+  return new RegExp(basenameOnly ? `^${escaped}$` : `(^|/)${escaped}($|/)`);
 }
 
 async function walkDirectoryHandle(
@@ -423,19 +548,33 @@ async function walkDirectoryHandle(
   basePath: string,
   ignores: string[],
   files: SourceFile[],
+  scanStats: ScanStats,
 ) {
   for await (const [name, handle] of directory.entries()) {
     const relativePath = basePath ? `${basePath}/${name}` : name;
-    if (isIgnored(relativePath, ignores)) continue;
 
     if (handle.kind === "directory") {
-      await walkDirectoryHandle(handle, relativePath, ignores, files);
+      if (isIgnored(relativePath, ignores)) {
+        scanStats.ignoredFolders++;
+        continue;
+      }
+
+      await walkDirectoryHandle(handle, relativePath, ignores, files, scanStats);
       continue;
     }
 
     if (handle.kind === "file") {
+      if (isIgnored(relativePath, ignores)) {
+        scanStats.ignoredFiles++;
+        continue;
+      }
+
+      scanStats.scannedFiles++;
       const language = detectLanguage(relativePath);
-      if (!language) continue;
+      if (!language) {
+        scanStats.unsupportedFiles++;
+        continue;
+      }
       const file = await handle.getFile();
       files.push({
         path: relativePath,
@@ -445,6 +584,20 @@ async function walkDirectoryHandle(
       });
     }
   }
+}
+
+function createScanStats(): ScanStats {
+  return {
+    scannedFiles: 0,
+    ignoredFolders: 0,
+    ignoredFiles: 0,
+    unsupportedFiles: 0,
+    gitignoreFiles: 0,
+    defaultIgnoreRules: [...DEFAULT_IGNORES],
+    customIgnoreRules: [],
+    gitignoreRules: [],
+    appliedIgnoreRules: [],
+  };
 }
 
 function normalizePath(path: string) {

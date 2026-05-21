@@ -30,13 +30,15 @@ export function ReportScreen() {
 **Source:** ${result.source}
 
 ## Summary
-- Files analyzed: **${result.files.length}**
+- Files scanned: **${result.scannedFiles}**
+- Supported source files: **${result.files.length}**
+- Ignored folders: **${result.ignoredFolders}**
+- Ignored files: **${result.ignoredFiles}**
+- Unsupported files skipped: **${result.unsupportedFiles}**
 - Total lines: **${totalLines}**
 - Code lines: **${totalCode}**
 - Comment lines: **${totalComments}**
 - Blank lines: **${totalBlanks}**
-- Ignored files: **${result.ignoredFiles}**
-- Unsupported files: **${result.unsupportedFiles}**
 
 ## Language distribution
 | Language | Files | Total | Code | Comments | Blanks |
@@ -48,8 +50,12 @@ ${langTable}
 |---|---|---:|---:|---:|---:|
 ${fileTable}
 
-## Notes
-Ignored: ${result.ignores.map((i) => `\`${i}\``).join(", ")}.
+## Scan scope
+- Source: selected local directory
+- Mode: local static analysis
+- Applied ignore rules: ${result.ignores.map((i) => `\`${i}\``).join(", ")}
+- .gitignore rules detected: **${result.gitignoreRules.length}**
+- Unsupported files are skipped from language statistics
 `;
   }, [result]);
 

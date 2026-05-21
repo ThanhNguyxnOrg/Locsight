@@ -56,7 +56,7 @@ function createWindow() {
   mainWindow.loadFile(path.join(__dirname, "..", "dist", "index.html"));
 }
 
-ipcMain.handle("cba:pick-directory", async (event) => {
+ipcMain.handle("cba:pick-directory", async (event, ignoreRules = []) => {
   const browserWindow = BrowserWindow.fromWebContents(event.sender);
   const result = await dialog.showOpenDialog(browserWindow ?? undefined, {
     properties: ["openDirectory"],
@@ -68,10 +68,11 @@ ipcMain.handle("cba:pick-directory", async (event) => {
   }
 
   const rootPath = result.filePaths[0];
-  const files = await collectSourceFiles(rootPath);
+  const { files, scanStats } = await collectSourceFiles(rootPath, Array.isArray(ignoreRules) ? ignoreRules : []);
   return {
     rootPath: path.basename(rootPath),
     files,
+    scanStats,
   };
 });
 

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <map>
 #include <iomanip>
+#include <algorithm>
 
 namespace cba {
 
@@ -31,7 +32,11 @@ void ReportGenerator::printConsoleReport() const {
     std::cout << "          CODEBASE ANALYZER REPORT       \n";
     std::cout << "=========================================\n";
     std::cout << "Root Path: " << scanner_.getRootPath().string() << "\n";
-    std::cout << "Total Files Analyzed: " << files.size() << "\n\n";
+    std::cout << "Supported Files Analyzed: " << files.size() << "\n";
+    std::cout << "Ignored Directories: " << scanner_.ignoredDirectoriesCount() << "\n";
+    std::cout << "Ignored Files: " << scanner_.ignoredFilesCount() << "\n";
+    std::cout << "Unsupported Files Skipped: " << scanner_.unsupportedFilesCount() << "\n";
+    std::cout << ".gitignore Rules Detected: " << scanner_.gitignoreRules().size() << "\n\n";
 
     std::cout << "--- Overall Statistics ---\n";
     std::cout << "Total Lines:   " << totalLines << "\n";
@@ -79,7 +84,11 @@ void ReportGenerator::generateMarkdownReport(const std::string& outputPath) cons
 
     out << "# Codebase Analyzer Report\n\n";
     out << "**Root Path:** `" << scanner_.getRootPath().string() << "`\n\n";
-    out << "**Total Files Analyzed:** " << files.size() << "\n\n";
+    out << "**Supported Files Analyzed:** " << files.size() << "\n";
+    out << "**Ignored Directories:** " << scanner_.ignoredDirectoriesCount() << "\n";
+    out << "**Ignored Files:** " << scanner_.ignoredFilesCount() << "\n";
+    out << "**Unsupported Files Skipped:** " << scanner_.unsupportedFilesCount() << "\n";
+    out << "**.gitignore Rules Detected:** " << scanner_.gitignoreRules().size() << "\n\n";
 
     out << "## Overall Statistics\n\n";
     out << "| Metric | Count |\n";
@@ -100,6 +109,14 @@ void ReportGenerator::generateMarkdownReport(const std::string& outputPath) cons
         }
     } else {
         out << "| N/A | 0 | 0.00% |\n";
+    }
+
+    out << "## Scan Scope\n\n";
+    out << "| Ignore Rule | Source |\n";
+    out << "|---|---|\n";
+    for (const auto& rule : scanner_.appliedIgnoreRules()) {
+        bool fromGitignore = std::find(scanner_.gitignoreRules().begin(), scanner_.gitignoreRules().end(), rule) != scanner_.gitignoreRules().end();
+        out << "| `" << rule << "` | " << (fromGitignore ? ".gitignore" : "default") << " |\n";
     }
 
     out << "\n## File Details\n\n";
