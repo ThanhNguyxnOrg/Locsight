@@ -19,10 +19,13 @@
 <p>
   <a href="https://github.com/ThanhNguyn/Codebase-Analyzer/releases/latest">📦 Download Latest Release</a>
   ·
-  <a href="https://github.com/ThanhNguyn/Codebase-Analyzer/actions">🤖 GitHub Actions</a>
+  <a href="https://thanhnguyn.github.io/Codebase-Analyzer-docs/">📖 Web Documentation</a>
+  ·
+  <a href="https://github.com/ThanhNguyn/Codebase-Analyzer-docs">📂 Docs Repository</a>
   ·
   <a href="#-getting-started">🚀 Getting Started</a>
 </p>
+
 
 </div>
 
