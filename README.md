@@ -36,7 +36,7 @@
 Below is a quick video demonstration of the **Codebase Analyzer** (both Desktop UI and C++ CLI Core) in action:
 
 <div align="center">
-  <video src="assets/demo.mkv" width="100%" max-width="800px" controls></video>
+  <video src="assets/demo.mp4" width="100%" max-width="800px" controls></video>
 </div>
 
 ---
