@@ -35,7 +35,7 @@
 
 Below is a quick video demonstration of the **Codebase Analyzer** (both Desktop UI and C++ CLI Core) in action:
 
-![Codebase Analyzer Demo](assets/demo.mp4)
+<video src="assets/demo.mp4" width="100%" controls></video>
 
 ---
 
