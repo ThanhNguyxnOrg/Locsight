@@ -12,16 +12,16 @@ jobs:
         include:
           - os: ubuntu-latest
             artifact_name: codebase-analyzer-linux
-            artifact_path: ui_design/release/codebase-analyzer-linux.AppImage
-            smoke_path: ./release/codebase-analyzer-linux.AppImage
+            artifact_path: ui_design/release/codebase-analyzer-linux-*
+            smoke_path: ./release/codebase-analyzer-linux-x64.AppImage
           - os: macos-latest
             artifact_name: codebase-analyzer-macos
-            artifact_path: ui_design/release/codebase-analyzer-mac.dmg
+            artifact_path: ui_design/release/codebase-analyzer-mac-*
             smoke_path: ./release/mac/Codebase Analyzer.app/Contents/MacOS/Codebase Analyzer
           - os: windows-latest
             artifact_name: codebase-analyzer-windows
-            artifact_path: ui_design/release/codebase-analyzer-win.exe
-            smoke_path: .\release\codebase-analyzer-win.exe
+            artifact_path: ui_design/release/codebase-analyzer-win-*
+            smoke_path: .\release\codebase-analyzer-win-x64.exe
     runs-on: ${{ matrix.os }}
     defaults:
       run:
