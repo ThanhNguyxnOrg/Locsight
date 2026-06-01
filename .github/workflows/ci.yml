@@ -54,8 +54,8 @@ jobs:
           $env:CBA_SMOKE_TEST = '1'
           if ("${{ matrix.os }}" -eq "ubuntu-latest") {
             $env:APPIMAGE_EXTRACT_AND_RUN = '1'
-            $env:ELECTRON_DISABLE_SANDBOX = '1'
-            & xvfb-run -a "${{ matrix.smoke_path }}"
+            chmod +x "${{ matrix.smoke_path }}"
+            & xvfb-run -a "${{ matrix.smoke_path }}" --no-sandbox
           } elseif ("${{ matrix.os }}" -eq "macos-latest") {
             $bundle = Get-ChildItem release -Directory -Recurse | Where-Object { $_.Name -like "*.app" } | Select-Object -First 1
             if (-not $bundle) {
