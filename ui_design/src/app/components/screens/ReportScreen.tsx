@@ -16,46 +16,60 @@ export function ReportScreen() {
     const totalBlanks = result.files.reduce((a, f) => a + f.blanks, 0);
 
     const langTable = result.langs
-      .map((l) => `| ${l.name} | ${l.files} | ${l.lines} | ${l.code} | ${l.comments} | ${l.blanks} |`)
+      .map((l) => {
+        const percentage = totalCode > 0 ? ((l.code / totalCode) * 100).toFixed(2) : "0.00";
+        return `| ${l.name} | ${l.files} | ${l.lines} | ${l.code} | ${l.comments} | ${l.blanks} | ${percentage}% |`;
+      })
       .join("\n");
 
     const fileTable = result.files
       .map((f) => `| \`${f.file}\` | ${f.lang} | ${f.total} | ${f.code} | ${f.comments} | ${f.blanks} |`)
       .join("\n");
 
-    return `# Codebase Report
-**Project:** ${result.path.split(/[\\/]/).pop() || result.path}
-**Generated:** ${result.timestamp}
-**Path:** \`${result.path}\`
-**Source:** ${result.source}
+    const ignoreTable = result.ignores
+      .map((rule) => {
+        const fromGitignore = result.gitignoreRules.includes(rule);
+        return `| \`${rule}\` | ${fromGitignore ? ".gitignore" : "default"} |`;
+      })
+      .join("\n");
 
-## Summary
-- Files scanned: **${result.scannedFiles}**
-- Supported source files: **${result.files.length}**
-- Ignored folders: **${result.ignoredFolders}**
-- Ignored files: **${result.ignoredFiles}**
-- Unsupported files skipped: **${result.unsupportedFiles}**
-- Total lines: **${totalLines}**
-- Code lines: **${totalCode}**
-- Comment lines: **${totalComments}**
-- Blank lines: **${totalBlanks}**
+    return `# Codebase Analyzer Report
 
-## Language distribution
-| Language | Files | Total | Code | Comments | Blanks |
-|---|---:|---:|---:|---:|---:|
+**Project Folder:** \`${result.path.split(/[\\/]/).pop() || result.path}\`  
+**Scan Timestamp:** \`${result.timestamp}\`  
+**Directory Path:** \`${result.path}\`  
+
+## Summary Metrics
+
+| Metric | Count |
+| :--- | :--- |
+| Scanned Files | ${result.scannedFiles} |
+| Supported Source Files | ${result.files.length} |
+| Ignored Folders | ${result.ignoredFolders} |
+| Ignored Files | ${result.ignoredFiles} |
+| Unsupported Files Skipped | ${result.unsupportedFiles} |
+| Total Lines | ${totalLines} |
+| Code Lines | ${totalCode} |
+| Comment Lines | ${totalComments} |
+| Blank Lines | ${totalBlanks} |
+
+## Language Distribution
+
+| Language | Files | Total Lines | Code Lines | Comment Lines | Blank Lines | Percentage |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 ${langTable}
 
-## File details
-| File | Language | Total | Code | Comments | Blanks |
-|---|---|---:|---:|---:|---:|
-${fileTable}
+## Applied Ignore Rules
 
-## Scan scope
-- Source: selected local directory
-- Mode: local static analysis
-- Applied ignore rules: ${result.ignores.map((i) => `\`${i}\``).join(", ")}
-- .gitignore rules detected: **${result.gitignoreRules.length}**
-- Unsupported files are skipped from language statistics
+| Ignore Rule | Source |
+| :--- | :--- |
+${ignoreTable}
+
+## File Details
+
+| File | Language | Total | Code | Comments | Blank |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+${fileTable}
 `;
   }, [result]);
 
