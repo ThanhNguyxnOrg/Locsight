@@ -81,12 +81,15 @@ jobs:
           - os: ubuntu-latest
             artifact_name: codebase-analyzer-cli-linux
             binary_path: build/codebase_analyzer
+            target_name: codebase-analyzer-cli-linux
           - os: macos-latest
-            artifact_name: codebase-analyzer-cli-macos
+            artifact_name: codebase-analyzer-cli-mac
             binary_path: build/codebase_analyzer
+            target_name: codebase-analyzer-cli-mac
           - os: windows-latest
-            artifact_name: codebase-analyzer-cli-windows
+            artifact_name: codebase-analyzer-cli-win
             binary_path: build/Release/codebase_analyzer.exe
+            target_name: codebase-analyzer-cli-win.exe
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -104,10 +107,21 @@ jobs:
         run: |
           & "${{ matrix.binary_path }}"
 
+      - name: Prepare Clean OS-Named Binary
+        run: |
+          New-Item -ItemType Directory -Force -Path dist_cli
+          if ("${{ matrix.os }}" -eq "windows-latest") {
+            Copy-Item build/Release/codebase_analyzer.exe -Destination dist_cli/codebase-analyzer-cli-win.exe
+          } elseif ("${{ matrix.os }}" -eq "macos-latest") {
+            Copy-Item build/codebase_analyzer -Destination dist_cli/codebase-analyzer-cli-mac
+          } else {
+            Copy-Item build/codebase_analyzer -Destination dist_cli/codebase-analyzer-cli-linux
+          }
+
       - name: Upload CLI Artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.artifact_name }}
-          path: ${{ matrix.binary_path }}
+          name: ${{ matrix.target_name }}
+          path: dist_cli/
           archive: false
           if-no-files-found: error
