@@ -10,18 +10,38 @@ jobs:
     strategy:
       matrix:
         include:
+          # ── x64 (regular machines) ──
           - os: ubuntu-latest
-            artifact_name: codebase-analyzer-linux
-            artifact_path: ui_design/release/codebase-analyzer-linux-*
+            arch: x64
+            artifact_name: codebase-analyzer-linux-x64
+            artifact_path: ui_design/release/codebase-analyzer-linux-x64.AppImage
             smoke_path: ./release/codebase-analyzer-linux-x64.AppImage
-          - os: macos-latest
-            artifact_name: codebase-analyzer-macos
-            artifact_path: ui_design/release/codebase-analyzer-mac-*
+          - os: macos-13
+            arch: x64
+            artifact_name: codebase-analyzer-mac-x64
+            artifact_path: ui_design/release/codebase-analyzer-mac-x64.dmg
             smoke_path: ./release/mac/Codebase Analyzer.app/Contents/MacOS/Codebase Analyzer
           - os: windows-latest
-            artifact_name: codebase-analyzer-windows
-            artifact_path: ui_design/release/codebase-analyzer-win-*
+            arch: x64
+            artifact_name: codebase-analyzer-win-x64
+            artifact_path: ui_design/release/codebase-analyzer-win-x64.exe
             smoke_path: .\release\codebase-analyzer-win-x64.exe
+          # ── arm64 (virtual machines) ──
+          - os: ubuntu-24.04-arm
+            arch: arm64
+            artifact_name: codebase-analyzer-linux-arm64
+            artifact_path: ui_design/release/codebase-analyzer-linux-arm64.AppImage
+            smoke_path: ./release/codebase-analyzer-linux-arm64.AppImage
+          - os: macos-latest
+            arch: arm64
+            artifact_name: codebase-analyzer-mac-arm64
+            artifact_path: ui_design/release/codebase-analyzer-mac-arm64.dmg
+            smoke_path: ./release/mac-arm64/Codebase Analyzer.app/Contents/MacOS/Codebase Analyzer
+          - os: windows-latest
+            arch: arm64
+            artifact_name: codebase-analyzer-win-arm64
+            artifact_path: ui_design/release/codebase-analyzer-win-arm64.exe
+            smoke_path: .\release\codebase-analyzer-win-arm64.exe
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -41,22 +61,23 @@ jobs:
         run: npm ci
 
       - name: Install Linux smoke deps
-        if: matrix.os == 'ubuntu-latest'
+        if: contains(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb
 
       - name: Package
-        run: npm run dist
+        run: npx electron-builder --${{ matrix.arch }}
 
       - name: Smoke test packaged app
+        if: matrix.arch == 'x64'
         run: |
           $env:CBA_SMOKE_TEST = '1'
-          if ("${{ matrix.os }}" -eq "ubuntu-latest") {
+          if ("${{ matrix.os }}" -match "ubuntu") {
             $env:APPIMAGE_EXTRACT_AND_RUN = '1'
             chmod +x "${{ matrix.smoke_path }}"
             & xvfb-run -a "${{ matrix.smoke_path }}" --no-sandbox
-          } elseif ("${{ matrix.os }}" -eq "macos-latest") {
+          } elseif ("${{ matrix.os }}" -match "macos") {
             $bundle = Get-ChildItem release -Directory -Recurse | Where-Object { $_.Name -like "*.app" } | Select-Object -First 1
             if (-not $bundle) {
               throw "macOS app bundle not found"
@@ -110,13 +131,7 @@ jobs:
       - name: Prepare Clean OS-Named Binary
         run: |
           New-Item -ItemType Directory -Force -Path dist_cli
-          if ("${{ matrix.os }}" -eq "windows-latest") {
-            Copy-Item build/Release/codebase_analyzer.exe -Destination dist_cli/codebase-analyzer-cli-win.exe
-          } elseif ("${{ matrix.os }}" -eq "macos-latest") {
-            Copy-Item build/codebase_analyzer -Destination dist_cli/codebase-analyzer-cli-mac
-          } else {
-            Copy-Item build/codebase_analyzer -Destination dist_cli/codebase-analyzer-cli-linux
-          }
+          Copy-Item "${{ matrix.binary_path }}" -Destination "dist_cli/${{ matrix.target_name }}"
 
       - name: Upload CLI Artifact
         uses: actions/upload-artifact@v7

@@ -43,32 +43,16 @@
     "mac": {
       "target": [
         "dmg"
-      ],
-      "arch": [
-        "x64",
-        "arm64"
       ]
     },
     "win": {
       "target": [
-        {
-          "target": "portable",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
+        "portable"
       ]
     },
     "linux": {
       "target": [
-        {
-          "target": "AppImage",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
+        "AppImage"
       ]
     }
   }
