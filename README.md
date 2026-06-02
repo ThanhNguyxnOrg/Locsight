@@ -138,9 +138,21 @@ Codebase-Analyzer/
 
 ---
 
+## 🖥️ Cross-Platform & Virtual Machine (VM) Support
+
+**Codebase Analyzer** is designed and compiled to be natively cross-platform and fully virtual-machine-aware. It runs seamlessly on:
+* **🪟 Windows (10/11 & VMs):** Fully optimized for local drives as well as guest-host mount points. Support for both x64 and ARM64 Windows environments (including Windows on ARM in Parallels/VMware).
+* **🍎 macOS (Intel & Apple Silicon):** Native binaries are compiled for both x64 (Intel Macs) and ARM64 (M1/M2/M3/M4 Apple Silicon Macs).
+* **🐧 Linux (Ubuntu, Debian, Fedora & VMs):** Shipped as portable AppImage packages. Supports standard environments, VirtualBox, VMware, and WSL2. For nested VMs, the sandbox can be bypassed via the `--no-sandbox` command-line flag.
+
+The core C++23 `<filesystem>` standard library is implemented to query file status safely without overhead on both local partitions and shared virtual filesystem mount folders.
+
+---
+
 ## 📜 License
 
-This project is created for university course submission and academic purposes. All rights reserved.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details. Created for university course submission and academic purposes.
+
 
 <div align="center">
 

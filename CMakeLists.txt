@@ -47,3 +47,17 @@ endif()
 
 install(TARGETS codebase_analyzer
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+# ==========================================
+# 🧪 Automated Testing Configuration
+# ==========================================
+enable_testing()
+
+add_executable(unit_tests 
+    tests/unit_tests.cpp
+    src/FileAnalyzer.cpp
+)
+target_include_directories(unit_tests PRIVATE include)
+
+add_test(NAME CoreUnitTests COMMAND unit_tests)
+
