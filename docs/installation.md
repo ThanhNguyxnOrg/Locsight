@@ -12,31 +12,69 @@ Perfect for normal users, presentations, and interactive folder traversal with v
 * 📦 **[Download Latest Desktop Release](https://github.com/ThanhNguyn/Codebase-Analyzer/releases/latest)**
 * 📂 **[All Published Releases](https://github.com/ThanhNguyn/Codebase-Analyzer/releases)**
 
-### 🪟 Windows Installation
-1. Go to the **Latest Release** page.
-2. Download the Windows installer (`Codebase-Analyzer-Setup.exe`) or the portable ZIP file (`Codebase-Analyzer-win-unpacked.zip`).
-3. **If using the installer:** Double-click the `.exe` file → follow the setup steps → open the app.
-4. **If using the ZIP file:** Extract the archive → run `Codebase-Analyzer.exe` in the extracted folder.
-5. Inside the app, click **Choose Local Folder**, select a real project, and explore the dashboard!
+---
 
-### 🍎 macOS Installation
-1. Go to the **Latest Release** page.
-2. Download the macOS installer (`Codebase-Analyzer.dmg`) or equivalent archive.
-3. Open the `.dmg` file and drag **Codebase Analyzer** to your `Applications` folder.
-4. Launch the application.
-> ⚠️ **Note**: macOS Gatekeeper may warn about an unsigned application. You can bypass this in System Settings > Privacy & Security > Open Anyway (standard for student projects without paid Apple Developer signatures).
+### 🪟 1. Windows Installation & Setup
+* **Selecting the Right Binary:**
+  * **Intel/AMD PC or x64 VM:** Download `codebase-analyzer-win-x64.exe` (Standard & Most Common).
+  * **Snapdragon laptops or ARM64 Windows VM:** Download `codebase-analyzer-win-arm64.exe`.
+* **Characteristics:**
+  * This is a **Portable** package (no installation needed). Double-click to run directly!
+* **Troubleshooting (Windows SmartScreen Warning):**
+  * *Issue:* Windows Defender might show a blue screen saying *"Windows protected your PC"*.
+  * *Solution:* Click **"More info"** -> Choose **"Run anyway"**.
 
-### 🐧 Linux Installation
-1. Go to the **Latest Release** page.
-2. Download the `Codebase-Analyzer.AppImage` package.
-3. Grant execution permissions to the downloaded file:
-   ```bash
-   chmod +x Codebase-Analyzer.AppImage
-   ```
-4. Run the package:
-   ```bash
-   ./Codebase-Analyzer.AppImage
-   ```
+---
+
+### 🍎 2. macOS Installation & Setup
+* **Selecting the Right Binary:**
+  * **Intel Mac or VMware/VirtualBox (Intel/AMD Host) VM:** Download `codebase-analyzer-mac-x64.dmg`.
+  * **Apple Silicon Mac (M1/M2/M3/M4) or ARM64 macOS VM:** Download `codebase-analyzer-mac-arm64.dmg`.
+* **Standard Installation:**
+  1. Open the `.dmg` file and drag **Codebase Analyzer** to your `Applications` folder.
+* **Troubleshooting (Gatekeeper Security Block):**
+  * *Issue:* macOS shows an error stating *"Apple could not verify the developer..."* or refuses to open.
+  * *Solution:*
+    1. Make sure the app is dragged into your `/Applications` directory.
+    2. Open **System Settings > Privacy & Security**, scroll down, and click **"Open Anyway"**.
+    3. Go back to Applications, right-click (or Control-click) the app icon and select **"Open"**.
+
+---
+
+### 🐧 3. Linux Installation & Setup
+* **Selecting the Right Binary:**
+  * **VMware VM / Intel PC:** Download `codebase-analyzer-linux-x64.AppImage`.
+  * **ARM64 Linux VM (e.g. running on Apple Silicon Host):** Download `codebase-analyzer-linux-arm64.AppImage`.
+* **Troubleshooting Steps:**
+  * **1. Missing Executable Permission:**
+    * *Issue:* Double-clicking the `.AppImage` does not launch it.
+    * *Solution:* Open your terminal in the directory where the file is downloaded and run:
+      ```bash
+      chmod +x codebase-analyzer-linux-x64.AppImage
+      # or for arm64:
+      chmod +x codebase-analyzer-linux-arm64.AppImage
+      ```
+  * **2. FUSE Dependency Error (`libfuse.so.2`):**
+    * *Issue:* AppImage fails to load on newer Ubuntu/Debian versions due to missing FUSE 2 library.
+    * *Solution:* Install the required dependency using your package manager:
+      ```bash
+      sudo apt update && sudo apt install libfuse2 -y
+      ```
+  * **3. Virtualization Sandbox Crash (`FATAL:sandbox_linux...`):**
+    * *Issue:* The app crashes instantly when launched within nested virtualized machines due to standard Chromium sandbox conflicts.
+    * *Solution:* Launch the app from the terminal with the `--no-sandbox` flag:
+      ```bash
+      ./codebase-analyzer-linux-x64.AppImage --no-sandbox
+      # or for arm64:
+      ./codebase-analyzer-linux-arm64.AppImage --no-sandbox
+      ```
+
+---
+
+### 💡 4. General Usage Highlights
+* **100% Offline & Private:** Operates entirely locally. None of your source files are sent to the cloud, guaranteeing maximum enterprise security.
+* **Polymorphic Language Parser:** Supports syntax counting for C/C++, Python, Java, C#, JavaScript, TypeScript, HTML, and CSS.
+* **Smart Noise Filtering:** The scanning engine automatically ignores bulky system folders (like `node_modules`, `.git`, and build outputs) and strictly obeys local `.gitignore` rules for ultra-high-speed scans.
 
 ---
 
