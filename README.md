@@ -40,7 +40,7 @@
 Watch the official **Codebase Analyzer** demonstration showcasing the high-performance C++ Core and Electron UI in action:
 
 <p align="center">
-    <video src="assets/demo.mp4" width="800" autoplay loop muted playsinline></video>
+    <video src="https://github.com/user-attachments/assets/9c9d0b1c-b3ed-4902-a751-4bb9adde1cc2" width="800" autoplay loop muted playsinline></video>
 </p>
 
 ---
