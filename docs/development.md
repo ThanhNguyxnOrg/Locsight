@@ -51,6 +51,28 @@ We utilize automated GitHub Actions pipelines to compile, test, and package our 
 
 ---
 
+## 🧪 Automated Unit Testing
+
+We implement a platform-independent unit testing suite located in `tests/unit_tests.cpp` to ensure core parser helper methods behave correctly. It runs out-of-the-box on Windows, macOS, and Linux without any external testing frameworks.
+
+To configure and run the tests:
+
+```bash
+# 1. Generate build files in Debug mode
+cmake -S . -B build
+cmake --build build --config Debug
+
+# 2. Run test suite using CMake standard CTest runner
+cd build
+ctest --output-on-failure
+```
+
+You can also directly run the compiled binary:
+* **Windows**: `.\build\Debug\unit_tests.exe`
+* **macOS / Linux**: `./build/Debug/unit_tests`
+
+---
+
 ## 🗺️ Roadmap & Current Goals
 
 - [x] **C++ CLI Analyzer Core** (abstraction, scanner, OOP classes)

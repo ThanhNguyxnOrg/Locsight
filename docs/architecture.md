@@ -31,6 +31,49 @@ flowchart LR
     Analyzer --> CLIReport[📝 ReportGenerator]
 ```
 
+### 🔄 Runtime Sequence Diagram
+Below is the UML Sequence Diagram illustrating the runtime interaction between the Frontend UI, Electron IPC, and the dynamic C++ Engine Core:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Developer
+    participant UI as React Frontend
+    participant Main as Electron Main
+    participant Core as C++ Core Scanner
+    participant Factory as FileAnalyzer Factory
+    participant Concrete as Concrete Analyzer
+    participant Report as ReportGenerator
+
+    Developer->>UI: Click "Analyze" (select path)
+    UI->>Main: IPC Send (event: 'scan-directory', folderPath)
+    Main->>Core: Spawn subprocess (./codebase_analyzer <path>)
+    activate Core
+    Core->>Core: Load ignore rules (.gitignore & defaults)
+    Core->>Core: Recursive directory scan
+    loop For each valid source file
+        Core->>Factory: createAnalyzer(filePath)
+        activate Factory
+        Factory-->>Core: std::unique_ptr<FileAnalyzer>
+        deactivate Factory
+        Core->>Concrete: file->analyze() [Polymorphic Call]
+        activate Concrete
+        Concrete->>Concrete: Read file line-by-line (trim, isBlank)
+        Concrete-->>Core: return code/comment/blank metrics
+        deactivate Concrete
+    end
+    Core->>Report: generateReport(files)
+    activate Report
+    Report->>Report: Write codebase_report.md
+    Report-->>Core: Success
+    deactivate Report
+    Core-->>Main: Write JSON metrics to stdout & exit
+    deactivate Core
+    Main-->>UI: IPC Reply (event: 'scan-result', json_data)
+    UI->>UI: Update state & render dashboard charts
+    UI-->>Developer: Show interactive charts and dashboard
+```
+
 ---
 
 ## 📊 Class Structure Diagram
