@@ -16,7 +16,7 @@ jobs:
             arch: x64
             artifact_name: codebase-analyzer-linux-x64
             artifact_glob: ui_design/release/*.AppImage
-          - os: macos-13
+          - os: macos-latest
             arch: x64
             artifact_name: codebase-analyzer-mac-x64
             artifact_glob: ui_design/release/*.dmg
