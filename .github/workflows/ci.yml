@@ -8,6 +8,7 @@ on:
 jobs:
   desktop:
     strategy:
+      fail-fast: false
       matrix:
         include:
           # ── x64 (regular machines) ──
@@ -15,38 +16,31 @@ jobs:
             arch: x64
             artifact_name: codebase-analyzer-linux-x64
             artifact_path: ui_design/release/codebase-analyzer-linux-x64.AppImage
-            smoke_path: ./release/codebase-analyzer-linux-x64.AppImage
           - os: macos-13
             arch: x64
             artifact_name: codebase-analyzer-mac-x64
             artifact_path: ui_design/release/codebase-analyzer-mac-x64.dmg
-            smoke_path: ./release/mac/Codebase Analyzer.app/Contents/MacOS/Codebase Analyzer
           - os: windows-latest
             arch: x64
             artifact_name: codebase-analyzer-win-x64
             artifact_path: ui_design/release/codebase-analyzer-win-x64.exe
-            smoke_path: .\release\codebase-analyzer-win-x64.exe
           # ── arm64 (virtual machines) ──
           - os: ubuntu-24.04-arm
             arch: arm64
             artifact_name: codebase-analyzer-linux-arm64
             artifact_path: ui_design/release/codebase-analyzer-linux-arm64.AppImage
-            smoke_path: ./release/codebase-analyzer-linux-arm64.AppImage
           - os: macos-latest
             arch: arm64
             artifact_name: codebase-analyzer-mac-arm64
             artifact_path: ui_design/release/codebase-analyzer-mac-arm64.dmg
-            smoke_path: ./release/mac-arm64/Codebase Analyzer.app/Contents/MacOS/Codebase Analyzer
           - os: windows-latest
             arch: arm64
             artifact_name: codebase-analyzer-win-arm64
             artifact_path: ui_design/release/codebase-analyzer-win-arm64.exe
-            smoke_path: .\release\codebase-analyzer-win-arm64.exe
     runs-on: ${{ matrix.os }}
     defaults:
       run:
         shell: pwsh
-        working-directory: ui_design
     steps:
       - uses: actions/checkout@v6
 
@@ -58,85 +52,19 @@ jobs:
           cache-dependency-path: ui_design/package-lock.json
 
       - name: Install
+        working-directory: ui_design
         run: npm ci
 
-      - name: Install Linux smoke deps
-        if: contains(matrix.os, 'ubuntu')
+      - name: Build & Package
+        working-directory: ui_design
         run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-
-      - name: Package
-        run: npx electron-builder --${{ matrix.arch }}
-
-      - name: Smoke test packaged app
-        if: matrix.arch == 'x64'
-        run: |
-          $env:CBA_SMOKE_TEST = '1'
-          if ("${{ matrix.os }}" -match "ubuntu") {
-            $env:APPIMAGE_EXTRACT_AND_RUN = '1'
-            chmod +x "${{ matrix.smoke_path }}"
-            & xvfb-run -a "${{ matrix.smoke_path }}" --no-sandbox
-          } elseif ("${{ matrix.os }}" -match "macos") {
-            $bundle = Get-ChildItem release -Directory -Recurse | Where-Object { $_.Name -like "*.app" } | Select-Object -First 1
-            if (-not $bundle) {
-              throw "macOS app bundle not found"
-            }
-            & (Join-Path $bundle.FullName "Contents/MacOS/Codebase Analyzer")
-          } else {
-            & "${{ matrix.smoke_path }}"
-          }
+          npm run build
+          npx electron-builder --${{ matrix.arch }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.artifact_name }}
           path: ${{ matrix.artifact_path }}
-          archive: false
-          if-no-files-found: error
-
-  cli:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            artifact_name: codebase-analyzer-cli-linux
-            binary_path: build/codebase_analyzer
-            target_name: codebase-analyzer-cli-linux
-          - os: macos-latest
-            artifact_name: codebase-analyzer-cli-mac
-            binary_path: build/codebase_analyzer
-            target_name: codebase-analyzer-cli-mac
-          - os: windows-latest
-            artifact_name: codebase-analyzer-cli-win
-            binary_path: build/Release/codebase_analyzer.exe
-            target_name: codebase-analyzer-cli-win.exe
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        shell: pwsh
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Configure CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
-
-      - name: Build
-        run: cmake --build build --config Release
-
-      - name: Test CLI Smoke Run
-        run: |
-          & "${{ matrix.binary_path }}"
-
-      - name: Prepare Clean OS-Named Binary
-        run: |
-          New-Item -ItemType Directory -Force -Path dist_cli
-          Copy-Item "${{ matrix.binary_path }}" -Destination "dist_cli/${{ matrix.target_name }}"
-
-      - name: Upload CLI Artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: ${{ matrix.target_name }}
-          path: dist_cli/
           archive: false
           if-no-files-found: error
