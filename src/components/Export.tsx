@@ -41,7 +41,7 @@ export function Export() {
     setExporting(formatId);
 
     try {
-      const defaultName = `codebase-analyzer-report.${extension}`;
+      const defaultName = `locsight-report.${extension}`;
       const filePath = await save({
         filters: [{
           name: `${formatId} File`,

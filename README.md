@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ThanhNguyxnOrg/Codebase-Analyzer/releases"><img src="https://img.shields.io/github/v/release/ThanhNguyxnOrg/Codebase-Analyzer?style=flat-square&color=f59e0b&label=release" alt="Release" /></a>
-  <a href="https://github.com/ThanhNguyxnOrg/Codebase-Analyzer/actions"><img src="https://img.shields.io/github/actions/workflow/status/ThanhNguyxnOrg/Codebase-Analyzer/auto-merge-dependabot.yml?style=flat-square&label=CI" alt="CI" /></a>
-  <a href="https://github.com/ThanhNguyxnOrg/Codebase-Analyzer/blob/main/LICENSE"><img src="https://img.shields.io/github/license/ThanhNguyxnOrg/Codebase-Analyzer?style=flat-square&color=blue" alt="License" /></a>
+  <a href="https://github.com/ThanhNguyxnOrg/Locsight/releases"><img src="https://img.shields.io/github/v/release/ThanhNguyxnOrg/Locsight?style=flat-square&color=f59e0b&label=release" alt="Release" /></a>
+  <a href="https://github.com/ThanhNguyxnOrg/Locsight/actions"><img src="https://img.shields.io/github/actions/workflow/status/ThanhNguyxnOrg/Locsight/auto-merge-dependabot.yml?style=flat-square&label=CI" alt="CI" /></a>
+  <a href="https://github.com/ThanhNguyxnOrg/Locsight/blob/main/LICENSE"><img src="https://img.shields.io/github/license/ThanhNguyxnOrg/Locsight?style=flat-square&color=blue" alt="License" /></a>
   <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-grey?style=flat-square" alt="Platform" />
   <img src="https://img.shields.io/badge/languages-250%2B-brightgreen?style=flat-square" alt="Languages" />
   <img src="https://img.shields.io/badge/built_with-Rust%20%2B%20Tauri%20v2-dea584?style=flat-square" alt="Built With" />
@@ -39,8 +39,8 @@ A blazing-fast ⚡ desktop app that scans, visualizes, and grades your codebase 
 
 ```bash
 # Clone
-git clone https://github.com/ThanhNguyxnOrg/Codebase-Analyzer.git
-cd Codebase-Analyzer
+git clone https://github.com/ThanhNguyxnOrg/Locsight.git
+cd Locsight
 
 # Install
 npm install

@@ -42,5 +42,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ---
 
 <p align="center">
-  <sub>🔖 See <a href="https://github.com/ThanhNguyxnOrg/Codebase-Analyzer/releases">GitHub Releases</a> for downloadable binaries.</sub>
+  <sub>🔖 See <a href="https://github.com/ThanhNguyxnOrg/Locsight/releases">GitHub Releases</a> for downloadable binaries.</sub>
 </p>

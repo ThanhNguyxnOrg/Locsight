@@ -19,7 +19,7 @@ export const TOTAL_LANGS = 12;
 export const COST_EST = 340800;
 
 export const RECENT = [
-  { path: "~/projects/codebase-analyzer", date: "2026-06-08 09:12", files: 892 },
+  { path: "~/projects/locsight", date: "2026-06-08 09:12", files: 892 },
   { path: "~/work/internal/billing-service", date: "2026-06-07 18:30", files: 1240 },
   { path: "~/oss/ripgrep", date: "2026-06-05 14:02", files: 318 },
   { path: "~/projects/tauri-experiments", date: "2026-06-02 11:48", files: 76 },

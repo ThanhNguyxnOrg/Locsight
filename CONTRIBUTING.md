@@ -9,8 +9,8 @@
 ### 1. 🍴 Fork & Clone
 
 ```bash
-git clone https://github.com/<your-username>/Codebase-Analyzer.git
-cd Codebase-Analyzer
+git clone https://github.com/<your-username>/Locsight.git
+cd Locsight
 npm install
 ```
 
@@ -73,7 +73,7 @@ chore: update dependencies
 
 ## 🐛 Reporting Bugs
 
-Please use the [Bug Report](https://github.com/ThanhNguyxnOrg/Codebase-Analyzer/issues/new?template=bug_report.md) template.
+Please use the [Bug Report](https://github.com/ThanhNguyxnOrg/Locsight/issues/new?template=bug_report.md) template.
 
 Include:
 - 🖥️ OS and version
@@ -86,7 +86,7 @@ Include:
 
 ## 💡 Suggesting Features
 
-Use the [Feature Request](https://github.com/ThanhNguyxnOrg/Codebase-Analyzer/issues/new?template=feature_request.md) template.
+Use the [Feature Request](https://github.com/ThanhNguyxnOrg/Locsight/issues/new?template=feature_request.md) template.
 
 ---
 

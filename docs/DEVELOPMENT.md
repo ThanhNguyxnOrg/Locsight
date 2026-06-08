@@ -20,8 +20,8 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/ThanhNguyxnOrg/Codebase-Analyzer.git
-cd Codebase-Analyzer
+git clone https://github.com/ThanhNguyxnOrg/Locsight.git
+cd Locsight
 
 # 2. Install frontend dependencies
 npm install

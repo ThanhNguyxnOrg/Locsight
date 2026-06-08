@@ -12,7 +12,7 @@
 If you discover a security vulnerability in **Locsight**, please report it responsibly:
 
 1. **Do NOT** open a public issue
-2. 📧 Email: [Create a private security advisory](https://github.com/ThanhNguyxnOrg/Codebase-Analyzer/security/advisories/new)
+2. 📧 Email: [Create a private security advisory](https://github.com/ThanhNguyxnOrg/Locsight/security/advisories/new)
 3. Include:
    - 📋 Description of the vulnerability
    - 🔄 Steps to reproduce
