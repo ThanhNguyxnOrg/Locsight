@@ -4,6 +4,9 @@ import { Welcome } from "./components/Welcome";
 import { Dashboard } from "./components/Dashboard";
 import { Files } from "./components/Files";
 import { Graph } from "./components/Graph";
+import { Health } from "./components/Health";
+import { Insights } from "./components/Insights";
+import { Git } from "./components/Git";
 import { Export } from "./components/Export";
 import { useAnalysis } from "./hooks/useAnalysis";
 
@@ -12,8 +15,9 @@ export default function App() {
   const { summary, loading, progress, error, selectFolderAndScan, resetAnalysis } = useAnalysis();
 
   // Route automatically to dashboard upon successful directory scan
+  // but if we are already on some other screen like files/graph, don't kick us back
   useEffect(() => {
-    if (summary) {
+    if (summary && screen === "welcome") {
       setScreen("dashboard");
     }
   }, [summary]);
@@ -40,7 +44,11 @@ export default function App() {
       {screen === "dashboard" && <Dashboard />}
       {screen === "files" && <Files />}
       {screen === "graph" && <Graph />}
+      {screen === "health" && <Health />}
+      {screen === "insights" && <Insights />}
+      {screen === "git" && <Git />}
       {screen === "export" && <Export />}
     </Shell>
   );
 }
+

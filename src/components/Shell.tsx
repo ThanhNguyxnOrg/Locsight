@@ -1,16 +1,19 @@
-import { Home, LayoutDashboard, FolderTree, Share2, Download, Minus, Square, X } from "lucide-react";
+import { Home, LayoutDashboard, FolderTree, Share2, Download, Minus, Square, X, Activity, ShieldAlert, History } from "lucide-react";
 import { C, mono } from "./tokens";
 import { useAnalysis } from "../hooks/useAnalysis";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 
-export type Screen = "welcome" | "dashboard" | "files" | "graph" | "export";
+export type Screen = "welcome" | "dashboard" | "files" | "graph" | "health" | "insights" | "git" | "export";
 
 const ITEMS: { id: Screen; icon: any; label: string; key: string }[] = [
   { id: "welcome", icon: Home, label: "Home", key: "1" },
   { id: "dashboard", icon: LayoutDashboard, label: "Dashboard", key: "2" },
   { id: "files", icon: FolderTree, label: "Files", key: "3" },
   { id: "graph", icon: Share2, label: "Graph", key: "4" },
-  { id: "export", icon: Download, label: "Export", key: "5" },
+  { id: "health", icon: Activity, label: "Health", key: "5" },
+  { id: "insights", icon: ShieldAlert, label: "Insights", key: "6" },
+  { id: "git", icon: History, label: "Git", key: "7" },
+  { id: "export", icon: Download, label: "Export", key: "8" },
 ];
 
 export function Shell({
@@ -76,7 +79,7 @@ export function Shell({
               fontWeight: 500,
             }}
           >
-            CODEBASE ANALYZER
+            LOCSIGHT
           </div>
           <div data-tauri-drag-region style={{ ...mono, color: C.muted, fontSize: 11, marginLeft: 8 }} className="truncate max-w-xl">
             {summary ? `— ${summary.path}` : "— Welcome"}
@@ -211,7 +214,7 @@ export function Shell({
               padding: "8px 0",
             }}
           >
-            v0.4.2
+            v1.0.0
           </div>
         </nav>
 

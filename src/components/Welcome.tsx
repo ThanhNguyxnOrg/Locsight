@@ -22,8 +22,8 @@ export function Welcome({ onOpen }: { onOpen: () => void }) {
         <div style={{ width: 14, height: 14, background: C.accent, borderRadius: 2 }} />
       </div>
       <div style={{ ...mono, fontSize: 13, color: C.text, letterSpacing: "0.06em" }}>
-        codebase-analyzer
-        <span style={{ color: C.muted }}> · v0.4.2</span>
+        locsight
+        <span style={{ color: C.muted }}> · v1.0.0</span>
       </div>
       
       {error && (

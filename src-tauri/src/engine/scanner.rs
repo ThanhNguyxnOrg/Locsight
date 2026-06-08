@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::Path;
 use std::time::Instant;
@@ -8,42 +8,382 @@ use walkdir::WalkDir;
 use crate::models::{FileInfo, LanguageStats, ProjectSummary};
 use super::complexity::analyze_complexity;
 use super::duplicate::find_duplicates;
+use super::uloc;
+use super::roles;
+use super::annotations::{self, Annotation};
+use super::secrets::{self, SecretFinding};
+use super::git;
+use super::config;
 
 #[derive(Clone, Copy)]
-struct LanguageConfig {
-    name: &'static str,
-    single_line_comment: &'static str,
-    multi_line_start: &'static str,
-    multi_line_end: &'static str,
+pub struct LanguageConfig {
+    pub name: &'static str,
+    pub single_line_comments: &'static [&'static str],
+    pub multi_line_comments: &'static [(&'static str, &'static str)],
+}
+
+fn make_static_config(mapping: &config::CustomLanguageMapping) -> LanguageConfig {
+    let name = Box::leak(mapping.name.clone().into_boxed_str());
+    
+    let single_lines: Vec<&'static str> = mapping.single_line_comments
+        .iter()
+        .map(|s| Box::leak(s.clone().into_boxed_str()) as &'static str)
+        .collect();
+    let single_line_comments = Box::leak(single_lines.into_boxed_slice());
+
+    let multi_lines: Vec<(&'static str, &'static str)> = mapping.multi_line_comments
+        .iter()
+        .map(|(s, e)| {
+            (
+                Box::leak(s.clone().into_boxed_str()) as &'static str,
+                Box::leak(e.clone().into_boxed_str()) as &'static str,
+            )
+        })
+        .collect();
+    let multi_line_comments = Box::leak(multi_lines.into_boxed_slice());
+
+    LanguageConfig {
+        name,
+        single_line_comments,
+        multi_line_comments,
+    }
 }
 
 const LANGUAGE_CONFIGS: &[(&str, LanguageConfig)] = &[
-    ("rs", LanguageConfig { name: "Rust", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("js", LanguageConfig { name: "JavaScript", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("jsx", LanguageConfig { name: "JavaScript", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("ts", LanguageConfig { name: "TypeScript", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("tsx", LanguageConfig { name: "TypeScript", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("py", LanguageConfig { name: "Python", single_line_comment: "#", multi_line_start: "\"\"\"", multi_line_end: "\"\"\"" }),
-    ("cpp", LanguageConfig { name: "C/C++", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("cc", LanguageConfig { name: "C/C++", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("c", LanguageConfig { name: "C/C++", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("h", LanguageConfig { name: "C/C++", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("hpp", LanguageConfig { name: "C/C++", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("java", LanguageConfig { name: "Java", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("cs", LanguageConfig { name: "C#", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("go", LanguageConfig { name: "Go", single_line_comment: "//", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("html", LanguageConfig { name: "HTML", single_line_comment: "", multi_line_start: "<!--", multi_line_end: "-->" }),
-    ("htm", LanguageConfig { name: "HTML", single_line_comment: "", multi_line_start: "<!--", multi_line_end: "-->" }),
-    ("css", LanguageConfig { name: "CSS", single_line_comment: "", multi_line_start: "/*", multi_line_end: "*/" }),
-    ("toml", LanguageConfig { name: "TOML", single_line_comment: "#", multi_line_start: "", multi_line_end: "" }),
-    ("yaml", LanguageConfig { name: "YAML", single_line_comment: "#", multi_line_start: "", multi_line_end: "" }),
-    ("yml", LanguageConfig { name: "YAML", single_line_comment: "#", multi_line_start: "", multi_line_end: "" }),
-    ("json", LanguageConfig { name: "JSON", single_line_comment: "", multi_line_start: "", multi_line_end: "" }),
-    ("md", LanguageConfig { name: "Markdown", single_line_comment: "", multi_line_start: "<!--", multi_line_end: "-->" }),
+    // Rust
+    ("rs", LanguageConfig { name: "Rust", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // JS & TS ecosystem
+    ("js", LanguageConfig { name: "JavaScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("mjs", LanguageConfig { name: "JavaScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("cjs", LanguageConfig { name: "JavaScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("jsx", LanguageConfig { name: "JavaScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("ts", LanguageConfig { name: "TypeScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("mts", LanguageConfig { name: "TypeScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("cts", LanguageConfig { name: "TypeScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("tsx", LanguageConfig { name: "TypeScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Python
+    ("py", LanguageConfig { name: "Python", single_line_comments: &["#"], multi_line_comments: &[("\"\"\"", "\"\"\""), ("'''", "'''")] }),
+    ("pyw", LanguageConfig { name: "Python", single_line_comments: &["#"], multi_line_comments: &[("\"\"\"", "\"\"\""), ("'''", "'''")] }),
+    ("pyi", LanguageConfig { name: "Python", single_line_comments: &["#"], multi_line_comments: &[("\"\"\"", "\"\"\""), ("'''", "'''")] }),
+    
+    // C / C++
+    ("c", LanguageConfig { name: "C", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("h", LanguageConfig { name: "C Header", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("cpp", LanguageConfig { name: "C++", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("cc", LanguageConfig { name: "C++", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("cxx", LanguageConfig { name: "C++", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("c++", LanguageConfig { name: "C++", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("hpp", LanguageConfig { name: "C++ Header", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("hh", LanguageConfig { name: "C++ Header", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("hxx", LanguageConfig { name: "C++ Header", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Go
+    ("go", LanguageConfig { name: "Go", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Java
+    ("java", LanguageConfig { name: "Java", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // C#
+    ("cs", LanguageConfig { name: "C#", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("csx", LanguageConfig { name: "C#", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // PHP
+    ("php", LanguageConfig { name: "PHP", single_line_comments: &["//", "#"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Ruby
+    ("rb", LanguageConfig { name: "Ruby", single_line_comments: &["#"], multi_line_comments: &[("=begin", "=end")] }),
+    
+    // Swift
+    ("swift", LanguageConfig { name: "Swift", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Kotlin
+    ("kt", LanguageConfig { name: "Kotlin", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("kts", LanguageConfig { name: "Kotlin", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Dart
+    ("dart", LanguageConfig { name: "Dart", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Scala
+    ("scala", LanguageConfig { name: "Scala", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("sc", LanguageConfig { name: "Scala", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Shell Scripting
+    ("sh", LanguageConfig { name: "Shell", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("bash", LanguageConfig { name: "Shell", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("zsh", LanguageConfig { name: "Shell", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("fish", LanguageConfig { name: "Shell", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("csh", LanguageConfig { name: "Shell", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("tcsh", LanguageConfig { name: "Shell", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("ksh", LanguageConfig { name: "Shell", single_line_comments: &["#"], multi_line_comments: &[] }),
+    
+    // PowerShell
+    ("ps1", LanguageConfig { name: "PowerShell", single_line_comments: &["#"], multi_line_comments: &[("<#", "#>")] }),
+    ("psm1", LanguageConfig { name: "PowerShell", single_line_comments: &["#"], multi_line_comments: &[("<#", "#>")] }),
+    ("psd1", LanguageConfig { name: "PowerShell", single_line_comments: &["#"], multi_line_comments: &[("<#", "#>")] }),
+    
+    // HTML / Web Markup
+    ("html", LanguageConfig { name: "HTML", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("htm", LanguageConfig { name: "HTML", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("xhtml", LanguageConfig { name: "HTML", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("vue", LanguageConfig { name: "Vue", single_line_comments: &["//"], multi_line_comments: &[("<!--", "-->"), ("/*", "*/")] }),
+    ("svelte", LanguageConfig { name: "Svelte", single_line_comments: &["//"], multi_line_comments: &[("<!--", "-->"), ("/*", "*/")] }),
+    ("astro", LanguageConfig { name: "Astro", single_line_comments: &["//"], multi_line_comments: &[("<!--", "-->"), ("/*", "*/")] }),
+    
+    // CSS
+    ("css", LanguageConfig { name: "CSS", single_line_comments: &[], multi_line_comments: &[("/*", "*/")] }),
+    ("scss", LanguageConfig { name: "SCSS", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("sass", LanguageConfig { name: "Sass", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("less", LanguageConfig { name: "Less", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Config / Data
+    ("toml", LanguageConfig { name: "TOML", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("yaml", LanguageConfig { name: "YAML", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("yml", LanguageConfig { name: "YAML", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("json", LanguageConfig { name: "JSON", single_line_comments: &[], multi_line_comments: &[] }),
+    ("jsonc", LanguageConfig { name: "JSON with Comments", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("xml", LanguageConfig { name: "XML", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("ini", LanguageConfig { name: "INI", single_line_comments: &[";", "#"], multi_line_comments: &[] }),
+    
+    // SQL
+    ("sql", LanguageConfig { name: "SQL", single_line_comments: &["--"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Rust / C / general ignore-like / Lockfiles
+    ("lock", LanguageConfig { name: "Lockfile", single_line_comments: &["#"], multi_line_comments: &[] }),
+    
+    // Markdown / Docs
+    ("md", LanguageConfig { name: "Markdown", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("markdown", LanguageConfig { name: "Markdown", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("txt", LanguageConfig { name: "Plain Text", single_line_comments: &[], multi_line_comments: &[] }),
+    
+    // Zig
+    ("zig", LanguageConfig { name: "Zig", single_line_comments: &["//"], multi_line_comments: &[] }),
+    
+    // Lua
+    ("lua", LanguageConfig { name: "Lua", single_line_comments: &["--"], multi_line_comments: &[("--[[", "]]")] }),
+    
+    // Haskell
+    ("hs", LanguageConfig { name: "Haskell", single_line_comments: &["--"], multi_line_comments: &[("{-", "-}")] }),
+    
+    // Clojure / Lisp
+    ("clj", LanguageConfig { name: "Clojure", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("cljs", LanguageConfig { name: "Clojure", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("cljc", LanguageConfig { name: "Clojure", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("lisp", LanguageConfig { name: "Lisp", single_line_comments: &[";"], multi_line_comments: &[("#|", "|#")] }),
+    ("lsp", LanguageConfig { name: "Lisp", single_line_comments: &[";"], multi_line_comments: &[("#|", "|#")] }),
+    
+    // Objective-C
+    ("m", LanguageConfig { name: "Objective-C", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("mm", LanguageConfig { name: "Objective-C++", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Dockerfile / CI / Build
+    ("dockerfile", LanguageConfig { name: "Dockerfile", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("makefile", LanguageConfig { name: "Makefile", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("cmake", LanguageConfig { name: "CMake", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("proto", LanguageConfig { name: "Protocol Buffers", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("graphql", LanguageConfig { name: "GraphQL", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("gql", LanguageConfig { name: "GraphQL", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("tf", LanguageConfig { name: "HCL", single_line_comments: &["#", "//"], multi_line_comments: &[("/*", "*/")] }),
+    ("hcl", LanguageConfig { name: "HCL", single_line_comments: &["#", "//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // F#
+    ("fs", LanguageConfig { name: "F#", single_line_comments: &["//"], multi_line_comments: &[("(*", "*)")] }),
+    ("fsx", LanguageConfig { name: "F#", single_line_comments: &["//"], multi_line_comments: &[("(*", "*)")] }),
+    ("fsi", LanguageConfig { name: "F#", single_line_comments: &["//"], multi_line_comments: &[("(*", "*)")] }),
+    
+    // Perl
+    ("pl", LanguageConfig { name: "Perl", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("pm", LanguageConfig { name: "Perl", single_line_comments: &["#"], multi_line_comments: &[] }),
+    
+    // R
+    ("r", LanguageConfig { name: "R", single_line_comments: &["#"], multi_line_comments: &[] }),
+    
+    // Julia
+    ("jl", LanguageConfig { name: "Julia", single_line_comments: &["#"], multi_line_comments: &[("#=", "=#")] }),
+    
+    // OCaml
+    ("ml", LanguageConfig { name: "OCaml", single_line_comments: &[], multi_line_comments: &[("(*", "*)")] }),
+    ("mli", LanguageConfig { name: "OCaml", single_line_comments: &[], multi_line_comments: &[("(*", "*)")] }),
+    
+    // Scala
+    ("sc", LanguageConfig { name: "Scala", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Assembly
+    ("asm", LanguageConfig { name: "Assembly", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("s", LanguageConfig { name: "Assembly", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // COBOL
+    ("cob", LanguageConfig { name: "COBOL", single_line_comments: &["*"], multi_line_comments: &[] }),
+    ("cbl", LanguageConfig { name: "COBOL", single_line_comments: &["*"], multi_line_comments: &[] }),
+    
+    // Fortran
+    ("f90", LanguageConfig { name: "Fortran", single_line_comments: &["!"], multi_line_comments: &[] }),
+    ("f95", LanguageConfig { name: "Fortran", single_line_comments: &["!"], multi_line_comments: &[] }),
+    ("f03", LanguageConfig { name: "Fortran", single_line_comments: &["!"], multi_line_comments: &[] }),
+    ("f", LanguageConfig { name: "Fortran Legacy", single_line_comments: &["c", "C", "*", "!"], multi_line_comments: &[] }),
+    ("for", LanguageConfig { name: "Fortran Legacy", single_line_comments: &["c", "C", "*", "!"], multi_line_comments: &[] }),
+    
+    // Ada
+    ("adb", LanguageConfig { name: "Ada", single_line_comments: &["--"], multi_line_comments: &[] }),
+    ("ads", LanguageConfig { name: "Ada", single_line_comments: &["--"], multi_line_comments: &[] }),
+    ("ada", LanguageConfig { name: "Ada", single_line_comments: &["--"], multi_line_comments: &[] }),
+    
+    // Pascal
+    ("pas", LanguageConfig { name: "Pascal", single_line_comments: &["//"], multi_line_comments: &[("{", "}"), ("(*", "*)")] }),
+    
+    // VHDL / Verilog
+    ("vhd", LanguageConfig { name: "VHDL", single_line_comments: &["--"], multi_line_comments: &[] }),
+    ("vhdl", LanguageConfig { name: "VHDL", single_line_comments: &["--"], multi_line_comments: &[] }),
+    ("v", LanguageConfig { name: "Verilog", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("sv", LanguageConfig { name: "SystemVerilog", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Game Dev / Shaders
+    ("gd", LanguageConfig { name: "GDScript", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("glsl", LanguageConfig { name: "GLSL", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("hlsl", LanguageConfig { name: "HLSL", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("wgsl", LanguageConfig { name: "WGSL", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("shader", LanguageConfig { name: "ShaderLab", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Solidity
+    ("sol", LanguageConfig { name: "Solidity", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Typst
+    ("typ", LanguageConfig { name: "Typst", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Nix
+    ("nix", LanguageConfig { name: "Nix", single_line_comments: &["#"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Batch / Cmd
+    ("bat", LanguageConfig { name: "Batch", single_line_comments: &["REM", "::"], multi_line_comments: &[] }),
+    ("cmd", LanguageConfig { name: "Batch", single_line_comments: &["REM", "::"], multi_line_comments: &[] }),
+    
+    // Raku / Perl6
+    ("raku", LanguageConfig { name: "Raku", single_line_comments: &["#"], multi_line_comments: &[] }),
+    
+    // Groovy
+    ("groovy", LanguageConfig { name: "Groovy", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
 ];
 
 fn get_language_config(extension: &str) -> Option<LanguageConfig> {
     LANGUAGE_CONFIGS.iter().find(|&&(ext, _)| ext == extension).map(|&(_, config)| config)
+}
+
+fn detect_shebang_with_ext(path: &Path) -> Option<(LanguageConfig, String)> {
+    use std::io::BufRead;
+    let file = fs::File::open(path).ok()?;
+    let mut reader = std::io::BufReader::new(file);
+    let mut first_line = String::new();
+    reader.read_line(&mut first_line).ok()?;
+    let trimmed = first_line.trim();
+    
+    if trimmed.starts_with("#!") {
+        let parts: Vec<&str> = trimmed[2..].split_whitespace().collect();
+        if parts.is_empty() {
+            return None;
+        }
+        
+        let mut interpreter = Path::new(parts[0])
+            .file_name()?
+            .to_str()?;
+            
+        if interpreter == "env" {
+            if let Some(actual_interp) = parts.iter().skip(1).find(|s| !s.starts_with('-')) {
+                interpreter = actual_interp;
+            }
+        }
+        
+        let ext = match interpreter {
+            "python" | "python3" | "python2" => "py",
+            "node" | "nodejs" => "js",
+            "bash" | "sh" | "zsh" | "ksh" | "csh" | "tcsh" | "fish" => "sh",
+            "perl" => "pl",
+            "ruby" => "rb",
+            "awk" => "awk",
+            "crystal" => "cr",
+            "groovy" => "groovy",
+            "php" => "php",
+            "tcl" | "tclsh" => "tcl",
+            _ => return None,
+        };
+        
+        get_language_config(ext).map(|cfg| (cfg, ext.to_string()))
+    } else {
+        None
+    }
+}
+
+fn get_file_language_config(path: &Path, custom_cfg: &config::CustomConfig) -> Option<(LanguageConfig, String)> {
+    if let Some(ext) = path.extension().and_then(|s| s.to_str()) {
+        let ext_lower = ext.to_lowercase();
+        if let Some(ref custom_langs) = custom_cfg.custom_languages {
+            if let Some(mapping) = custom_langs.iter().find(|m| m.extension.to_lowercase() == ext_lower) {
+                return Some((make_static_config(mapping), ext_lower));
+            }
+        }
+        get_language_config(&ext_lower).map(|cfg| (cfg, ext_lower))
+    } else {
+        detect_shebang_with_ext(path)
+    }
+}
+
+fn count_lines(content: &str, config: &LanguageConfig) -> (u64, u64, u64, Vec<u64>) {
+    let mut code = 0;
+    let mut comments = 0;
+    let mut blanks = 0;
+    let mut in_multiline = false;
+    let mut active_ml_end = "";
+    let mut line_hashes = Vec::new();
+
+    for line in content.lines() {
+        let trimmed = line.trim();
+        if trimmed.is_empty() {
+            blanks += 1;
+            continue;
+        }
+
+        if in_multiline {
+            comments += 1;
+            if !active_ml_end.is_empty() && trimmed.contains(active_ml_end) {
+                in_multiline = false;
+                active_ml_end = "";
+            }
+            continue;
+        }
+
+        let mut is_sl = false;
+        for sl in config.single_line_comments {
+            if !sl.is_empty() && trimmed.starts_with(sl) {
+                comments += 1;
+                is_sl = true;
+                break;
+            }
+        }
+        if is_sl {
+            continue;
+        }
+
+        let mut is_ml_start = false;
+        for &(start, end) in config.multi_line_comments {
+            if !start.is_empty() && trimmed.starts_with(start) {
+                comments += 1;
+                is_ml_start = true;
+                if !end.is_empty() && !trimmed.ends_with(end) {
+                    in_multiline = true;
+                    active_ml_end = end;
+                }
+                break;
+            }
+        }
+        if is_ml_start {
+            continue;
+        }
+
+        code += 1;
+        line_hashes.push(uloc::hash_line(trimmed));
+    }
+
+    (code, comments, blanks, line_hashes)
 }
 
 fn parse_gitignore_rules(root: &Path) -> Vec<String> {
@@ -64,6 +404,11 @@ fn parse_gitignore_rules(root: &Path) -> Vec<String> {
         "package-lock.json".to_string(),
         "pnpm-lock.yaml".to_string(),
         "yarn.lock".to_string(),
+        "poetry.lock".to_string(),
+        "mix.lock".to_string(),
+        "Gemfile.lock".to_string(),
+        "composer.lock".to_string(),
+        "pubspec.lock".to_string(),
     ];
 
     if gitignore_path.exists() {
@@ -73,7 +418,6 @@ fn parse_gitignore_rules(root: &Path) -> Vec<String> {
                 if trimmed.is_empty() || trimmed.starts_with('#') {
                     continue;
                 }
-                // Convert simple gitignore rules to standard check patterns
                 let cleaned = trimmed.trim_start_matches('/').trim_end_matches('/');
                 if !cleaned.is_empty() {
                     rules.push(cleaned.to_string());
@@ -95,11 +439,9 @@ fn should_ignore(path: &Path, root: &Path, ignore_rules: &[String]) -> bool {
 
     for rule in ignore_rules {
         let rule_cleaned = rule.replace('\\', "/");
-        // Check directory/file match in components
         if components.iter().any(|&c| c == rule_cleaned || c == rule) {
             return true;
         }
-        // Check wildcard match
         if path_str.contains(&rule_cleaned) {
             return true;
         }
@@ -114,18 +456,23 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         return Err("Target path does not exist or is not a directory".to_string());
     }
 
-    let ignore_rules = parse_gitignore_rules(root);
+    let custom_cfg = config::load_custom_config(root);
+
+    let mut ignore_rules = parse_gitignore_rules(root);
+    if let Some(ref custom_excludes) = custom_cfg.exclude_patterns {
+        for rule in custom_excludes {
+            ignore_rules.push(rule.clone());
+        }
+    }
+
     let mut files_to_scan = Vec::new();
 
     for entry in WalkDir::new(root).into_iter().filter_map(|e| e.ok()) {
         let path = entry.path();
         if path.is_file() {
             if !should_ignore(path, root, &ignore_rules) {
-                if let Some(ext) = path.extension().and_then(|s| s.to_str()) {
-                    let ext_lower = ext.to_lowercase();
-                    if get_language_config(&ext_lower).is_some() {
-                        files_to_scan.push(path.to_path_buf());
-                    }
+                if get_file_language_config(path, &custom_cfg).is_some() {
+                    files_to_scan.push(path.to_path_buf());
                 }
             }
         }
@@ -141,18 +488,16 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         .collect();
 
     // Parallel scan using rayon
-    let results: Vec<(FileInfo, Vec<(String, String)>)> = files_to_scan
+    let results: Vec<(FileInfo, Vec<(String, String)>, Vec<u64>, Vec<Annotation>, Vec<SecretFinding>)> = files_to_scan
         .par_iter()
         .filter_map(|path| {
             let relative_path = path.strip_prefix(root).ok()?.to_string_lossy().to_string();
             let name = path.file_name()?.to_string_lossy().to_string();
-            let extension = path.extension()?.to_string_lossy().to_lowercase();
-            let config = get_language_config(&extension)?;
+            let (config, extension) = get_file_language_config(path, &custom_cfg)?;
 
             let content = match fs::read_to_string(path) {
                 Ok(c) => c,
                 Err(_) => {
-                    // Fallback to lossy reading if not clean UTF-8 (e.g. encoded text files)
                     let bytes = fs::read(path).ok()?;
                     String::from_utf8_lossy(&bytes).into_owned()
                 }
@@ -161,45 +506,7 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
             let size_bytes = fs::metadata(path).ok()?.len();
             
             // Core line counting logic
-            let mut code = 0;
-            let mut comments = 0;
-            let mut blanks = 0;
-            let mut in_multiline = false;
-
-            let ml_start = config.multi_line_start;
-            let ml_end = config.multi_line_end;
-            let sl_comment = config.single_line_comment;
-
-            for line in content.lines() {
-                let trimmed = line.trim();
-                if trimmed.is_empty() {
-                    blanks += 1;
-                    continue;
-                }
-
-                if in_multiline {
-                    comments += 1;
-                    if !ml_end.is_empty() && trimmed.contains(ml_end) {
-                        in_multiline = false;
-                    }
-                    continue;
-                }
-
-                if !ml_start.is_empty() && trimmed.starts_with(ml_start) {
-                    comments += 1;
-                    if !ml_end.is_empty() && !trimmed.ends_with(ml_end) {
-                        in_multiline = true;
-                    }
-                    continue;
-                }
-
-                if !sl_comment.is_empty() && trimmed.starts_with(sl_comment) {
-                    comments += 1;
-                    continue;
-                }
-
-                code += 1;
-            }
+            let (code, comments, blanks, line_hashes) = count_lines(&content, &config);
 
             let complexity = analyze_complexity(&content, &extension);
 
@@ -211,6 +518,9 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
                     }
                 }
             }
+
+            let file_annotations = annotations::scan_annotations(&content, &relative_path);
+            let file_secrets = secrets::scan_secrets(&content, &relative_path);
 
             Some((
                 FileInfo {
@@ -224,14 +534,26 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
                     size_bytes,
                     complexity,
                 },
-                file_edges
+                file_edges,
+                line_hashes,
+                file_annotations,
+                file_secrets,
             ))
         })
         .collect();
 
     let mut file_infos = Vec::new();
     let mut edges = Vec::new();
-    for (info, mut fedges) in results {
+    let mut all_line_hashes = HashSet::new();
+    let mut annotations = Vec::new();
+    let mut secrets = Vec::new();
+
+    for (info, mut fedges, line_hashes, file_annotations, file_secrets) in results {
+        for h in line_hashes {
+            all_line_hashes.insert(h);
+        }
+        annotations.extend(file_annotations);
+        secrets.extend(file_secrets);
         file_infos.push(info);
         edges.append(&mut fedges);
     }
@@ -243,7 +565,6 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
     let mut lang_groups: HashMap<String, (u32, u64, u64, u64)> = HashMap::new();
     let mut file_paths_list = Vec::new();
     
-    // For average complexity and histogram
     let mut total_complexity = 0.0;
     let mut complexity_dist = vec![0u32; 10]; // 10 bins
 
@@ -263,7 +584,6 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         file_paths_list.push(root.join(&f.path).to_string_lossy().to_string());
         total_complexity += f.complexity;
 
-        // Complexity histogram binning (bins: 1, 2-3, 4-5, 6-7, 8-9, 10-12, 13-15, 16-18, 19-20, 20+)
         let comp_idx = match f.complexity as u32 {
             0..=1 => 0,
             2..=3 => 1,
@@ -292,13 +612,11 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         })
         .collect();
 
-    // Sort languages by loc descending
     languages.sort_by(|a, b| (b.code + b.comments + b.blanks).cmp(&(a.code + a.comments + a.blanks)));
 
     // Duplicate detection
     let (duplicates, duplicate_groups) = find_duplicates(&file_paths_list);
 
-    // Make paths in duplicate groups relative to root for clean display
     let relative_duplicate_groups = duplicate_groups
         .into_iter()
         .map(|group| {
@@ -320,6 +638,14 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         1.0
     };
 
+    let uloc_count = all_line_hashes.len() as u64;
+    let dryness = uloc::calculate_dryness(total_code, uloc_count);
+    let role_distribution = roles::calculate_role_distribution(&file_infos);
+
+    let git_stats = git::analyze_git(root);
+    let git_available = git_stats.is_some();
+    let (file_churn, top_contributors) = git_stats.unwrap_or_else(|| (Vec::new(), Vec::new()));
+
     let scan_duration_ms = start_time.elapsed().as_millis() as u64;
 
     Ok(ProjectSummary {
@@ -338,5 +664,82 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         complexity_dist,
         edges,
         scan_duration_ms,
+
+        // New fields
+        uloc: uloc_count,
+        dryness,
+        role_distribution,
+        annotations,
+        secrets,
+        git_available,
+        file_churn,
+        top_contributors,
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_count_lines_rust() {
+        let content = "
+            // Rust program
+            fn main() {
+                /* multiline
+                   comment */
+                println!(\"Hello World!\");
+            }
+        ";
+        let config = get_language_config("rs").unwrap();
+        let (code, comments, blanks, _) = count_lines(content, &config);
+        assert_eq!(code, 3);
+        assert_eq!(comments, 3);
+        assert_eq!(blanks, 2);
+    }
+
+    #[test]
+    fn test_count_lines_python() {
+        let content = "
+            # Python script
+            def add(a, b):
+                \"\"\"Add two
+                   numbers\"\"\"
+                return a + b
+        ";
+        let config = get_language_config("py").unwrap();
+        let (code, comments, blanks, _) = count_lines(content, &config);
+        assert_eq!(code, 2);
+        assert_eq!(comments, 3);
+        assert_eq!(blanks, 2);
+    }
+
+    #[test]
+    fn test_shebang_detection() {
+        use std::io::Write;
+        let dir = std::env::temp_dir();
+        let py_path = dir.join("test_script_py");
+        {
+            let mut file = std::fs::File::create(&py_path).unwrap();
+            writeln!(file, "#!/usr/bin/env python3").unwrap();
+            writeln!(file, "print('Hello')").unwrap();
+        }
+        let (config, ext) = detect_shebang_with_ext(&py_path).unwrap();
+        assert_eq!(config.name, "Python");
+        assert_eq!(ext, "py");
+        let _ = std::fs::remove_file(&py_path);
+
+        let sh_path = dir.join("test_script_sh");
+        {
+            let mut file = std::fs::File::create(&sh_path).unwrap();
+            writeln!(file, "#!/bin/bash").unwrap();
+            writeln!(file, "echo Hello").unwrap();
+        }
+        let (config_sh, ext_sh) = detect_shebang_with_ext(&sh_path).unwrap();
+        assert_eq!(config_sh.name, "Shell");
+        assert_eq!(ext_sh, "sh");
+        let _ = std::fs::remove_file(&sh_path);
+    }
+}
+
+
