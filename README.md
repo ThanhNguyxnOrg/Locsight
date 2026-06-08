@@ -130,11 +130,11 @@ Codebase-Analyzer/
 
 ## 👨‍💻 Team — 404 Team Not Found
 
-| Name | Student ID | Academic Role |
-|:---|:---|:---|
-| **Nguyễn Tuấn Thành** | `25112107` | 👑 Team Leader / Lead Backend Engineer |
-| **Đoàn Ngọc Bích** | `25112138` | Frontend Engineer / UX Designer |
-| **Nguyễn Đăng Khoa** | `25112163` | QA Engineer / Test Writer |
+| Name | Student ID | Role |
+|---|---|---|
+| **Nguyễn Tuấn Thành** | `25112107` | 👑 Leader |
+| **Đoàn Ngọc Bích** | `25112138` | Member |
+| **Nguyễn Đăng Khoa** | `25112163` | Member |
 
 ---
 
