@@ -48,14 +48,17 @@ export function Shell({
     >
       {/* Title bar — OS-agnostic */}
       <div
+        data-tauri-drag-region
         className="flex items-center select-none"
         style={{ height: 30, borderBottom: `1px solid ${C.border}` }}
       >
         <div
+          data-tauri-drag-region
           className="flex items-center gap-2"
           style={{ paddingLeft: 14, flex: 1 }}
         >
           <div
+            data-tauri-drag-region
             style={{
               width: 6,
               height: 6,
@@ -64,6 +67,7 @@ export function Shell({
             }}
           />
           <div
+            data-tauri-drag-region
             style={{
               ...mono,
               color: C.text,
@@ -74,7 +78,7 @@ export function Shell({
           >
             CODEBASE ANALYZER
           </div>
-          <div style={{ ...mono, color: C.muted, fontSize: 11, marginLeft: 8 }} className="truncate max-w-xl">
+          <div data-tauri-drag-region style={{ ...mono, color: C.muted, fontSize: 11, marginLeft: 8 }} className="truncate max-w-xl">
             {summary ? `— ${summary.path}` : "— Welcome"}
           </div>
         </div>
