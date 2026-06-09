@@ -146,15 +146,15 @@ fn test_multimedia_optimization_hints() {
     // Check hints
     let hint_large_png = report.optimization_hints.iter().find(|h| h.name == "large_img.png").unwrap();
     assert_eq!(hint_large_png.severity, "warning");
-    assert!(hint_large_png.message.contains("File ảnh rất lớn"));
+    assert!(hint_large_png.message.contains("Very large image file"));
 
     let hint_medium_png = report.optimization_hints.iter().find(|h| h.name == "medium_img.png").unwrap();
     assert_eq!(hint_medium_png.severity, "info");
-    assert!(hint_medium_png.message.contains("Định dạng PNG chiếm nhiều dung lượng"));
+    assert!(hint_medium_png.message.contains("PNG format occupies a lot of storage"));
 
     let hint_wav = report.optimization_hints.iter().find(|h| h.name == "large_audio.wav").unwrap();
     assert_eq!(hint_wav.severity, "info");
-    assert!(hint_wav.message.contains("WAV không nén lớn"));
+    assert!(hint_wav.message.contains("Large uncompressed WAV"));
 
     let _ = fs::remove_dir_all(&temp_dir);
 }

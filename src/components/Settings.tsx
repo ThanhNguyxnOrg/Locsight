@@ -299,7 +299,7 @@ export function Settings({ onNavigateToDashboard }: { onNavigateToDashboard: () 
               How Ignore Rules Work
             </h3>
             <p className="text-xs leading-relaxed" style={{ color: C.muted }}>
-              Locsight uses custom exclusion pattern matching to ignore files or directories during code analysis. This is saved as <code style={mono} className="bg-black/40 px-1 py-0.5 rounded text-[10.5px]">.locignore</code> in your project root.
+              Locsight uses custom exclusion pattern matching to ignore files or directories during code analysis. This is saved as <code style={mono} className="bg-black/40 px-1 py-0.5 rounded text-[10.5px] ">.locignore</code> in your project root.
             </p>
           </div>
 

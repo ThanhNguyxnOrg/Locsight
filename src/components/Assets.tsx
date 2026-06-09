@@ -104,9 +104,9 @@ export function Assets() {
     return (
       <div className="flex flex-col items-center justify-center h-full px-10 text-center">
         <Boxes size={48} className="text-neutral-600 mb-4 animate-pulse" />
-        <h3 style={{ ...mono, fontSize: 16, color: C.text }}>KHÔNG TÌM THẤY TÀI NGUYÊN (ASSETS)</h3>
+        <h3 style={{ ...mono, fontSize: 16, color: C.text }}>NO ASSETS FOUND</h3>
         <p className="max-w-md mt-2 text-xs" style={{ color: C.muted }}>
-          Không phát hiện file đa phương tiện (Ảnh, Video, Audio), 3D/Game Assets hay bản vẽ CAD nào trong thư mục đang quét.
+          No multimedia files (Images, Video, Audio), 3D/Game assets, or CAD drawings detected in the scanned directory.
         </p>
       </div>
     );
@@ -190,7 +190,7 @@ export function Assets() {
         <div>
           <h2 style={{ ...mono, fontSize: 24, fontWeight: 500, color: C.text, margin: 0 }}>ASSET INTELLIGENCE</h2>
           <p style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>
-            Quản lý và tối ưu hóa tài nguyên Multimedia, 3D/Game Assets và CAD Drawings trong dự án.
+            Manage and optimize multimedia resources, 3D/Game assets, and CAD drawings in your project.
           </p>
         </div>
         
@@ -198,7 +198,7 @@ export function Assets() {
         <div className="flex items-center gap-4 bg-[#ffffff02] border border-white/[0.04] rounded px-4 py-2 self-start md:self-auto">
           <Boxes size={20} style={{ color: C.accent }} />
           <div>
-            <div style={{ ...mono, fontSize: 10, color: C.muted, letterSpacing: "0.08em" }}>DUNG LƯỢNG ASSET</div>
+            <div style={{ ...mono, fontSize: 10, color: C.muted, letterSpacing: "0.08em" }}>TOTAL ASSETS SIZE</div>
             <div style={{ ...mono, fontSize: 16, fontWeight: 600, color: C.accent }}>
               {formatBytes(stats.totalSize)} · {stats.totalFiles} files
             </div>
@@ -250,6 +250,7 @@ export function Assets() {
                     backgroundColor: meta.color, 
                     marginTop: `${100 - percentage}%`
                   }} 
+                  
                 />
               </div>
             </div>
@@ -260,11 +261,11 @@ export function Assets() {
       {/* Sub tabs Navigation */}
       <div className="flex border-b mb-6" style={{ borderColor: C.border }}>
         {[
-          { id: "overview", label: "Tổng quan" },
-          { id: "all", label: `Tất cả Assets (${stats.totalFiles})` },
-          { id: "relations", label: `Liên kết (${edges.length})` },
-          { id: "duplicates", label: `Trùng lặp (${duplicates.length})` },
-          { id: "hints", label: `Gợi ý tối ưu (${optimizationHints.length})` }
+          { id: "overview", label: "Overview" },
+          { id: "all", label: `All Assets (${stats.totalFiles})` },
+          { id: "relations", label: `Relations (${edges.length})` },
+          { id: "duplicates", label: `Duplicates (${duplicates.length})` },
+          { id: "hints", label: `Optimization Hints (${optimizationHints.length})` }
         ].map((tab) => (
           <button
             key={tab.id}
@@ -293,7 +294,7 @@ export function Assets() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               
               {/* Size Distribution card */}
-              <Card label="PHÂN PHỐI CHI TIẾT TÀI NGUYÊN">
+              <Card label="RESOURCE DISTRIBUTION DETAILS">
                 <div className="space-y-4">
                   {Object.entries(stats.subcategoryCounts).map(([sub, count]) => {
                     const size = assetReport.assets
@@ -307,7 +308,7 @@ export function Assets() {
                     
                     return (
                       <div key={sub} className="space-y-1">
-                        <div className="flex items-center justify-between text-xs">
+                         <div className="flex items-center justify-between text-xs">
                           <div className="flex items-center gap-2">
                             <SubIcon size={12} style={{ color: meta.color }} />
                             <span className="capitalize" style={{ color: C.text }}>{sub}</span>
@@ -338,15 +339,15 @@ export function Assets() {
                   <div className="p-4 rounded border border-red-500/20 bg-red-950/10 flex items-start gap-3">
                     <AlertTriangle size={20} className="text-red-400 mt-0.5 shrink-0" />
                     <div>
-                      <h4 className="text-sm font-semibold text-red-200">Không gian bị trùng lặp</h4>
+                      <h4 className="text-sm font-semibold text-red-200">Duplicate Space Wasted</h4>
                       <p className="text-xs text-red-400/80 mt-1">
-                        Phát hiện <strong className="text-red-300">{duplicates.length} nhóm file trùng lặp</strong> hoàn toàn nội dung (SHA-256), gây lãng phí khoảng <strong className="text-red-300">{formatBytes(wastedSpace)}</strong>.
+                        Found <strong className="text-red-300">{duplicates.length} duplicate file groups</strong> with identical content (SHA-256), wasting about <strong className="text-red-300">{formatBytes(wastedSpace)}</strong>.
                       </p>
                       <button 
                         onClick={() => setSubTab("duplicates")}
                         className="text-xs text-red-400 hover:text-red-300 font-medium flex items-center gap-1 mt-2.5 transition-all"
                       >
-                        Xem chi tiết trùng lặp <ArrowRight size={12} />
+                        View duplicate details <ArrowRight size={12} />
                       </button>
                     </div>
                   </div>
@@ -354,9 +355,9 @@ export function Assets() {
                   <div className="p-4 rounded border border-green-500/20 bg-green-950/10 flex items-start gap-3">
                     <CheckCircle2 size={20} className="text-green-400 mt-0.5 shrink-0" />
                     <div>
-                      <h4 className="text-sm font-semibold text-green-200">Không có file trùng lặp</h4>
+                      <h4 className="text-sm font-semibold text-green-200">No Duplicate Files</h4>
                       <p className="text-xs text-green-400/80 mt-1">
-                        Hệ thống không phát hiện bất kỳ asset trùng lặp SHA-256 nào. Kho lưu trữ của bạn được sắp xếp rất tốt!
+                        The system did not detect any duplicate assets based on SHA-256. Your repository is well organized!
                       </p>
                     </div>
                   </div>
@@ -366,9 +367,9 @@ export function Assets() {
                 <div className="p-4 rounded border border-blue-500/20 bg-blue-950/10 flex items-start gap-3">
                   <Compass size={20} className="text-blue-400 mt-0.5 shrink-0" />
                   <div>
-                    <h4 className="text-sm font-semibold text-blue-200">Gợi ý tối ưu hóa khả dụng</h4>
+                    <h4 className="text-sm font-semibold text-blue-200">Optimization Hints Available</h4>
                     <p className="text-xs text-blue-400/80 mt-1">
-                      Có <strong className="text-blue-300">{optimizationHints.length} đề xuất nén/chuyển đổi</strong>. Tổng dung lượng có thể tối ưu ước tính khoảng:{" "}
+                      There are <strong className="text-blue-300">{optimizationHints.length} compression/conversion recommendations</strong>. Estimated potential size savings:{" "}
                       <strong className="text-blue-300">
                         {formatBytes(optimizationHints.reduce((sum, h) => sum + h.potentialSavings, 0))}
                       </strong>.
@@ -377,7 +378,7 @@ export function Assets() {
                       onClick={() => setSubTab("hints")}
                       className="text-xs text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1 mt-2.5 transition-all"
                     >
-                      Kiểm tra các gợi ý tối ưu <ArrowRight size={12} />
+                      Check optimization hints <ArrowRight size={12} />
                     </button>
                   </div>
                 </div>
@@ -387,9 +388,9 @@ export function Assets() {
                   <div className="p-4 rounded border border-orange-500/20 bg-orange-950/10 flex items-start gap-3">
                     <HelpCircle size={20} className="text-orange-400 mt-0.5 shrink-0" />
                     <div>
-                      <h4 className="text-sm font-semibold text-orange-200">Phát hiện tài nguyên mồ côi</h4>
+                      <h4 className="text-sm font-semibold text-orange-200">Orphan Assets Detected</h4>
                       <p className="text-xs text-orange-400/80 mt-1">
-                        Phát hiện <strong className="text-orange-300">{orphans.length} assets không được tham chiếu</strong> bởi bất cứ dòng code hay file cấu hình game/CAD nào. Bạn có thể xóa chúng để giải phóng bộ nhớ.
+                        Detected <strong className="text-orange-300">{orphans.length} unreferenced assets</strong> not used by any source code or game/CAD config files. You can safely delete them to free up disk space.
                       </p>
                     </div>
                   </div>
@@ -399,15 +400,15 @@ export function Assets() {
             </div>
             
             {/* Top largest assets */}
-            <Card label="TÀI NGUYÊN LỚN NHẤT DỰ ÁN">
+            <Card label="LARGEST ASSETS IN PROJECT">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b text-[10px] text-neutral-500" style={{ borderColor: C.border }}>
-                      <th className="pb-2 font-medium">TÊN TÀI NGUYÊN</th>
-                      <th className="pb-2 font-medium">ĐƯỜNG DẪN</th>
-                      <th className="pb-2 font-medium">PHÂN LOẠI</th>
-                      <th className="pb-2 font-medium text-right">DUNG LƯỢNG</th>
+                      <th className="pb-2 font-medium">ASSET NAME</th>
+                      <th className="pb-2 font-medium">FILE PATH</th>
+                      <th className="pb-2 font-medium">CATEGORY</th>
+                      <th className="pb-2 font-medium text-right">SIZE</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/[0.02] text-xs">
@@ -455,7 +456,7 @@ export function Assets() {
                   <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" />
                   <input
                     type="text"
-                    placeholder="Tìm theo tên file hoặc đường dẫn..."
+                    placeholder="Search by filename or path..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     style={{
@@ -477,7 +478,7 @@ export function Assets() {
                   style={{ background: C.surface, borderColor: C.border, color: C.text }}
                   className="px-3 py-1.5 text-xs rounded border outline-none cursor-pointer"
                 >
-                  <option value="all">Tất cả Category</option>
+                  <option value="all">All Categories</option>
                   {activeCategories.map(cat => (
                     <option key={cat} value={cat}>{getCategoryMeta(cat).label}</option>
                   ))}
@@ -491,7 +492,7 @@ export function Assets() {
                     style={{ background: C.surface, borderColor: C.border, color: C.text }}
                     className="px-3 py-1.5 text-xs rounded border outline-none cursor-pointer"
                   >
-                    <option value="all">Tất cả Subcategory</option>
+                    <option value="all">All Subcategories</option>
                     {subcategories.map(sub => (
                       <option key={sub} value={sub} className="capitalize">{sub}</option>
                     ))}
@@ -503,17 +504,17 @@ export function Assets() {
               <div className="flex-1 min-h-0 overflow-auto border rounded flex flex-col" style={{ borderColor: C.border, background: C.surface }}>
                 {filteredAssets.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 text-center text-xs text-neutral-500 flex-1">
-                    Không tìm thấy asset nào phù hợp bộ lọc.
+                    No assets matched your filter criteria.
                   </div>
                 ) : (
                   <div className="flex-1 overflow-auto">
                     <table className="w-full text-left border-collapse">
                       <thead>
                         <tr className="border-b text-[10px] text-neutral-500 sticky top-0 bg-neutral-950 z-10" style={{ borderColor: C.border }}>
-                          <th className="p-3 font-medium">TÊN FILE</th>
-                          <th className="p-3 font-medium">ĐƯỜNG DẪN</th>
-                          <th className="p-3 font-medium">PHÂN LOẠI</th>
-                          <th className="p-3 font-medium text-right">DUNG LƯỢNG</th>
+                          <th className="p-3 font-medium">FILENAME</th>
+                          <th className="p-3 font-medium">FILE PATH</th>
+                          <th className="p-3 font-medium">CATEGORY</th>
+                          <th className="p-3 font-medium text-right">SIZE</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/[0.02] text-xs">
@@ -563,7 +564,7 @@ export function Assets() {
                       className="px-4 py-1.5 text-xs rounded border hover:bg-white/5 transition-colors cursor-pointer"
                       style={{ borderColor: C.border, color: C.text }}
                     >
-                      Xem thêm ({filteredAssets.length - visibleCount} files còn lại)
+                      Load more ({filteredAssets.length - visibleCount} files remaining)
                     </button>
                   </div>
                 )}
@@ -583,9 +584,9 @@ export function Assets() {
               {assetRelations.size === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <GitBranch size={32} className="text-neutral-500 mb-2" />
-                  <h4 style={{ ...mono, fontSize: 14, color: C.text }}>Không phát hiện mối liên kết nào</h4>
+                  <h4 style={{ ...mono, fontSize: 14, color: C.text }}>No Relations Detected</h4>
                   <p className="text-xs text-neutral-500 mt-1 max-w-md">
-                    Không có mối quan hệ phụ thuộc nào được phát hiện giữa các Scene, Asset config và Texture/3D models.
+                    No dependency relationships were detected between scenes, config files, textures, or 3D models.
                   </p>
                 </div>
               ) : (
@@ -624,7 +625,7 @@ export function Assets() {
                         {/* Connected children */}
                         <div className="mt-3 space-y-2">
                           <div className="text-[10px] text-neutral-500 font-medium flex items-center gap-1">
-                            <ArrowRight size={10} /> THAM CHIẾU ĐẾN ({children.length})
+                            <ArrowRight size={10} /> REFERENCES TO ({children.length})
                           </div>
                           <div className="space-y-1.5 pl-3 border-l border-white/[0.04]">
                             {children.map((child) => {
@@ -665,13 +666,13 @@ export function Assets() {
             {duplicates.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <CheckCircle2 size={32} className="text-green-500 mb-2" />
-                <h4 style={{ ...mono, fontSize: 14, color: C.text }}>Tuyệt vời!</h4>
-                <p className="text-xs text-neutral-500 mt-1">Không phát hiện tệp tài nguyên trùng lặp nội dung nào.</p>
+                <h4 style={{ ...mono, fontSize: 14, color: C.text }}>Great!</h4>
+                <p className="text-xs text-neutral-500 mt-1">No duplicate asset files were found.</p>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="text-xs text-neutral-400 bg-neutral-900/40 p-3 rounded border" style={{ borderColor: C.border }}>
-                  Phát hiện <strong className="text-neutral-200">{duplicates.length} nhóm file trùng lặp</strong> SHA-256. Tổng dung lượng lãng phí ước tính:{" "}
+                  Found <strong className="text-neutral-200">{duplicates.length} duplicate file groups</strong> via SHA-256. Estimated wasted space:{" "}
                   <strong className="text-red-400">{formatBytes(wastedSpace)}</strong>.
                 </div>
                 
@@ -695,7 +696,7 @@ export function Assets() {
                           </span>
                         </div>
                         <div className="text-right text-xs">
-                          <span style={{ color: C.muted }}>Lãng phí: </span>
+                          <span style={{ color: C.muted }}>Wasted: </span>
                           <strong className="text-red-400 font-mono">
                             {formatBytes(dup.size * (dup.files.length - 1))}
                           </strong>{" "}
@@ -734,8 +735,8 @@ export function Assets() {
             {optimizationHints.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <CheckCircle2 size={32} className="text-green-500 mb-2" />
-                <h4 style={{ ...mono, fontSize: 14, color: C.text }}>Dự án đã tối ưu!</h4>
-                <p className="text-xs text-neutral-500 mt-1">Không có gợi ý tối ưu hóa dung lượng tài nguyên nào cần chú ý.</p>
+                <h4 style={{ ...mono, fontSize: 14, color: C.text }}>Project is optimized!</h4>
+                <p className="text-xs text-neutral-500 mt-1">No resource optimization recommendations require attention.</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -789,7 +790,7 @@ export function Assets() {
                       
                       <div className="text-right shrink-0">
                         <div style={{ ...mono, fontSize: 10, color: C.muted, letterSpacing: "0.05em" }}>
-                          TIẾT KIỆM ƯỚC TÍNH
+                          ESTIMATED SAVINGS
                         </div>
                         <div style={{ ...mono, fontSize: 16, fontWeight: 600, color: "#4ade80", marginTop: 2 }}>
                           ~{formatBytes(hint.potentialSavings)}
@@ -861,19 +862,19 @@ function DetailsPanel({
         {/* Basic specifications */}
         <div className="space-y-2 text-xs">
           <div className="flex justify-between py-1 border-b border-white/[0.01]">
-            <span className="text-neutral-500">Phân loại chính:</span>
+            <span className="text-neutral-500">Main Category:</span>
             <span className="font-medium capitalize text-neutral-300">
               {getCategoryMeta(selectedAsset.category).label}
             </span>
           </div>
           <div className="flex justify-between py-1 border-b border-white/[0.01]">
-            <span className="text-neutral-500">Loại tài nguyên:</span>
+            <span className="text-neutral-500">Asset Type:</span>
             <span className="font-medium capitalize text-neutral-300">
               {selectedAsset.subcategory}
             </span>
           </div>
           <div className="flex justify-between py-1 border-b border-white/[0.01]">
-            <span className="text-neutral-500">Dung lượng:</span>
+            <span className="text-neutral-500">Size:</span>
             <span className="font-mono text-neutral-300">
               {formatBytes(selectedAsset.size)}
             </span>
@@ -888,25 +889,25 @@ function DetailsPanel({
 
         {/* Code references status (Orphan status) */}
         <div className="space-y-1.5 pt-2">
-          <span className="text-[10px] text-neutral-500 font-medium block">TÌNH TRẠNG THAM CHIẾU</span>
+          <span className="text-[10px] text-neutral-500 font-medium block">REFERENCE STATUS</span>
           {isSelectedOrphan ? (
             <div className="p-3 rounded border border-orange-500/20 bg-orange-950/5 text-xs text-orange-400">
               <div className="flex items-center gap-1.5 font-semibold">
                 <AlertTriangle size={12} />
-                Tài nguyên mồ côi
+                Orphan Asset
               </div>
               <p className="mt-1 text-[11px] leading-relaxed text-neutral-400">
-                Không tìm thấy bất kỳ chuỗi tham chiếu nào đến tệp này trong mã nguồn hoặc tệp cấu hình game/CAD.
+                No reference strings to this file were found in the source code or game/CAD configuration files.
               </p>
             </div>
           ) : (
             <div className="p-3 rounded border border-green-500/20 bg-green-950/5 text-xs text-green-400">
               <div className="flex items-center gap-1.5 font-semibold">
                 <CheckCircle2 size={12} />
-                Có sử dụng / Tham chiếu
+                Referenced / In Use
               </div>
               <p className="mt-1 text-[11px] leading-relaxed text-neutral-400">
-                Tên file asset có xuất hiện trong các tệp mã nguồn hoặc tệp liên kết của dự án.
+                The asset file name appears in project source code or configuration files.
               </p>
             </div>
           )}
@@ -915,7 +916,7 @@ function DetailsPanel({
         {/* File specific optimization recommendations */}
         {selectedAssetHint && (
           <div className="space-y-1.5 pt-2">
-            <span className="text-[10px] text-neutral-500 font-medium block">GỢI Ý TỐI ƯU</span>
+            <span className="text-[10px] text-neutral-500 font-medium block">OPTIMIZATION HINTS</span>
             <div 
               className="p-3 rounded border text-xs"
               style={{ 
@@ -927,7 +928,7 @@ function DetailsPanel({
                 {selectedAssetHint.message}
               </p>
               <div className="mt-2 text-right">
-                <span className="text-[10px] text-neutral-500">Tiết kiệm: </span>
+                <span className="text-[10px] text-neutral-500">Savings: </span>
                 <strong className="text-green-400 font-mono">
                   ~{formatBytes(selectedAssetHint.potentialSavings)}
                 </strong>

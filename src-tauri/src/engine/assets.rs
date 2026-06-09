@@ -280,7 +280,7 @@ pub fn scan_assets(asset_paths: &[PathBuf], root: &Path, code_paths: &[PathBuf])
             optimization_hints.push(OptimizationHint {
                 path: asset.path.clone(),
                 name: asset.name.clone(),
-                message: format!("File ảnh rất lớn ({:.2} MB). Cân nhắc nén hoặc chuyển đổi sang định dạng WebP để tiết kiệm dung lượng.", asset.size as f64 / (1024.0 * 1024.0)),
+                message: format!("Very large image file ({:.2} MB). Consider compressing or converting it to WebP format to save space.", asset.size as f64 / (1024.0 * 1024.0)),
                 severity: "warning".to_string(),
                 potential_savings: savings,
             });
@@ -292,7 +292,7 @@ pub fn scan_assets(asset_paths: &[PathBuf], root: &Path, code_paths: &[PathBuf])
             optimization_hints.push(OptimizationHint {
                 path: asset.path.clone(),
                 name: asset.name.clone(),
-                message: "Định dạng PNG chiếm nhiều dung lượng. Chuyển đổi sang WebP có thể giảm tới 70% dung lượng mà không làm suy giảm chất lượng.".to_string(),
+                message: "PNG format occupies a lot of storage. Converting to WebP can reduce file size by up to 70% without quality degradation.".to_string(),
                 severity: "info".to_string(),
                 potential_savings: savings,
             });
@@ -304,7 +304,7 @@ pub fn scan_assets(asset_paths: &[PathBuf], root: &Path, code_paths: &[PathBuf])
             optimization_hints.push(OptimizationHint {
                 path: asset.path.clone(),
                 name: asset.name.clone(),
-                message: format!("File âm thanh WAV không nén lớn ({:.2} MB). Cân nhắc chuyển sang định dạng MP3 hoặc OGG.", asset.size as f64 / (1024.0 * 1024.0)),
+                message: format!("Large uncompressed WAV audio file ({:.2} MB). Consider converting it to MP3 or OGG format.", asset.size as f64 / (1024.0 * 1024.0)),
                 severity: "info".to_string(),
                 potential_savings: savings,
             });

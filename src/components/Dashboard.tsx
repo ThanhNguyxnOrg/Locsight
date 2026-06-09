@@ -281,10 +281,12 @@ export function Dashboard() {
               ))}
           </div>
         )}
-      </div>      {/* Dashboard View Control Toolbar */}
+      </div>
+
+      {/* Dashboard View Control Toolbar */}
       <div className="flex flex-wrap items-center gap-3 mb-6 p-4 rounded border" style={{ borderColor: C.border, background: C.surface }}>
         <span style={{ ...mono, fontSize: 10, color: C.muted, letterSpacing: "0.08em", marginRight: 8 }}>
-          HIỂN THỊ BÁO CÁO:
+          SHOW REPORTS:
         </span>
         <div className="flex flex-wrap gap-2">
           {[
@@ -787,7 +789,7 @@ export function Dashboard() {
                     HINTS & ORPHANS
                   </div>
                   <div className="flex justify-between text-xs">
-                    <span className="text-white/80">Orphan Assets (Mồ côi)</span>
+                    <span className="text-white/80">Orphan Assets</span>
                     <span style={mono} className={assetReport.orphans.length > 0 ? "text-amber-500" : "text-neutral-400"}>
                       {assetReport.orphans.length} files
                     </span>
@@ -824,7 +826,7 @@ export function Dashboard() {
                     DETAILS
                   </div>
                   <div className="text-xs text-neutral-400 leading-relaxed">
-                    Phân tích các bản vẽ thiết kế vector CAD, liên kết xrefs. Hỗ trợ DXF, DWG, STEP, IGES.
+                    Analyze vector CAD design drawings and external reference links. Supports DXF, DWG, STEP, IGES.
                   </div>
                 </div>
               </div>
@@ -890,7 +892,7 @@ export function Dashboard() {
       {!showCode && !showMultimedia && !showGame && !showCad && !showDocuments && (
         <div className="flex flex-col items-center justify-center py-20 text-center border border-dashed rounded mt-6" style={{ borderColor: C.border }}>
           <div style={{ ...mono, fontSize: 12, color: C.muted }}>
-            Tất cả các mục báo cáo đã bị ẩn. Hãy bật lại các mục phía trên để xem chi tiết.
+            All report sections are hidden. Toggle the options above to view details.
           </div>
         </div>
       )}
