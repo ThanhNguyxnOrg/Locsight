@@ -187,7 +187,7 @@ export function Welcome({ onOpen, onGoToDashboard }: { onOpen: () => void; onGoT
       />
       <div style={{ ...mono, fontSize: 13, color: C.text, letterSpacing: "0.06em" }}>
         locsight
-        <span style={{ color: C.muted }}> · v1.1.0</span>
+        <span style={{ color: C.muted }}> · v1.2.0</span>
       </div>
       
       {error && (

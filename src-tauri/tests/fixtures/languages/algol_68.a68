@@ -1,0 +1,12 @@
+val_1 = 1
+
+# start of comment
+This is a multi-line comment block
+#
+CO start of comment
+This is a multi-line comment block
+CO
+COMMENT start of comment
+This is a multi-line comment block
+COMMENT
+val_2 = 2

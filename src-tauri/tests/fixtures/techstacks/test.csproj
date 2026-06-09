@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Test.entityframework" Version="1.0.0" />
+    <PackageReference Include="Test.newtonsoft.json" Version="1.0.0" />
+    <PackageReference Include="Test.nunit" Version="1.0.0" />
+  </ItemGroup>
+</Project>

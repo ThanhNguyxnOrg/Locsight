@@ -1,6 +1,6 @@
 [package]
 name = "locsight"
-version = "1.1.0"
+version = "1.2.0"
 description = "Locsight Codebase Analyzer Backend"
 authors = ["you"]
 edition = "2021"
@@ -16,6 +16,7 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
+toml = "0.8"
 
 [dependencies]
 tauri = { version = "2", features = [] }

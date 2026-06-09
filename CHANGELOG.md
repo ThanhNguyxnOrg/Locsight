@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.2.0] — 2026-06-09
+
+### 🚀 500+ Languages, 1000+ Tech Stack & Data-Driven Architecture: v1.2.0
+
+This release brings a complete backend architecture overhaul, shifting from hardcoded compile-time structures to a modern data-driven registry driven by TOML configurations and compile-time code generation. In addition, we expanded language support to over 500 languages, integrated recognition for over 1000 tech stack elements, and introduced a professional test suite with automated validation scripts.
+
+#### ⚙️ Data-Driven Architecture & Codegen
+- **TOML Registry**: Migrated language and tech stack mappings to `languages.toml` and `techstack.toml` inside the Rust backend, making definitions fully declarative and easy to extend.
+- **Compile-Time Codegen**: Implemented a Rust `build.rs` script that parses TOML data at compile time and generates static structures in `$OUT_DIR/languages_gen.rs` and `$OUT_DIR/techstack_gen.rs`, achieving zero runtime overhead.
+
+#### 📁 500+ Languages & Conflict Resolutions
+- **500+ Language Definitions**: Expanded language database using Tokei and scc as references, supporting over 500 programming languages, markup languages, smart contracts, data configurations, and esoteric systems.
+- **Enhanced Heuristics**: Added content-based conflict resolution and shebang detection for additional file extensions (including `.pro`, `.fs`, `.mod`, `.pp`, `.inc`, `.r`, etc.).
+
+#### 🔍 1000+ Tech Stack recognition
+- **1000+ Ecosystem Mappings**: Expanded dependencies and file-based detectors to support over 1000 libraries, frameworks, tools, and platforms across JavaScript/TypeScript, Python, Rust, Go, Java/Kotlin/Scala, PHP, Ruby, .NET, Swift/iOS, Dart/Flutter, Elixir, and new systems like Zig, Nim, OCaml, and Clojure.
+- **File-based Detectors**: Extends detection rules to popular DevOps tools, environment configs, package lockfiles, and testing frameworks.
+
+#### 🧪 Professional Test Suite & CI Validation
+- **Integration Tests**: Added a complete Rust integration test suite in `tests/scanner_tests.rs` asserting minimum counts, duplicate extensions verification, shebang matching, conflict resolutions, and tech stack detection.
+- **Registry Validator**: Developed a Node-based CLI validation script `scripts/validate-languages.cjs` to automatically verify schema syntax and registry constraints in CI/CD pipelines.
+
+---
+
 ## [1.1.0] — 2026-06-09
 
 ### 🚀 Issue Reporter, 160+ Languages, 220+ Tech Stack Detections & Ignore Configurations: v1.1.0

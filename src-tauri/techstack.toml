@@ -1,0 +1,1291 @@
+# ──────────────────────────────
+# DEPENDENCY MAPPINGS
+# ──────────────────────────────
+
+[dependencies]
+"@11ty/eleventy" = { name = "Eleventy", category = "Frontend" }
+"@adonisjs/core" = { name = "AdonisJS", category = "Backend" }
+"@angular/core" = { name = "Angular", category = "Frontend" }
+"@apollo/client" = { name = "Apollo Client", category = "Library" }
+"@auth/core" = { name = "Auth.js", category = "Library" }
+"@aws-amplify/auth" = { name = "AWS Amplify Auth", category = "Library" }
+"@aws-sdk/client-s3" = { name = "AWS S3 SDK", category = "Library" }
+"@builder.io/qwik" = { name = "Qwik", category = "Frontend" }
+"@capacitor/core" = { name = "Capacitor", category = "Frontend" }
+"@chakra-ui/react" = { name = "Chakra UI", category = "Frontend" }
+"@clerk/clerk-react" = { name = "Clerk Auth", category = "Library" }
+"@clerk/nextjs" = { name = "Clerk Auth", category = "Library" }
+"@contentful/rich-text-react-renderer" = { name = "Contentful", category = "Library" }
+"@elastic/elasticsearch" = { name = "Elasticsearch JS", category = "Database/ORM" }
+"@emotion/react" = { name = "Emotion", category = "Styling" }
+"@emotion/styled" = { name = "Emotion", category = "Styling" }
+"@formatjs/intl" = { name = "FormatJS", category = "Library" }
+"@google-cloud/storage" = { name = "@google-cloud/storage", category = "Library" }
+"@headlessui/react" = { name = "Headless UI", category = "Frontend" }
+"@heroicons/react" = { name = "@heroicons/react", category = "Library" }
+"@kinde-oss/kinde-auth" = { name = "Kinde Auth", category = "Library" }
+"@loopback/core" = { name = "LoopBack", category = "Backend" }
+"@mantine/core" = { name = "Mantine", category = "Frontend" }
+"@mikro-orm/core" = { name = "MikroORM", category = "Database/ORM" }
+"@mui/material" = { name = "Material UI", category = "Frontend" }
+"@nativescript/core" = { name = "NativeScript", category = "Mobile" }
+"@nestjs/core" = { name = "NestJS Core", category = "Backend" }
+"@nextui-org/react" = { name = "NextUI", category = "Frontend" }
+"@prisma/client" = { name = "Prisma Client", category = "Database/ORM" }
+"@pulumi/pulumi" = { name = "Pulumi", category = "DevOps" }
+"@pusher/pusher-js" = { name = "Pusher", category = "Library" }
+"@radix-ui/react" = { name = "Radix UI", category = "Frontend" }
+"@react-email/components" = { name = "React Email", category = "Library" }
+"@react-spring/web" = { name = "React Spring", category = "Frontend" }
+"@reduxjs/toolkit" = { name = "Redux Toolkit", category = "Frontend" }
+"@remix-run/react" = { name = "Remix", category = "Frontend" }
+"@sanity/client" = { name = "Sanity", category = "Library" }
+"@sendgrid/mail" = { name = "SendGrid", category = "Library" }
+"@sentry/node" = { name = "Sentry Node", category = "Library" }
+"@sentry/react" = { name = "Sentry React", category = "Library" }
+"@stencil/core" = { name = "Stencil", category = "Frontend" }
+"@stitches/react" = { name = "Stitches", category = "Styling" }
+"@storybook/react" = { name = "Storybook", category = "Testing" }
+"@stripe/stripe-js" = { name = "Stripe JS", category = "Library" }
+"@supabase/auth-helpers-nextjs" = { name = "Supabase Auth", category = "Library" }
+"@supabase/realtime-js" = { name = "Supabase Realtime", category = "Library" }
+"@supabase/supabase-js" = { name = "Supabase JS", category = "Library" }
+"@sveltejs/kit" = { name = "SvelteKit", category = "Frontend" }
+"@tanstack/react-form" = { name = "TanStack Form", category = "Frontend" }
+"@tanstack/react-query" = { name = "TanStack Query", category = "Frontend" }
+"@tanstack/react-router" = { name = "TanStack Router", category = "Frontend" }
+"@tanstack/react-table" = { name = "TanStack Table", category = "Frontend" }
+"@tauri-apps/api" = { name = "Tauri JS API", category = "Desktop Framework" }
+"@testing-library/react" = { name = "Testing Library", category = "Testing" }
+"@tinacms/cli" = { name = "TinaCMS", category = "Library" }
+"@trpc/client" = { name = "tRPC Client", category = "Library" }
+"@trpc/server" = { name = "tRPC Server", category = "Library" }
+"@uploadthing/react" = { name = "UploadThing", category = "Library" }
+"@vanilla-extract/css" = { name = "Vanilla Extract", category = "Styling" }
+"ably" = { name = "Ably", category = "Library" }
+"absinthe" = { name = "Absinthe (GraphQL)", category = "Library" }
+"accelerate" = { name = "Accelerate (HF)", category = "Library" }
+"actix-web" = { name = "Actix Web", category = "Backend" }
+"adonisjs" = { name = "AdonisJS", category = "Backend" }
+"adyen" = { name = "adyen", category = "Library" }
+"aes" = { name = "aes", category = "Library" }
+"aeson" = { name = "Aeson", category = "Library" }
+"afero" = { name = "Afero", category = "Library" }
+"aiofiles" = { name = "aiofiles", category = "Library" }
+"aiohttp" = { name = "aiohttp", category = "Backend" }
+"airflow" = { name = "airflow", category = "Library" }
+"ajv" = { name = "ajv", category = "Library" }
+"akka-actor" = { name = "Akka", category = "Backend" }
+"alamofire" = { name = "Alamofire", category = "Library" }
+"alembic" = { name = "Alembic", category = "Database/ORM" }
+"algoliasearch" = { name = "Algolia Search", category = "Library" }
+"alpinejs" = { name = "Alpine.js", category = "Frontend" }
+"altair" = { name = "altair", category = "Library" }
+"amber" = { name = "Amber Framework", category = "Backend" }
+"amqplib" = { name = "RabbitMQ JS", category = "Library" }
+"animejs" = { name = "Anime.js", category = "Frontend" }
+"antd" = { name = "Ant Design", category = "Frontend" }
+"anthropic" = { name = "Anthropic API", category = "Library" }
+"anyhow" = { name = "Anyhow", category = "Library" }
+"apexcharts" = { name = "apexcharts", category = "Library" }
+"apollo-client" = { name = "Apollo Client", category = "Library" }
+"appwrite" = { name = "Appwrite", category = "Library" }
+"argh" = { name = "argh", category = "Library" }
+"argon2" = { name = "argon2", category = "Library" }
+"arrow-core" = { name = "Arrow (FP)", category = "Library" }
+"ash" = { name = "Ash Framework", category = "Backend" }
+"aspnetcore" = { name = "ASP.NET Core", category = "Backend" }
+"assert_cmd" = { name = "assert_cmd", category = "Library" }
+"assertj-core" = { name = "AssertJ", category = "Testing" }
+"astro" = { name = "Astro", category = "Frontend" }
+"async" = { name = "async", category = "Library" }
+"async-std" = { name = "Async Std", category = "Library" }
+"asyncpg" = { name = "asyncpg", category = "Database/ORM" }
+"auth0" = { name = "Auth0", category = "Library" }
+"auto_route" = { name = "AutoRoute", category = "Library" }
+"autofixture" = { name = "AutoFixture", category = "Library" }
+"autogen" = { name = "AutoGen (MS)", category = "Library" }
+"automapper" = { name = "AutoMapper", category = "Library" }
+"autoprefixer" = { name = "Autoprefixer", category = "Build Tool" }
+"ava" = { name = "Ava", category = "Testing" }
+"aws-sdk" = { name = "aws-sdk", category = "Library" }
+"axios" = { name = "Axios", category = "Library" }
+"axum" = { name = "Axum", category = "Backend" }
+"babel-loader" = { name = "babel-loader", category = "Library" }
+"badger" = { name = "BadgerDB", category = "Database/ORM" }
+"base64" = { name = "base64", category = "Library" }
+"bb8" = { name = "BB8 Pool", category = "Database/ORM" }
+"bbolt" = { name = "BoltDB", category = "Database/ORM" }
+"bcrypt" = { name = "bcrypt", category = "Library" }
+"bcryptjs" = { name = "bcryptjs", category = "Library" }
+"beautifulsoup4" = { name = "beautifulsoup4", category = "Library" }
+"beego" = { name = "Beego", category = "Backend" }
+"benchmarkdotnet" = { name = "BenchmarkDotNet", category = "Testing" }
+"better-auth" = { name = "Better Auth", category = "Library" }
+"better-sqlite3" = { name = "better-sqlite3", category = "Library" }
+"bincode" = { name = "Bincode", category = "Library" }
+"biome" = { name = "Biome", category = "Build Tool" }
+"blazor" = { name = "Blazor", category = "Frontend" }
+"bloc_test" = { name = "Bloc Test", category = "Testing" }
+"bluebird" = { name = "bluebird", category = "Library" }
+"body-parser" = { name = "body-parser", category = "Library" }
+"bogus" = { name = "Bogus", category = "Testing" }
+"bokeh" = { name = "Bokeh", category = "Library" }
+"bookshelf" = { name = "Bookshelf.js", category = "Database/ORM" }
+"bootstrap" = { name = "Bootstrap", category = "Styling" }
+"bottle" = { name = "Bottle", category = "Backend" }
+"braintree" = { name = "braintree", category = "Library" }
+"broadway" = { name = "Broadway", category = "Library" }
+"broccoli" = { name = "broccoli", category = "Library" }
+"brunch" = { name = "brunch", category = "Library" }
+"buffalo" = { name = "Buffalo", category = "Backend" }
+"bullmq" = { name = "BullMQ", category = "Library" }
+"bulma" = { name = "bulma", category = "Library" }
+"bun" = { name = "Bun ORM", category = "Database/ORM" }
+"bunyan" = { name = "bunyan", category = "Library" }
+"bytes" = { name = "bytes", category = "Library" }
+"c3" = { name = "c3", category = "Library" }
+"cakephp" = { name = "CakePHP", category = "Backend" }
+"cancancan" = { name = "CanCanCan", category = "Library" }
+"capybara" = { name = "Capybara", category = "Testing" }
+"cargo" = { name = "Cargo", category = "Build Tool" }
+"cashier" = { name = "Laravel Cashier", category = "Library" }
+"cats-core" = { name = "Cats", category = "Library" }
+"celery" = { name = "Celery", category = "Library" }
+"chacha20" = { name = "chacha20", category = "Library" }
+"chai" = { name = "Chai", category = "Testing" }
+"chalk" = { name = "chalk", category = "Library" }
+"changesets" = { name = "Changesets", category = "Build Tool" }
+"chart.js" = { name = "chart.js", category = "Library" }
+"chartist" = { name = "chartist", category = "Library" }
+"cheerio" = { name = "cheerio", category = "Library" }
+"chi" = { name = "Chi Router", category = "Backend" }
+"chokidar" = { name = "chokidar", category = "Library" }
+"chromadb" = { name = "ChromaDB", category = "Database/ORM" }
+"chrono" = { name = "Chrono", category = "Library" }
+"circe-core" = { name = "Circe", category = "Library" }
+"clap" = { name = "Clap", category = "Library" }
+"class-validator" = { name = "class-validator", category = "Library" }
+"clerk" = { name = "Clerk", category = "Library" }
+"click" = { name = "Click CLI", category = "Library" }
+"cobra" = { name = "Cobra CLI", category = "Library" }
+"codeigniter" = { name = "CodeIgniter", category = "Backend" }
+"color-eyre" = { name = "Color Eyre", category = "Library" }
+"colorama" = { name = "colorama", category = "Library" }
+"combine" = { name = "Combine", category = "Library" }
+"commanded" = { name = "Commanded (CQRS)", category = "Library" }
+"commander" = { name = "commander", category = "Library" }
+"commons-codec" = { name = "commons-codec", category = "Library" }
+"commons-io" = { name = "commons-io", category = "Library" }
+"commons-lang3" = { name = "commons-lang3", category = "Library" }
+"commons-logging" = { name = "commons-logging", category = "Library" }
+"compojure" = { name = "Compojure", category = "Backend" }
+"compose-multiplatform" = { name = "Compose Multiplatform", category = "Frontend" }
+"compose-runtime" = { name = "Jetpack Compose", category = "Frontend" }
+"composer" = { name = "Composer", category = "Build Tool" }
+"compression" = { name = "compression", category = "Library" }
+"concurrently" = { name = "concurrently", category = "Library" }
+"conduit" = { name = "Conduit", category = "Library" }
+"config" = { name = "config", category = "Library" }
+"console" = { name = "Console", category = "Library" }
+"contentful" = { name = "Contentful CMS", category = "Library" }
+"contentlayer" = { name = "Contentlayer", category = "Library" }
+"convict" = { name = "convict", category = "Library" }
+"cookie-parser" = { name = "cookie-parser", category = "Library" }
+"cordova" = { name = "Cordova", category = "Frontend" }
+"cors" = { name = "cors", category = "Library" }
+"couchdb" = { name = "couchdb", category = "Library" }
+"coverage" = { name = "Coverage.py", category = "Testing" }
+"credo" = { name = "Credo", category = "Build Tool" }
+"crewai" = { name = "CrewAI", category = "Library" }
+"criterion" = { name = "Criterion", category = "Testing" }
+"cross-env" = { name = "cross-env", category = "Library" }
+"crossbeam" = { name = "crossbeam", category = "Library" }
+"crypto" = { name = "crypto", category = "Library" }
+"crypto-js" = { name = "crypto-js", category = "Library" }
+"cryptography" = { name = "cryptography", category = "Library" }
+"css-loader" = { name = "css-loader", category = "Library" }
+"cssnano" = { name = "cssnano", category = "Library" }
+"csv-parse" = { name = "csv-parse", category = "Library" }
+"curl" = { name = "curl", category = "Library" }
+"cypress" = { name = "Cypress", category = "Testing" }
+"d3" = { name = "d3", category = "Library" }
+"daisyui" = { name = "DaisyUI", category = "Frontend" }
+"dapper" = { name = "Dapper", category = "Database/ORM" }
+"dapr" = { name = "Dapr", category = "Library" }
+"dash" = { name = "Dash", category = "Frontend" }
+"dask" = { name = "Dask", category = "Library" }
+"datadog-metrics" = { name = "Datadog", category = "Library" }
+"dataframes" = { name = "DataFrames.jl", category = "Library" }
+"datasets" = { name = "Datasets (HF)", category = "Library" }
+"date-fns" = { name = "date-fns", category = "Library" }
+"dayjs" = { name = "dayjs", category = "Library" }
+"deadpool" = { name = "Deadpool", category = "Database/ORM" }
+"debug" = { name = "debug", category = "Library" }
+"derive_more" = { name = "Derive More", category = "Library" }
+"devise" = { name = "Devise Auth", category = "Library" }
+"dialoguer" = { name = "Dialoguer", category = "Library" }
+"dialyxir" = { name = "Dialyxir", category = "Build Tool" }
+"diesel" = { name = "Diesel", category = "Database/ORM" }
+"diffusers" = { name = "Diffusers (HF)", category = "Library" }
+"dig" = { name = "Uber Dig", category = "Library" }
+"dio" = { name = "Dio", category = "Library" }
+"dioxus" = { name = "Dioxus", category = "Frontend" }
+"directus" = { name = "Directus", category = "Backend" }
+"django" = { name = "Django", category = "Backend" }
+"django-rest-framework" = { name = "Django REST Framework", category = "Backend" }
+"djangorestframework" = { name = "Django REST Framework", category = "Backend" }
+"doctrine" = { name = "Doctrine ORM", category = "Database/ORM" }
+"doobie" = { name = "Doobie", category = "Database/ORM" }
+"dotenv" = { name = "dotenv", category = "Library" }
+"dramatiq" = { name = "Dramatiq", category = "Library" }
+"dream" = { name = "Dream", category = "Backend" }
+"drift" = { name = "Drift ORM", category = "Database/ORM" }
+"drizzle-orm" = { name = "Drizzle ORM", category = "Database/ORM" }
+"dspy" = { name = "DSPy", category = "Library" }
+"dune" = { name = "Dune", category = "Build Tool" }
+"echarts" = { name = "echarts", category = "Library" }
+"echo" = { name = "Echo", category = "Backend" }
+"ecto" = { name = "Ecto", category = "Database/ORM" }
+"effector" = { name = "Effector", category = "Frontend" }
+"elasticsearch" = { name = "Elasticsearch", category = "Database/ORM" }
+"electron" = { name = "Electron", category = "Desktop Framework" }
+"eleventy" = { name = "Eleventy", category = "Frontend" }
+"eloquent" = { name = "Eloquent", category = "Database/ORM" }
+"elysia" = { name = "Elysia", category = "Backend" }
+"emotion" = { name = "emotion", category = "Library" }
+"ent" = { name = "Ent", category = "Database/ORM" }
+"entityframework" = { name = "Entity Framework", category = "Database/ORM" }
+"env_logger" = { name = "Env Logger", category = "Library" }
+"errors" = { name = "errors", category = "Library" }
+"esbuild" = { name = "esbuild", category = "Build Tool" }
+"eslint" = { name = "ESLint", category = "Build Tool" }
+"esqueleto" = { name = "Esqueleto", category = "Database/ORM" }
+"ex_machina" = { name = "ExMachina", category = "Testing" }
+"execa" = { name = "execa", category = "Library" }
+"expo" = { name = "Expo", category = "Frontend" }
+"exposed" = { name = "Exposed ORM", category = "Database/ORM" }
+"express" = { name = "Express", category = "Backend" }
+"express-session" = { name = "express-session", category = "Library" }
+"eyre" = { name = "eyre", category = "Library" }
+"factory_bot" = { name = "FactoryBot", category = "Testing" }
+"factory-boy" = { name = "Factory Boy", category = "Testing" }
+"failure" = { name = "failure", category = "Library" }
+"faiss" = { name = "FAISS", category = "Library" }
+"faker" = { name = "Faker", category = "Testing" }
+"falcon" = { name = "Falcon", category = "Backend" }
+"fastapi" = { name = "FastAPI", category = "Backend" }
+"fastify" = { name = "Fastify", category = "Backend" }
+"fastjson" = { name = "fastjson", category = "Library" }
+"faye-websocket" = { name = "faye-websocket", category = "Library" }
+"feather-icons" = { name = "feather-icons", category = "Library" }
+"fiber" = { name = "Fiber", category = "Backend" }
+"filament" = { name = "Filament", category = "Frontend" }
+"file-loader" = { name = "file-loader", category = "Library" }
+"firebase" = { name = "Firebase", category = "Library" }
+"firebase-admin" = { name = "Firebase Admin", category = "Library" }
+"flask" = { name = "Flask", category = "Backend" }
+"floor" = { name = "Floor", category = "Database/ORM" }
+"flow-bin" = { name = "flow-bin", category = "Library" }
+"fluentassertions" = { name = "FluentAssertions", category = "Testing" }
+"fluentvalidation" = { name = "FluentValidation", category = "Library" }
+"flutter" = { name = "Flutter", category = "Frontend" }
+"flutter_bloc" = { name = "Flutter Bloc", category = "Frontend" }
+"flutter_test" = { name = "Flutter Test", category = "Testing" }
+"flux" = { name = "Flux.jl", category = "Library" }
+"font-awesome" = { name = "font-awesome", category = "Library" }
+"forever" = { name = "forever", category = "Library" }
+"formik" = { name = "Formik", category = "Frontend" }
+"foundation-sites" = { name = "foundation-sites", category = "Library" }
+"framer-motion" = { name = "Framer Motion", category = "Frontend" }
+"freezed" = { name = "Freezed", category = "Library" }
+"fs_extra" = { name = "fs_extra", category = "Library" }
+"fs-extra" = { name = "fs-extra", category = "Library" }
+"futures" = { name = "Futures", category = "Library" }
+"futures-core" = { name = "futures-core", category = "Library" }
+"futures-util" = { name = "futures-util", category = "Library" }
+"fx" = { name = "Uber Fx", category = "Library" }
+"g2" = { name = "g2", category = "Library" }
+"gatsby" = { name = "Gatsby", category = "Frontend" }
+"genie" = { name = "Genie.jl", category = "Backend" }
+"get" = { name = "GetX", category = "Frontend" }
+"ghost" = { name = "Ghost CMS", category = "Backend" }
+"gin" = { name = "Gin", category = "Backend" }
+"ginkgo" = { name = "Ginkgo", category = "Testing" }
+"github.com/alecthomas/kingpin" = { name = "kingpin", category = "Library" }
+"github.com/astaxie/beego" = { name = "beego", category = "Library" }
+"github.com/gin-gonic/gin" = { name = "gin", category = "Library" }
+"github.com/go-chi/chi/v5" = { name = "v5", category = "Library" }
+"github.com/go-gorp/gorp" = { name = "gorp", category = "Library" }
+"github.com/go-martini/martini" = { name = "martini", category = "Library" }
+"github.com/go-redis/redis/v8" = { name = "v8", category = "Library" }
+"github.com/go-redis/redis/v9" = { name = "v9", category = "Library" }
+"github.com/go-sql-driver/mysql" = { name = "mysql", category = "Library" }
+"github.com/go-xorm/xorm" = { name = "xorm", category = "Library" }
+"github.com/gofiber/fiber/v2" = { name = "v2", category = "Library" }
+"github.com/golang/protobuf" = { name = "protobuf", category = "Library" }
+"github.com/google/uuid" = { name = "uuid", category = "Library" }
+"github.com/gorilla/mux" = { name = "mux", category = "Library" }
+"github.com/jackc/pgx/v5" = { name = "v5", category = "Library" }
+"github.com/jinzhu/gorm" = { name = "gorm", category = "Library" }
+"github.com/jmespath/go-jmespath" = { name = "go-jmespath", category = "Library" }
+"github.com/labstack/echo/v4" = { name = "v4", category = "Library" }
+"github.com/lib/pq" = { name = "pq", category = "Library" }
+"github.com/mattn/go-sqlite3" = { name = "go-sqlite3", category = "Library" }
+"github.com/onsi/ginkgo/v2" = { name = "v2", category = "Library" }
+"github.com/onsi/gomega" = { name = "gomega", category = "Library" }
+"github.com/op/go-logging" = { name = "go-logging", category = "Library" }
+"github.com/pkg/errors" = { name = "errors", category = "Library" }
+"github.com/redis/go-redis/v9" = { name = "v9", category = "Library" }
+"github.com/revel/revel" = { name = "revel", category = "Library" }
+"github.com/rs/zerolog" = { name = "zerolog", category = "Library" }
+"github.com/sirupsen/logrus" = { name = "logrus", category = "Library" }
+"github.com/smartystreets/goconvey" = { name = "goconvey", category = "Library" }
+"github.com/spf13/cobra" = { name = "cobra", category = "Library" }
+"github.com/spf13/viper" = { name = "viper", category = "Library" }
+"github.com/stretchr/objx" = { name = "objx", category = "Library" }
+"github.com/stretchr/testify" = { name = "testify", category = "Library" }
+"github.com/urfave/cli/v2" = { name = "v2", category = "Library" }
+"glob" = { name = "glob", category = "Library" }
+"globset" = { name = "globset", category = "Library" }
+"go_router" = { name = "GoRouter", category = "Library" }
+"go-jmespath" = { name = "go-jmespath", category = "Library" }
+"go-kit" = { name = "Go Kit", category = "Library" }
+"go-logging" = { name = "go-logging", category = "Library" }
+"go-redis" = { name = "Go Redis", category = "Database/ORM" }
+"go-sqlite3" = { name = "go-sqlite3", category = "Library" }
+"go.uber.org/zap" = { name = "zap", category = "Library" }
+"goconvey" = { name = "goconvey", category = "Library" }
+"golang.org/x/crypto" = { name = "crypto", category = "Library" }
+"golang.org/x/net" = { name = "net", category = "Library" }
+"golang.org/x/sync" = { name = "sync", category = "Library" }
+"golang.org/x/sys" = { name = "sys", category = "Library" }
+"golang.org/x/text" = { name = "text", category = "Library" }
+"gomega" = { name = "Gomega", category = "Testing" }
+"gomock" = { name = "GoMock", category = "Testing" }
+"google.golang.org/grpc" = { name = "grpc", category = "Library" }
+"google.golang.org/protobuf" = { name = "protobuf", category = "Library" }
+"gorilla" = { name = "Gorilla Toolkit", category = "Backend" }
+"gorm" = { name = "GORM", category = "Database/ORM" }
+"gorm.io/gorm" = { name = "gorm", category = "Library" }
+"gorp" = { name = "gorp", category = "Library" }
+"got" = { name = "got", category = "Library" }
+"gradio" = { name = "Gradio", category = "Frontend" }
+"gradle" = { name = "Gradle", category = "Build Tool" }
+"grape" = { name = "Grape", category = "Backend" }
+"graphql" = { name = "GraphQL", category = "Library" }
+"graphql-request" = { name = "graphql-request", category = "Library" }
+"graphql-yoga" = { name = "GraphQL Yoga", category = "Library" }
+"grdb" = { name = "GRDB", category = "Database/ORM" }
+"grpc" = { name = "gRPC", category = "Library" }
+"grunt" = { name = "grunt", category = "Library" }
+"gsap" = { name = "GSAP", category = "Frontend" }
+"gson" = { name = "Gson", category = "Library" }
+"guava" = { name = "guava", category = "Library" }
+"gulp" = { name = "gulp", category = "Library" }
+"gunicorn" = { name = "Gunicorn", category = "Library" }
+"h2" = { name = "h2", category = "Library" }
+"hanami" = { name = "Hanami", category = "Backend" }
+"hangfire" = { name = "Hangfire", category = "Library" }
+"hasura" = { name = "Hasura", category = "Library" }
+"helidon-webserver" = { name = "Helidon", category = "Backend" }
+"helmet" = { name = "helmet", category = "Library" }
+"hero" = { name = "Hero", category = "Library" }
+"hex" = { name = "hex", category = "Library" }
+"hibernate-core" = { name = "Hibernate", category = "Database/ORM" }
+"hibernate-entitymanager" = { name = "hibernate-entitymanager", category = "Library" }
+"hibernate-validator" = { name = "hibernate-validator", category = "Library" }
+"highcharts" = { name = "highcharts", category = "Library" }
+"hive" = { name = "Hive DB", category = "Database/ORM" }
+"hmac" = { name = "hmac", category = "Library" }
+"hono" = { name = "Hono", category = "Backend" }
+"horizon" = { name = "Laravel Horizon", category = "Library" }
+"hotwire" = { name = "Hotwire", category = "Frontend" }
+"hspec" = { name = "HSpec", category = "Testing" }
+"html-loader" = { name = "html-loader", category = "Library" }
+"htmx" = { name = "htmx", category = "Frontend" }
+"htmx.org" = { name = "htmx", category = "Frontend" }
+"http4s" = { name = "Http4s", category = "Backend" }
+"httpclient" = { name = "httpclient", category = "Library" }
+"httprouter" = { name = "HttpRouter", category = "Backend" }
+"httpx" = { name = "HTTPX", category = "Library" }
+"hyper" = { name = "Hyper", category = "Library" }
+"hypothesis" = { name = "Hypothesis", category = "Testing" }
+"i18next" = { name = "i18next", category = "Library" }
+"immer" = { name = "immer", category = "Library" }
+"indicatif" = { name = "Indicatif", category = "Library" }
+"inertia" = { name = "Inertia.js", category = "Frontend" }
+"insta" = { name = "Insta Snapshots", category = "Testing" }
+"instructor" = { name = "Instructor", category = "Library" }
+"ionic" = { name = "Ionic", category = "Frontend" }
+"ionicons" = { name = "ionicons", category = "Library" }
+"ioredis" = { name = "ioRedis", category = "Database/ORM" }
+"ipython" = { name = "ipython", category = "Library" }
+"iris" = { name = "Iris", category = "Backend" }
+"isar" = { name = "Isar DB", category = "Database/ORM" }
+"itertools" = { name = "itertools", category = "Library" }
+"jackson-core" = { name = "jackson-core", category = "Library" }
+"jackson-databind" = { name = "Jackson", category = "Library" }
+"jackson-datatype-jsr310" = { name = "jackson-datatype-jsr310", category = "Library" }
+"jasmine" = { name = "jasmine", category = "Library" }
+"jason" = { name = "Jason", category = "Library" }
+"jax" = { name = "jax", category = "Library" }
+"jest" = { name = "Jest", category = "Testing" }
+"jester" = { name = "Jester", category = "Backend" }
+"jinja2" = { name = "Jinja2", category = "Library" }
+"joi" = { name = "Joi", category = "Library" }
+"jotai" = { name = "Jotai", category = "Frontend" }
+"jsdom" = { name = "jsdom", category = "Library" }
+"jsonwebtoken" = { name = "jsonwebtoken", category = "Library" }
+"junit" = { name = "JUnit", category = "Testing" }
+"junit-jupiter-api" = { name = "JUnit 5", category = "Testing" }
+"junit-jupiter-engine" = { name = "junit-jupiter-engine", category = "Library" }
+"jupyter" = { name = "jupyter", category = "Library" }
+"kafkajs" = { name = "KafkaJS", category = "Library" }
+"kemal" = { name = "Kemal", category = "Backend" }
+"keras" = { name = "Keras", category = "Library" }
+"keystonejs" = { name = "KeystoneJS", category = "Backend" }
+"kingfisher" = { name = "Kingfisher", category = "Library" }
+"kingpin" = { name = "kingpin", category = "Library" }
+"knex" = { name = "Knex", category = "Database/ORM" }
+"koa" = { name = "Koa", category = "Backend" }
+"koin-core" = { name = "Koin DI", category = "Library" }
+"kong" = { name = "Kong", category = "Library" }
+"kotest-runner" = { name = "Kotest", category = "Testing" }
+"kotlin-reflect" = { name = "kotlin-reflect", category = "Library" }
+"kotlin-stdlib" = { name = "kotlin-stdlib", category = "Library" }
+"kotlinx-coroutines-core" = { name = "Kotlin Coroutines", category = "Library" }
+"kotlinx-coroutines-reactor" = { name = "kotlinx-coroutines-reactor", category = "Library" }
+"kotlinx-serialization" = { name = "Kotlinx Serialization", category = "Library" }
+"kotlinx-serialization-json" = { name = "kotlinx-serialization-json", category = "Library" }
+"ktor" = { name = "Ktor", category = "Backend" }
+"ktor-server-core" = { name = "Ktor Core", category = "Backend" }
+"ky" = { name = "ky", category = "Library" }
+"laminas" = { name = "Laminas", category = "Backend" }
+"langchain" = { name = "LangChain", category = "Library" }
+"lapis" = { name = "Lapis", category = "Backend" }
+"laravel" = { name = "Laravel", category = "Backend" }
+"laravel-livewire" = { name = "Livewire", category = "Frontend" }
+"lazy_static" = { name = "Lazy Static", category = "Library" }
+"lens" = { name = "Lens", category = "Library" }
+"leptos" = { name = "Leptos", category = "Frontend" }
+"less" = { name = "Less", category = "Styling" }
+"less-loader" = { name = "less-loader", category = "Library" }
+"lightgbm" = { name = "LightGBM", category = "Library" }
+"lingui" = { name = "lingui", category = "Library" }
+"lit" = { name = "Lit", category = "Frontend" }
+"litellm" = { name = "LiteLLM", category = "Library" }
+"litestar" = { name = "Litestar", category = "Backend" }
+"liveblocks" = { name = "Liveblocks", category = "Library" }
+"llama-index" = { name = "LlamaIndex", category = "Library" }
+"locust" = { name = "Locust", category = "Testing" }
+"lodash" = { name = "Lodash", category = "Library" }
+"lodash-es" = { name = "lodash-es", category = "Library" }
+"log" = { name = "Log", category = "Library" }
+"log4j-api" = { name = "log4j-api", category = "Library" }
+"log4j-core" = { name = "log4j-core", category = "Library" }
+"log4net" = { name = "log4net", category = "Library" }
+"logback-classic" = { name = "logback-classic", category = "Library" }
+"loglevel" = { name = "loglevel", category = "Library" }
+"logrus" = { name = "Logrus", category = "Library" }
+"lombok" = { name = "Lombok", category = "Library" }
+"loopback" = { name = "LoopBack", category = "Backend" }
+"lottie-ios" = { name = "Lottie iOS", category = "Library" }
+"lottie-web" = { name = "Lottie", category = "Frontend" }
+"love2d" = { name = "LÖVE 2D", category = "Library" }
+"lucia" = { name = "Lucia Auth", category = "Library" }
+"lucide-react" = { name = "lucide-react", category = "Library" }
+"lucky" = { name = "Lucky Framework", category = "Backend" }
+"luigi" = { name = "luigi", category = "Library" }
+"lumen" = { name = "Lumen", category = "Backend" }
+"luxon" = { name = "luxon", category = "Library" }
+"lxml" = { name = "lxml", category = "Library" }
+"makie" = { name = "Makie.jl", category = "Library" }
+"mariadb" = { name = "mariadb", category = "Library" }
+"mariadb-java-client" = { name = "mariadb-java-client", category = "Library" }
+"marshmallow" = { name = "marshmallow", category = "Library" }
+"martini" = { name = "martini", category = "Library" }
+"massTransit" = { name = "MassTransit", category = "Library" }
+"materialize-css" = { name = "materialize-css", category = "Library" }
+"matplotlib" = { name = "Matplotlib", category = "Library" }
+"maui" = { name = "MAUI", category = "Mobile" }
+"mdx-bundler" = { name = "MDX Bundler", category = "Library" }
+"mediatr" = { name = "MediatR", category = "Library" }
+"meilisearch" = { name = "Meilisearch", category = "Database/ORM" }
+"memmap2" = { name = "memmap2", category = "Library" }
+"micronaut-core" = { name = "Micronaut", category = "Backend" }
+"microsoft.data.sqlite" = { name = "Microsoft.Data.Sqlite", category = "Library" }
+"microsoft.entityframeworkcore" = { name = "Microsoft.EntityFrameworkCore", category = "Library" }
+"microsoft.entityframeworkcore.design" = { name = "Microsoft.EntityFrameworkCore.Design", category = "Library" }
+"microsoft.entityframeworkcore.inmemory" = { name = "Microsoft.EntityFrameworkCore.InMemory", category = "Library" }
+"microsoft.entityframeworkcore.sqlite" = { name = "Microsoft.EntityFrameworkCore.Sqlite", category = "Library" }
+"microsoft.entityframeworkcore.sqlserver" = { name = "Microsoft.EntityFrameworkCore.SqlServer", category = "Library" }
+"microsoft.extensions.caching.memory" = { name = "Microsoft.Extensions.Caching.Memory", category = "Library" }
+"microsoft.extensions.configuration" = { name = "Microsoft.Extensions.Configuration", category = "Library" }
+"microsoft.extensions.dependencyinjection" = { name = "Microsoft.Extensions.DependencyInjection", category = "Library" }
+"microsoft.extensions.http" = { name = "Microsoft.Extensions.Http", category = "Library" }
+"microsoft.extensions.logging" = { name = "Microsoft.Extensions.Logging", category = "Library" }
+"microsoft.extensions.options" = { name = "Microsoft.Extensions.Options", category = "Library" }
+"miette" = { name = "Miette", category = "Library" }
+"mikro-orm" = { name = "MikroORM", category = "Database/ORM" }
+"mill" = { name = "Mill", category = "Build Tool" }
+"minimal-api" = { name = "Minimal APIs", category = "Backend" }
+"minimist" = { name = "minimist", category = "Library" }
+"minio" = { name = "MinIO", category = "Library" }
+"minitest" = { name = "Minitest", category = "Testing" }
+"mio" = { name = "Mio", category = "Library" }
+"mlflow" = { name = "MLflow", category = "Library" }
+"mobc" = { name = "MOBC Pool", category = "Database/ORM" }
+"mobx" = { name = "MobX", category = "Frontend" }
+"mobx-react" = { name = "mobx-react", category = "Library" }
+"mocha" = { name = "Mocha", category = "Testing" }
+"mock" = { name = "mock", category = "Library" }
+"mockall" = { name = "Mockall", category = "Testing" }
+"mockery" = { name = "Mockery", category = "Testing" }
+"mockito" = { name = "Mockito (Dart)", category = "Testing" }
+"mockito-core" = { name = "Mockito", category = "Testing" }
+"mockito-inline" = { name = "mockito-inline", category = "Library" }
+"mollie" = { name = "mollie", category = "Library" }
+"moment" = { name = "moment", category = "Library" }
+"mongodb" = { name = "MongoDB Driver", category = "Database/ORM" }
+"mongodb.driver" = { name = "MongoDB .NET", category = "Database/ORM" }
+"mongoose" = { name = "Mongoose", category = "Database/ORM" }
+"moq" = { name = "Moq", category = "Testing" }
+"morgan" = { name = "Morgan", category = "Library" }
+"motor" = { name = "Motor (Async Mongo)", category = "Database/ORM" }
+"moya" = { name = "Moya", category = "Library" }
+"mqtt" = { name = "mqtt", category = "Library" }
+"ms" = { name = "ms", category = "Library" }
+"mstest.testframework" = { name = "MSTest.TestFramework", category = "Library" }
+"msw" = { name = "Mock Service Worker", category = "Testing" }
+"multer" = { name = "Multer", category = "Library" }
+"mux" = { name = "Gorilla Mux", category = "Backend" }
+"mybatis" = { name = "mybatis", category = "Library" }
+"mybatis-spring" = { name = "mybatis-spring", category = "Library" }
+"mysql" = { name = "mysql", category = "Library" }
+"mysql-connector-j" = { name = "mysql-connector-j", category = "Library" }
+"mysql-connector-java" = { name = "mysql-connector-java", category = "Library" }
+"mysql2" = { name = "mysql2 (MySQL)", category = "Database/ORM" }
+"mysqlconnector" = { name = "MySqlConnector", category = "Library" }
+"nanoid" = { name = "nanoid", category = "Library" }
+"nanostores" = { name = "Nanostores", category = "Frontend" }
+"nativescript" = { name = "NativeScript", category = "Mobile" }
+"nconf" = { name = "nconf", category = "Library" }
+"nerves" = { name = "Nerves (IoT)", category = "Library" }
+"nestjs" = { name = "NestJS", category = "Backend" }
+"net" = { name = "net", category = "Library" }
+"newrelic" = { name = "newrelic", category = "Library" }
+"newtonsoft.json" = { name = "Newtonsoft JSON", category = "Library" }
+"next" = { name = "Next.js", category = "Frontend" }
+"next-auth" = { name = "NextAuth.js", category = "Library" }
+"next-intl" = { name = "next-intl", category = "Library" }
+"next.jdbc" = { name = "next.jdbc", category = "Database/ORM" }
+"nimble" = { name = "Nimble", category = "Testing" }
+"nlog" = { name = "NLog", category = "Library" }
+"node-fetch" = { name = "node-fetch", category = "Library" }
+"nodemailer" = { name = "Nodemailer", category = "Library" }
+"nodemon" = { name = "nodemon", category = "Library" }
+"norm" = { name = "Norm ORM", category = "Database/ORM" }
+"nose2" = { name = "nose2", category = "Library" }
+"nova" = { name = "Laravel Nova", category = "Frontend" }
+"nox" = { name = "Nox", category = "Testing" }
+"npgsql" = { name = "Npgsql", category = "Database/ORM" }
+"npgsql.entityframeworkcore.postgresql" = { name = "Npgsql.EntityFrameworkCore.PostgreSQL", category = "Library" }
+"nsubstitute" = { name = "NSubstitute", category = "Library" }
+"ntex" = { name = "Ntex", category = "Backend" }
+"numpy" = { name = "NumPy", category = "Library" }
+"nunit" = { name = "NUnit", category = "Testing" }
+"nuxt" = { name = "Nuxt.js", category = "Frontend" }
+"oban" = { name = "Oban", category = "Library" }
+"objection" = { name = "Objection.js", category = "Database/ORM" }
+"objx" = { name = "objx", category = "Library" }
+"okhttp" = { name = "okhttp", category = "Library" }
+"ollama" = { name = "Ollama", category = "Library" }
+"once_cell" = { name = "Once Cell", category = "Library" }
+"opam" = { name = "Opam", category = "Build Tool" }
+"openai" = { name = "OpenAI API", category = "Library" }
+"opencv-python" = { name = "opencv-python", category = "Library" }
+"openssl" = { name = "openssl", category = "Library" }
+"oracledb" = { name = "oracledb", category = "Library" }
+"orleans" = { name = "Orleans", category = "Backend" }
+"oxlint" = { name = "OxLint", category = "Build Tool" }
+"p-limit" = { name = "p-limit", category = "Library" }
+"padrino" = { name = "Padrino", category = "Backend" }
+"pandas" = { name = "Pandas", category = "Library" }
+"panel" = { name = "Panel", category = "Frontend" }
+"parcel" = { name = "parcel", category = "Library" }
+"parking_lot" = { name = "parking_lot", category = "Library" }
+"passlib" = { name = "passlib", category = "Library" }
+"passport" = { name = "Passport.js", category = "Library" }
+"payload" = { name = "Payload CMS", category = "Backend" }
+"paypal" = { name = "PayPal SDK", category = "Library" }
+"paypal-rest-sdk" = { name = "paypal-rest-sdk", category = "Library" }
+"peewee" = { name = "Peewee", category = "Database/ORM" }
+"peft" = { name = "PEFT (HF)", category = "Library" }
+"percent-encoding" = { name = "percent-encoding", category = "Library" }
+"perseus" = { name = "Perseus", category = "Frontend" }
+"persistent" = { name = "Persistent", category = "Database/ORM" }
+"pest" = { name = "Pest PHP", category = "Testing" }
+"pg" = { name = "pg (PostgreSQL)", category = "Database/ORM" }
+"pgx" = { name = "pgx", category = "Database/ORM" }
+"phoenix" = { name = "Phoenix", category = "Backend" }
+"phoenix_live_dashboard" = { name = "Phoenix LiveDashboard", category = "Frontend" }
+"phoenix_live_view" = { name = "Phoenix LiveView", category = "Frontend" }
+"phpstan" = { name = "PHPStan", category = "Build Tool" }
+"phpunit" = { name = "PHPUnit", category = "Testing" }
+"pico-args" = { name = "pico-args", category = "Library" }
+"pillow" = { name = "pillow", category = "Library" }
+"pinecone-client" = { name = "Pinecone", category = "Database/ORM" }
+"pinia" = { name = "Pinia", category = "Frontend" }
+"pino" = { name = "Pino", category = "Library" }
+"play" = { name = "Play Framework", category = "Backend" }
+"playwright" = { name = "Playwright", category = "Testing" }
+"plotly" = { name = "Plotly", category = "Library" }
+"plug" = { name = "Plug", category = "Library" }
+"pluto" = { name = "Pluto.jl", category = "Library" }
+"pm2" = { name = "pm2", category = "Library" }
+"poem" = { name = "Poem", category = "Backend" }
+"polars" = { name = "Polars", category = "Library" }
+"polly" = { name = "Polly (Resilience)", category = "Library" }
+"polyglot" = { name = "polyglot", category = "Library" }
+"postcard" = { name = "Postcard", category = "Library" }
+"postcss" = { name = "PostCSS", category = "Build Tool" }
+"postcss-loader" = { name = "postcss-loader", category = "Library" }
+"postgres" = { name = "postgres", category = "Library" }
+"postgresql" = { name = "postgresql", category = "Library" }
+"pq" = { name = "pq", category = "Library" }
+"preact" = { name = "Preact", category = "Frontend" }
+"predicates" = { name = "predicates", category = "Library" }
+"prefect" = { name = "prefect", category = "Library" }
+"prettier" = { name = "Prettier", category = "Build Tool" }
+"pretty_env_logger" = { name = "pretty_env_logger", category = "Library" }
+"prisma" = { name = "Prisma", category = "Database/ORM" }
+"prologue" = { name = "Prologue", category = "Backend" }
+"prometheus" = { name = "Prometheus", category = "Library" }
+"prometheus-api-metrics" = { name = "prometheus-api-metrics", category = "Library" }
+"proptest" = { name = "Proptest", category = "Testing" }
+"prost" = { name = "Prost (Protobuf)", category = "Library" }
+"protobuf" = { name = "Protobuf", category = "Library" }
+"provider" = { name = "Provider", category = "Frontend" }
+"psalm" = { name = "Psalm", category = "Build Tool" }
+"psycopg2" = { name = "psycopg2", category = "Database/ORM" }
+"pulumi" = { name = "Pulumi", category = "DevOps" }
+"puma" = { name = "Puma Server", category = "Library" }
+"pundit" = { name = "Pundit", category = "Library" }
+"puppeteer" = { name = "puppeteer", category = "Library" }
+"pydantic" = { name = "Pydantic", category = "Library" }
+"pyjwt" = { name = "pyjwt", category = "Library" }
+"pymongo" = { name = "PyMongo", category = "Database/ORM" }
+"pytest" = { name = "Pytest", category = "Testing" }
+"python-dotenv" = { name = "python-dotenv", category = "Library" }
+"pyyaml" = { name = "pyyaml", category = "Library" }
+"qdrant-client" = { name = "Qdrant", category = "Database/ORM" }
+"qs" = { name = "qs", category = "Library" }
+"quarkus-core" = { name = "Quarkus", category = "Backend" }
+"quart" = { name = "Quart", category = "Backend" }
+"quartz" = { name = "Quartz", category = "Library" }
+"quick" = { name = "Quick", category = "Testing" }
+"quick-error" = { name = "quick-error", category = "Library" }
+"quickcheck" = { name = "QuickCheck", category = "Testing" }
+"qwik" = { name = "Qwik", category = "Frontend" }
+"r2d2" = { name = "R2D2 Pool", category = "Database/ORM" }
+"radash" = { name = "radash", category = "Library" }
+"rails" = { name = "Ruby on Rails", category = "Backend" }
+"ramda" = { name = "ramda", category = "Library" }
+"rand" = { name = "rand", category = "Library" }
+"raw_input" = { name = "Python 2 Input", category = "Library" }
+"rayon" = { name = "Rayon", category = "Library" }
+"razorpay" = { name = "razorpay", category = "Library" }
+"re-frame" = { name = "Re-frame", category = "Frontend" }
+"reach-router" = { name = "reach-router", category = "Library" }
+"react" = { name = "React", category = "Frontend" }
+"react-dom" = { name = "React DOM", category = "Frontend" }
+"react-hook-form" = { name = "React Hook Form", category = "Frontend" }
+"react-i18next" = { name = "react-i18next", category = "Library" }
+"react-icons" = { name = "react-icons", category = "Library" }
+"react-intl" = { name = "react-intl", category = "Library" }
+"react-native" = { name = "React Native", category = "Frontend" }
+"react-navigation" = { name = "react-navigation", category = "Library" }
+"react-redux" = { name = "react-redux", category = "Library" }
+"react-router" = { name = "react-router", category = "Library" }
+"react-router-dom" = { name = "react-router-dom", category = "Library" }
+"reactor-core" = { name = "Project Reactor", category = "Library" }
+"reagent" = { name = "Reagent", category = "Frontend" }
+"realm-swift" = { name = "Realm", category = "Database/ORM" }
+"recharts" = { name = "Recharts", category = "Library" }
+"recoil" = { name = "Recoil", category = "Frontend" }
+"rector" = { name = "Rector", category = "Build Tool" }
+"redis" = { name = "Redis", category = "Database/ORM" }
+"redis-py" = { name = "Redis (Python)", category = "Database/ORM" }
+"redux" = { name = "Redux", category = "Frontend" }
+"refit" = { name = "Refit", category = "Library" }
+"regex" = { name = "regex", category = "Library" }
+"remix" = { name = "Remix", category = "Frontend" }
+"request" = { name = "request", category = "Library" }
+"requests" = { name = "Requests", category = "Library" }
+"reqwest" = { name = "Reqwest", category = "Library" }
+"resend" = { name = "Resend", category = "Library" }
+"rest-assured" = { name = "REST Assured", category = "Testing" }
+"restsharp" = { name = "RestSharp", category = "Library" }
+"revel" = { name = "revel", category = "Library" }
+"rich" = { name = "Rich", category = "Library" }
+"rimraf" = { name = "rimraf", category = "Library" }
+"ring" = { name = "Ring", category = "Backend" }
+"riverpod" = { name = "Riverpod", category = "Frontend" }
+"rmp-serde" = { name = "MessagePack", category = "Library" }
+"robyn" = { name = "Robyn", category = "Backend" }
+"rocket" = { name = "Rocket", category = "Backend" }
+"rollup" = { name = "Rollup", category = "Build Tool" }
+"rom-rb" = { name = "ROM (Ruby Object Mapper)", category = "Database/ORM" }
+"ron" = { name = "ron", category = "Library" }
+"rq" = { name = "RQ (Redis Queue)", category = "Library" }
+"rspec" = { name = "RSpec", category = "Testing" }
+"rusqlite" = { name = "Rusqlite", category = "Database/ORM" }
+"rustls" = { name = "rustls", category = "Library" }
+"rxjava" = { name = "RxJava", category = "Library" }
+"rxjs" = { name = "rxjs", category = "Library" }
+"rxswift" = { name = "RxSwift", category = "Library" }
+"sails" = { name = "Sails", category = "Backend" }
+"salvo" = { name = "Salvo", category = "Backend" }
+"sanctum" = { name = "Laravel Sanctum", category = "Library" }
+"sanic" = { name = "Sanic", category = "Backend" }
+"sanity" = { name = "Sanity CMS", category = "Library" }
+"sass" = { name = "Sass", category = "Styling" }
+"sass-loader" = { name = "Sass Loader", category = "Build Tool" }
+"sbt" = { name = "sbt", category = "Build Tool" }
+"scalatest" = { name = "ScalaTest", category = "Testing" }
+"scikit-image" = { name = "scikit-image", category = "Library" }
+"scikit-learn" = { name = "Scikit-Learn", category = "Library" }
+"scipy" = { name = "SciPy", category = "Library" }
+"scotty" = { name = "Scotty", category = "Backend" }
+"scrapy" = { name = "scrapy", category = "Library" }
+"sdwebimage" = { name = "SDWebImage", category = "Library" }
+"sea-orm" = { name = "SeaORM", category = "Database/ORM" }
+"seaborn" = { name = "Seaborn", category = "Library" }
+"seamless-immutable" = { name = "seamless-immutable", category = "Library" }
+"semver" = { name = "semver", category = "Library" }
+"sentence-transformers" = { name = "Sentence Transformers", category = "Library" }
+"sentry" = { name = "Sentry", category = "Library" }
+"sequel" = { name = "Sequel", category = "Database/ORM" }
+"sequelize" = { name = "Sequelize", category = "Database/ORM" }
+"serde" = { name = "Serde", category = "Library" }
+"serde_json" = { name = "serde_json", category = "Library" }
+"serde_yaml" = { name = "serde_yaml", category = "Library" }
+"serilog" = { name = "Serilog", category = "Library" }
+"serilog.sinks.console" = { name = "Serilog.Sinks.Console", category = "Library" }
+"serilog.sinks.file" = { name = "Serilog.Sinks.File", category = "Library" }
+"servant" = { name = "Servant", category = "Backend" }
+"serve-favicon" = { name = "serve-favicon", category = "Library" }
+"sha2" = { name = "sha2", category = "Library" }
+"sha3" = { name = "sha3", category = "Library" }
+"shadcn" = { name = "shadcn/ui", category = "Frontend" }
+"shelljs" = { name = "shelljs", category = "Library" }
+"shouldly" = { name = "Shouldly", category = "Library" }
+"sidekiq" = { name = "Sidekiq", category = "Library" }
+"signal" = { name = "Signals", category = "Frontend" }
+"signalr" = { name = "SignalR", category = "Library" }
+"sinatra" = { name = "Sinatra", category = "Backend" }
+"sinon" = { name = "sinon", category = "Library" }
+"slf4j-api" = { name = "slf4j-api", category = "Library" }
+"slick" = { name = "Slick", category = "Database/ORM" }
+"slim" = { name = "Slim Framework", category = "Backend" }
+"slog" = { name = "slog", category = "Library" }
+"smol" = { name = "Smol", category = "Library" }
+"snapkit" = { name = "SnapKit", category = "Library" }
+"snowpack" = { name = "snowpack", category = "Library" }
+"socket.io" = { name = "Socket.IO", category = "Library" }
+"socket.io-client" = { name = "socket.io-client", category = "Library" }
+"sockjs" = { name = "sockjs", category = "Library" }
+"solid-js" = { name = "SolidJS", category = "Frontend" }
+"specflow" = { name = "SpecFlow", category = "Testing" }
+"spring-boot" = { name = "Spring Boot", category = "Backend" }
+"spring-boot-starter-actuator" = { name = "Spring Actuator", category = "Backend" }
+"spring-boot-starter-amqp" = { name = "Spring AMQP", category = "Backend" }
+"spring-boot-starter-data-jpa" = { name = "Spring Data JPA", category = "Backend" }
+"spring-boot-starter-graphql" = { name = "Spring GraphQL", category = "Backend" }
+"spring-boot-starter-oauth2-client" = { name = "spring-boot-starter-oauth2-client", category = "Library" }
+"spring-boot-starter-security" = { name = "Spring Security", category = "Backend" }
+"spring-boot-starter-test" = { name = "spring-boot-starter-test", category = "Library" }
+"spring-boot-starter-validation" = { name = "spring-boot-starter-validation", category = "Library" }
+"spring-boot-starter-web" = { name = "Spring Boot Web", category = "Backend" }
+"spring-boot-starter-webflux" = { name = "Spring WebFlux", category = "Backend" }
+"spring-cloud" = { name = "Spring Cloud", category = "Backend" }
+"spring-cloud-starter-config" = { name = "spring-cloud-starter-config", category = "Library" }
+"spring-cloud-starter-gateway" = { name = "spring-cloud-starter-gateway", category = "Library" }
+"spring-cloud-starter-netflix-eureka-client" = { name = "spring-cloud-starter-netflix-eureka-client", category = "Library" }
+"sqlalchemy" = { name = "SQLAlchemy", category = "Database/ORM" }
+"sqlc" = { name = "sqlc", category = "Database/ORM" }
+"sqlite-jdbc" = { name = "sqlite-jdbc", category = "Library" }
+"sqlite3" = { name = "sqlite3", category = "Library" }
+"sqlx" = { name = "SQLx", category = "Database/ORM" }
+"stackexchange.redis" = { name = "StackExchange.Redis", category = "Database/ORM" }
+"starlette" = { name = "Starlette", category = "Backend" }
+"statsmodels" = { name = "Statsmodels", category = "Library" }
+"stencil" = { name = "Stencil", category = "Frontend" }
+"stimulus" = { name = "Stimulus", category = "Frontend" }
+"storybook" = { name = "Storybook", category = "Testing" }
+"strapi" = { name = "Strapi CMS", category = "Backend" }
+"streamlit" = { name = "Streamlit", category = "Frontend" }
+"stripe" = { name = "Stripe", category = "Library" }
+"structopt" = { name = "structopt", category = "Library" }
+"strum" = { name = "Strum", category = "Library" }
+"style-loader" = { name = "style-loader", category = "Library" }
+"styled-components" = { name = "Styled Components", category = "Styling" }
+"stylus" = { name = "stylus", category = "Library" }
+"supabase-js" = { name = "supabase-js", category = "Library" }
+"superagent" = { name = "superagent", category = "Library" }
+"superstruct" = { name = "superstruct", category = "Library" }
+"supertest" = { name = "Supertest", category = "Testing" }
+"surf" = { name = "surf", category = "Library" }
+"svelte" = { name = "Svelte", category = "Frontend" }
+"swashbuckle" = { name = "Swashbuckle (Swagger)", category = "Library" }
+"swift-composable-architecture" = { name = "TCA", category = "Library" }
+"swiftdata" = { name = "SwiftData", category = "Database/ORM" }
+"swiftui" = { name = "SwiftUI", category = "Frontend" }
+"swiftyjson" = { name = "SwiftyJSON", category = "Library" }
+"swr" = { name = "SWR", category = "Frontend" }
+"sycamore" = { name = "Sycamore", category = "Frontend" }
+"symfony" = { name = "Symfony", category = "Backend" }
+"sync" = { name = "sync", category = "Library" }
+"sys" = { name = "sys", category = "Library" }
+"system.collections.immutable" = { name = "System.Collections.Immutable", category = "Library" }
+"system.text.json" = { name = "System.Text.Json", category = "Library" }
+"system.threading.tasks.extensions" = { name = "System.Threading.Tasks.Extensions", category = "Library" }
+"tailwindcss" = { name = "Tailwind CSS", category = "Styling" }
+"tao" = { name = "Tao (Tauri)", category = "Desktop Framework" }
+"tap" = { name = "Tap", category = "Testing" }
+"tauri" = { name = "Tauri", category = "Desktop Framework" }
+"tedious" = { name = "tedious", category = "Library" }
+"telescope" = { name = "Laravel Telescope", category = "Library" }
+"tempfile" = { name = "tempfile", category = "Library" }
+"tensorflow" = { name = "TensorFlow", category = "Library" }
+"testcontainers" = { name = "Testcontainers", category = "Testing" }
+"testify" = { name = "Testify", category = "Testing" }
+"testing-library" = { name = "Testing Library", category = "Testing" }
+"testng" = { name = "testng", category = "Library" }
+"text" = { name = "text", category = "Library" }
+"thiserror" = { name = "Thiserror", category = "Library" }
+"three" = { name = "Three.js", category = "Frontend" }
+"tide" = { name = "Tide", category = "Backend" }
+"time" = { name = "time", category = "Library" }
+"tokenizers" = { name = "Tokenizers (HF)", category = "Library" }
+"tokio" = { name = "Tokio", category = "Library" }
+"tokio-tungstenite" = { name = "tokio-tungstenite", category = "Library" }
+"toml" = { name = "toml", category = "Library" }
+"tonic" = { name = "Tonic (gRPC)", category = "Library" }
+"torch" = { name = "PyTorch", category = "Library" }
+"tornado" = { name = "Tornado", category = "Backend" }
+"tortoise-orm" = { name = "Tortoise ORM", category = "Database/ORM" }
+"tower" = { name = "Tower", category = "Library" }
+"tower-http" = { name = "Tower HTTP", category = "Library" }
+"tox" = { name = "Tox", category = "Testing" }
+"tqdm" = { name = "tqdm", category = "Library" }
+"tracing" = { name = "Tracing", category = "Library" }
+"tracing-subscriber" = { name = "tracing-subscriber", category = "Library" }
+"transformers" = { name = "transformers (HuggingFace)", category = "Library" }
+"trl" = { name = "TRL (HF)", category = "Library" }
+"trpc" = { name = "tRPC", category = "Library" }
+"ts-jest" = { name = "ts-jest", category = "Library" }
+"ts-loader" = { name = "ts-loader", category = "Library" }
+"ts-node" = { name = "ts-node", category = "Library" }
+"tslib" = { name = "tslib", category = "Library" }
+"tsup" = { name = "tsup", category = "Build Tool" }
+"tungstenite" = { name = "tungstenite", category = "Library" }
+"turbo" = { name = "Turbo", category = "Frontend" }
+"turbopack" = { name = "Turbopack", category = "Build Tool" }
+"typeorm" = { name = "TypeORM", category = "Database/ORM" }
+"typer" = { name = "Typer", category = "Library" }
+"typescript" = { name = "typescript", category = "Library" }
+"unbuild" = { name = "unbuild", category = "Build Tool" }
+"underscore" = { name = "underscore", category = "Library" }
+"unittest" = { name = "unittest", category = "Testing" }
+"ureq" = { name = "ureq", category = "Library" }
+"urfave" = { name = "Urfave CLI", category = "Library" }
+"url" = { name = "url", category = "Library" }
+"url-loader" = { name = "url-loader", category = "Library" }
+"urllib3" = { name = "urllib3", category = "Library" }
+"urlsession" = { name = "URLSession", category = "Library" }
+"urql" = { name = "urql", category = "Library" }
+"uuid" = { name = "uuid", category = "Library" }
+"uuidv4" = { name = "uuidv4", category = "Library" }
+"uvicorn" = { name = "Uvicorn", category = "Library" }
+"v2" = { name = "v2", category = "Library" }
+"v4" = { name = "v4", category = "Library" }
+"v5" = { name = "v5", category = "Library" }
+"v8" = { name = "v8", category = "Library" }
+"v9" = { name = "v9", category = "Library" }
+"vaex" = { name = "Vaex", category = "Library" }
+"valibot" = { name = "valibot", category = "Library" }
+"valtio" = { name = "Valtio", category = "Frontend" }
+"vapor" = { name = "Vapor", category = "Backend" }
+"vertx-core" = { name = "Vert.x", category = "Backend" }
+"viper" = { name = "Viper Config", category = "Library" }
+"vite" = { name = "Vite", category = "Build Tool" }
+"vitest" = { name = "Vitest", category = "Testing" }
+"vue" = { name = "Vue", category = "Frontend" }
+"vue-i18n" = { name = "vue-i18n", category = "Library" }
+"vuex" = { name = "Vuex", category = "Frontend" }
+"wai" = { name = "WAI", category = "Backend" }
+"walkdir" = { name = "walkdir", category = "Library" }
+"wallaby" = { name = "Wallaby", category = "Testing" }
+"wandb" = { name = "Weights & Biases", category = "Library" }
+"warp" = { name = "Warp", category = "Backend" }
+"weaviate-client" = { name = "Weaviate", category = "Database/ORM" }
+"webpack" = { name = "Webpack", category = "Build Tool" }
+"webpacker" = { name = "Webpacker", category = "Build Tool" }
+"winston" = { name = "Winston", category = "Library" }
+"wire" = { name = "Google Wire", category = "Library" }
+"wiremock" = { name = "Wiremock", category = "Testing" }
+"wolverine" = { name = "Wolverine", category = "Library" }
+"wouter" = { name = "wouter", category = "Library" }
+"wry" = { name = "Wry (Tauri)", category = "Desktop Framework" }
+"ws" = { name = "ws", category = "Library" }
+"xgboost" = { name = "XGBoost", category = "Library" }
+"xml2js" = { name = "xml2js", category = "Library" }
+"xorm" = { name = "xorm", category = "Library" }
+"xstate" = { name = "XState", category = "Frontend" }
+"xunit" = { name = "xUnit", category = "Testing" }
+"yargs" = { name = "yargs", category = "Library" }
+"yesod" = { name = "Yesod", category = "Backend" }
+"yew" = { name = "Yew", category = "Frontend" }
+"yii" = { name = "Yii", category = "Backend" }
+"yup" = { name = "Yup", category = "Library" }
+"zap" = { name = "Zap Logger", category = "Library" }
+"zerolog" = { name = "Zerolog", category = "Library" }
+"zig-build" = { name = "Zig Build", category = "Build Tool" }
+"zig-std" = { name = "Zig Std", category = "Library" }
+"zio" = { name = "ZIO", category = "Library" }
+"zod" = { name = "Zod", category = "Library" }
+"zustand" = { name = "Zustand", category = "Frontend" }
+
+# ──────────────────────────────
+# FILE-BASED DETECTIONS
+# ──────────────────────────────
+
+[file_detections]
+".circleci/config.yml" = { name = "CircleCI", category = "DevOps" }
+".editorconfig" = { name = "EditorConfig", category = "Library" }
+".github/workflows" = { name = "GitHub Actions", category = "DevOps" }
+".gitlab-ci.yml" = { name = "GitLab CI", category = "DevOps" }
+".htaccess" = { name = "Apache", category = "Infrastructure" }
+".husky" = { name = "Husky", category = "DevOps" }
+".pre-commit-config.yaml" = { name = "Pre-commit", category = "DevOps" }
+"ansible.cfg" = { name = "Ansible", category = "DevOps" }
+"argocd.yaml" = { name = "Argo CD", category = "DevOps" }
+"argocd.yml" = { name = "Argo CD", category = "DevOps" }
+"azure-pipelines.yaml" = { name = "Azure Pipelines", category = "DevOps" }
+"azure-pipelines.yml" = { name = "Azure Pipelines", category = "DevOps" }
+"BUILD" = { name = "Bazel", category = "Build Tool" }
+"BUILD.bazel" = { name = "Bazel", category = "Build Tool" }
+"build.gradle" = { name = "Java", category = "Environment" }
+"build.gradle.kts" = { name = "Java", category = "Environment" }
+"bun.lockb" = { name = "Bun", category = "Environment" }
+"Caddyfile" = { name = "Caddy", category = "Infrastructure" }
+"Cargo.toml" = { name = "Rust", category = "Environment" }
+"Chart.yaml" = { name = "Helm", category = "DevOps" }
+"composer.json" = { name = "PHP", category = "Environment" }
+"deno.json" = { name = "Deno", category = "Environment" }
+"deno.jsonc" = { name = "Deno", category = "Environment" }
+"docker-compose.yaml" = { name = "Docker Compose", category = "DevOps" }
+"docker-compose.yml" = { name = "Docker Compose", category = "DevOps" }
+"Dockerfile" = { name = "Docker", category = "DevOps" }
+"envoy.yaml" = { name = "Envoy", category = "Infrastructure" }
+"envoy.yml" = { name = "Envoy", category = "Infrastructure" }
+"fly.toml" = { name = "Fly.io", category = "DevOps" }
+"Gemfile" = { name = "Ruby", category = "Environment" }
+"go.mod" = { name = "Go", category = "Environment" }
+"haproxy.cfg" = { name = "HAProxy", category = "Infrastructure" }
+"Jenkinsfile" = { name = "Jenkins", category = "DevOps" }
+"justfile" = { name = "Justfile", category = "Build Tool" }
+"Justfile" = { name = "Justfile", category = "Build Tool" }
+"lerna.json" = { name = "Lerna", category = "Build Tool" }
+"makefile" = { name = "Make", category = "Build Tool" }
+"Makefile" = { name = "Make", category = "Build Tool" }
+"mix.exs" = { name = "Elixir", category = "Environment" }
+"moon.yml" = { name = "Moon", category = "Build Tool" }
+"netlify.toml" = { name = "Netlify", category = "DevOps" }
+"nginx.conf" = { name = "Nginx", category = "Infrastructure" }
+"nx.json" = { name = "Nx", category = "Build Tool" }
+"package.json" = { name = "Node.js", category = "Environment" }
+"Package.swift" = { name = "Swift", category = "Environment" }
+"pants.toml" = { name = "Pants", category = "Build Tool" }
+"playbook.yaml" = { name = "Ansible", category = "DevOps" }
+"playbook.yml" = { name = "Ansible", category = "DevOps" }
+"pnpm-workspace.yaml" = { name = "pnpm Workspaces", category = "Build Tool" }
+"pom.xml" = { name = "Java", category = "Environment" }
+"Procfile" = { name = "Heroku", category = "DevOps" }
+"pubspec.yaml" = { name = "Flutter", category = "Environment" }
+"railway.json" = { name = "Railway", category = "DevOps" }
+"render.yaml" = { name = "Render", category = "DevOps" }
+"render.yml" = { name = "Render", category = "DevOps" }
+"rush.json" = { name = "Rush", category = "Build Tool" }
+"Taskfile.yaml" = { name = "Taskfile", category = "Build Tool" }
+"Taskfile.yml" = { name = "Taskfile", category = "Build Tool" }
+"traefik.toml" = { name = "Traefik", category = "Infrastructure" }
+"traefik.yaml" = { name = "Traefik", category = "Infrastructure" }
+"traefik.yml" = { name = "Traefik", category = "Infrastructure" }
+"turbo.json" = { name = "Turborepo", category = "Build Tool" }
+"Vagrantfile" = { name = "Vagrant", category = "DevOps" }
+"vercel.json" = { name = "Vercel", category = "DevOps" }
+"WORKSPACE" = { name = "Bazel", category = "Build Tool" }
+
+# ──────────────────────────────
+# ICON MAPPINGS
+# ──────────────────────────────
+
+[icons]
+"_" = "code"
+".net" = "csharp"
+"@google-cloud/storage" = "go"
+"@heroicons/react" = "react"
+"actix web" = "actix"
+"algolia search" = "go"
+"alpine.js" = "alpinejs"
+"alpinejs" = "alpinejs"
+"angular" = "angular"
+"apache" = "apache"
+"argon2" = "go"
+"asp.net core" = "csharp"
+"assert_cmd" = "code"
+"astro" = "astro"
+"axios" = "library"
+"axum" = "rust"
+"azure devops" = "azure"
+"azure pipelines" = "azure"
+"beego" = "go"
+"better-sqlite3" = "lit"
+"bootstrap" = "bootstrap"
+"bun" = "bun"
+"bun orm" = "bun"
+"bunyan" = "bun"
+"c#" = "csharp"
+"cakephp" = "php"
+"cargo" = "rust"
+"circleci" = "circleci"
+"commons-logging" = "go"
+"cypress" = "cypress"
+"dart" = "dart"
+"deno" = "deno"
+"diesel" = "database"
+"django" = "django"
+"django rest framework" = "django"
+"docker" = "docker"
+"docker compose" = "docker"
+"drizzle" = "drizzle"
+"drizzle orm" = "drizzle"
+"drizzle-orm" = "drizzle"
+"echo" = "go"
+"ecto" = "database"
+"effector" = "database"
+"electron" = "electron"
+"elixir" = "elixir"
+"esbuild" = "esbuild"
+"express" = "express"
+"express-session" = "express"
+"fastapi" = "fastapi"
+"fastify" = "fastify"
+"fiber" = "go"
+"flask" = "flask"
+"flutter" = "dart"
+"flutter bloc" = "dart"
+"flutter test" = "dart"
+"fs_extra" = "code"
+"gatsby" = "gatsby"
+"gin" = "go"
+"ginkgo" = "go"
+"github actions" = "github"
+"gitlab ci" = "gitlab"
+"go" = "go"
+"go kit" = "go"
+"go redis" = "library"
+"go-jmespath" = "go"
+"go-logging" = "go"
+"go-sqlite3" = "go"
+"goconvey" = "go"
+"gomega" = "go"
+"gomock" = "go"
+"google wire" = "go"
+"gorilla mux" = "go"
+"gorilla toolkit" = "go"
+"gorm" = "database"
+"gorouter" = "go"
+"gorp" = "go"
+"got" = "go"
+"gradle" = "gradle"
+"headless ui" = "less"
+"hibernate" = "database"
+"hibernate-entitymanager" = "database"
+"hibernate-validator" = "database"
+"htmx" = "htmx"
+"ioredis" = "library"
+"ipython" = "python"
+"java" = "java"
+"jenkins" = "jenkins"
+"jest" = "jest"
+"jester" = "jest"
+"joi" = "library"
+"junit" = "java"
+"junit 5" = "java"
+"junit-jupiter-engine" = "go"
+"kafka" = "library"
+"kafkajs" = "library"
+"koa" = "koa"
+"kotlin" = "kotlin"
+"kotlin coroutines" = "kotlin"
+"kotlin-reflect" = "kotlin"
+"kotlin-stdlib" = "kotlin"
+"kotlinx serialization" = "nx"
+"kotlinx-coroutines-reactor" = "react"
+"kotlinx-serialization-json" = "nx"
+"ktor" = "kotlin"
+"ktor core" = "kotlin"
+"kubernetes" = "kubernetes"
+"laravel" = "laravel"
+"laravel cashier" = "laravel"
+"laravel horizon" = "laravel"
+"laravel nova" = "laravel"
+"laravel sanctum" = "laravel"
+"laravel telescope" = "laravel"
+"lerna" = "lerna"
+"less" = "less"
+"less-loader" = "less"
+"lit" = "lit"
+"litellm" = "lit"
+"litestar" = "lit"
+"lodash" = "library"
+"lodash-es" = "library"
+"lucide-react" = "react"
+"mariadb-java-client" = "java"
+"maven" = "maven"
+"mdx bundler" = "bun"
+"microsoft.data.sqlite" = "lit"
+"microsoft.entityframeworkcore.sqlite" = "lit"
+"microsoft.extensions.logging" = "go"
+"mobx-react" = "react"
+"mockito (dart)" = "dart"
+"mongodb .net" = "go"
+"mongodb driver" = "go"
+"mongoose" = "database"
+"motor (async mongo)" = "go"
+"mysql-connector-j" = "database"
+"mysql-connector-java" = "database"
+"mysqlconnector" = "database"
+"nestjs" = "nestjs"
+"nestjs core" = "nestjs"
+"next.js" = "nextjs"
+"nginx" = "nginx"
+"node.js" = "node"
+"nuxt.js" = "nuxtjs"
+"nx" = "nx"
+"opencv-python" = "python"
+"parking_lot" = "code"
+"pest php" = "php"
+"phoenix" = "elixir"
+"phoenix livedashboard" = "elixir"
+"phoenix liveview" = "elixir"
+"php" = "php"
+"phpstan" = "php"
+"phpunit" = "php"
+"playwright" = "playwright"
+"preact" = "preact"
+"pretty_env_logger" = "code"
+"prisma" = "prisma"
+"prisma client" = "prisma"
+"project reactor" = "react"
+"pymongo" = "go"
+"pytest" = "pytest"
+"python" = "python"
+"python 2 input" = "python"
+"python-dotenv" = "python"
+"qwik" = "qwik"
+"rabbitmq" = "library"
+"rabbitmq js" = "library"
+"rails" = "ruby"
+"rayon" = "library"
+"react" = "react"
+"react dom" = "react"
+"react email" = "react"
+"react hook form" = "react"
+"react js api" = "react"
+"react native" = "react"
+"react spring" = "react"
+"react-i18next" = "react"
+"react-icons" = "react"
+"react-intl" = "react"
+"react-navigation" = "react"
+"react-redux" = "react"
+"react-router" = "react"
+"react-router-dom" = "react"
+"recharts" = "library"
+"rector" = "database"
+"redis" = "library"
+"redis (python)" = "library"
+"remix" = "remix"
+"rocket" = "rust"
+"rollup" = "rollup"
+"rom (ruby object mapper)" = "ruby"
+"rq (redis queue)" = "library"
+"rspec" = "ruby"
+"ruby" = "ruby"
+"ruby on rails" = "ruby"
+"rusqlite" = "lit"
+"rust" = "rust"
+"rustls" = "rust"
+"rxjava" = "java"
+"rxswift" = "swift"
+"sass" = "sass"
+"sass loader" = "sass"
+"scss" = "sass"
+"seamless-immutable" = "less"
+"seaorm" = "database"
+"sentry" = "library"
+"sentry node" = "library"
+"sentry react" = "react"
+"sequelize" = "database"
+"serde" = "library"
+"serde_json" = "library"
+"serde_yaml" = "library"
+"sinatra" = "ruby"
+"solidjs" = "solid"
+"spring boot" = "spring"
+"spring boot web" = "spring"
+"spring cloud" = "spring"
+"sqlalchemy" = "database"
+"sqlite-jdbc" = "lit"
+"sqlite3" = "lit"
+"sqlx" = "database"
+"stackexchange.redis" = "library"
+"storybook" = "storybook"
+"streamlit" = "lit"
+"stripe" = "library"
+"stripe js" = "library"
+"svelte" = "svelte"
+"sveltekit" = "svelte"
+"swift" = "swift"
+"swiftdata" = "swift"
+"swiftui" = "swift"
+"swiftyjson" = "swift"
+"symfony" = "symfony"
+"tailwind css" = "tailwind"
+"tailwindcss" = "tailwind"
+"tao (tauri)" = "tauri"
+"tauri" = "tauri"
+"tauri js api" = "tauri"
+"terraform" = "terraform"
+"tokio" = "library"
+"tokio-tungstenite" = "library"
+"transformers (huggingface)" = "go"
+"ts-jest" = "jest"
+"turborepo" = "turborepo"
+"typeorm" = "database"
+"vite" = "vite"
+"vitest" = "vitest"
+"vue" = "vue"
+"vue-i18n" = "vue"
+"vuex" = "vue"
+"warp" = "rust"
+"webpack" = "webpack"
+"webpacker" = "webpack"
+"wry (tauri)" = "tauri"
+"yup" = "library"
+"zod" = "library"

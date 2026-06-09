@@ -1,0 +1,9 @@
+val_1 = 1
+
+批曰。 start of comment
+This is a multi-line comment block
+。
+疏曰。 start of comment
+This is a multi-line comment block
+。
+val_2 = 2

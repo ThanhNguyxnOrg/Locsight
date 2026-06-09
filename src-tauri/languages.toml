@@ -1,0 +1,2972 @@
+[".NET Resource"]
+extensions = ["resx"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["8th"]
+extensions = ["8th"]
+single_line = ["\\\\ ","-- "]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["ABAP"]
+extensions = ["abap"]
+single_line = ["*","\\\""]
+category = "Programming"
+
+["ABNF"]
+extensions = ["abnf"]
+single_line = [";"]
+category = "Programming"
+
+["ActionScript"]
+extensions = ["as"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Ada"]
+extensions = ["adb","ads","ada","pad"]
+single_line = ["--"]
+category = "Programming"
+
+["Agda"]
+extensions = ["agda"]
+single_line = ["--"]
+category = "Programming"
+
+["Alchemist"]
+extensions = ["crn"]
+single_line = ["#"]
+category = "Programming"
+
+["Alex"]
+extensions = ["x"]
+category = "Programming"
+
+["Algol 68"]
+extensions = ["a68"]
+multi_line = [["#","#"],["CO","CO"],["COMMENT","COMMENT"]]
+category = "Programming"
+
+["Alloy"]
+extensions = ["als"]
+single_line = ["--","//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Amber"]
+extensions = ["ab"]
+single_line = ["//"]
+shebangs = ["amber"]
+category = "Programming"
+
+["Android Interface Definition Language"]
+extensions = ["aidl"]
+single_line = ["//"]
+multi_line = [["/**","*/"],["/*","*/"]]
+category = "Data"
+
+["Apache Velocity"]
+extensions = ["vm"]
+single_line = ["##"]
+multi_line = [["#*","*#"]]
+category = "Config"
+
+["Apex"]
+extensions = ["apex","trigger"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["APL"]
+extensions = ["apl","aplf","apls","apln","aplc","dyalog"]
+single_line = ["⍝"]
+category = "Programming"
+
+["AppleScript"]
+extensions = ["applescript"]
+single_line = ["--"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Arduino C++"]
+extensions = ["ino"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Ark TypeScript"]
+extensions = ["ets"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["ArkTs"]
+extensions = ["ets"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Arturo"]
+extensions = ["art"]
+single_line = [";"]
+category = "Programming"
+
+["AsciiDoc"]
+extensions = ["adoc","asciidoc"]
+single_line = ["//"]
+category = "Markup"
+
+["ASN.1"]
+extensions = ["asn1"]
+single_line = ["--"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["ASP"]
+extensions = ["asa","asp"]
+single_line = ["'","REM"]
+category = "Markup"
+
+["ASP.NET"]
+extensions = ["asax","ascx","asmx","aspx","master","sitemap","webinfo"]
+multi_line = [["<!--","-->"],["<%--","-->"]]
+category = "Markup"
+
+["Assembly"]
+extensions = ["asm","s"]
+single_line = [";"]
+category = "Programming"
+
+["Astro"]
+extensions = ["astro"]
+single_line = ["//"]
+multi_line = [["<!--","-->"],["/*","*/"]]
+category = "Markup"
+
+["ATS"]
+extensions = ["dats","sats","hats","atxt","ats"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Autoconf"]
+extensions = ["in"]
+single_line = ["#","dnl"]
+category = "Programming"
+
+["AutoHotkey"]
+extensions = ["ahk"]
+single_line = [";"]
+category = "Programming"
+
+["AutoHotKey"]
+extensions = ["ahk"]
+single_line = [";"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Autoit"]
+extensions = ["au3"]
+single_line = [";"]
+multi_line = [["#comments-start","#comments-end"],["#cs","#ce"]]
+category = "Programming"
+
+["AutoIt"]
+extensions = ["au3"]
+single_line = [";"]
+category = "Programming"
+
+["Automake"]
+extensions = ["am"]
+single_line = ["#"]
+category = "Programming"
+
+["Avro"]
+extensions = ["avdl","avpr","avsc"]
+category = "Programming"
+
+["AWK"]
+extensions = ["awk"]
+single_line = ["#"]
+shebangs = ["#!/bin/awk -f","awk","gawk","mawk","nawk"]
+category = "Programming"
+
+["AXAML"]
+extensions = ["axaml"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["bait"]
+extensions = ["bt"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Ballerina"]
+extensions = ["bal"]
+single_line = ["//"]
+category = "Programming"
+
+["BASH"]
+extensions = ["bash","bash_login","bash_logout","bash_profile","bashrc"]
+single_line = ["#"]
+shebangs = ["#!/bin/bash","bash"]
+filenames = [".bash_login",".bash_logout",".bash_profile",".bashrc"]
+category = "Programming"
+
+["Basic"]
+extensions = ["bas"]
+single_line = ["'"]
+category = "Programming"
+
+["Batch"]
+extensions = ["bat","cmd","btm"]
+single_line = ["REM","::"]
+category = "Programming"
+
+["Bazel"]
+extensions = ["bzl","bazel","bzlmod","build.bazel","build","workspace"]
+single_line = ["#"]
+filenames = ["build","workspace","module"]
+category = "Programming"
+
+["Bean"]
+extensions = ["bean","beancount"]
+single_line = [";"]
+category = "Programming"
+
+["Beancount"]
+extensions = ["beancount"]
+single_line = [";"]
+category = "Programming"
+
+["Bicep"]
+extensions = ["bicep","bicepparam"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Bitbake"]
+extensions = ["bb","bbclass","bbappend","inc"]
+single_line = ["#"]
+category = "Programming"
+
+["Bitbucket Pipeline"]
+extensions = ["bitbucket-pipelines.yml"]
+single_line = ["#"]
+category = "Programming"
+
+["Blade"]
+extensions = ["blade"]
+multi_line = [["{{--","--}}"],["<!--","-->"]]
+category = "Markup"
+
+["Blade template"]
+extensions = ["blade.php"]
+multi_line = [["{{--","--}}"],["<!--","-->"]]
+category = "Markup"
+
+["Blueprint"]
+extensions = ["blp"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Boo"]
+extensions = ["boo"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Bosque"]
+extensions = ["bsq"]
+single_line = ["//"]
+category = "Programming"
+
+["BQN"]
+extensions = ["bqn"]
+single_line = ["#"]
+category = "Programming"
+
+["Brainfuck"]
+extensions = ["bf"]
+category = "Programming"
+
+["BrightScript"]
+extensions = ["brs"]
+single_line = ["'","REM"]
+category = "Programming"
+
+["Bru"]
+extensions = ["bru"]
+category = "Programming"
+
+["BuildStream"]
+extensions = ["bst"]
+single_line = ["#"]
+category = "Programming"
+
+["C"]
+extensions = ["c","ec","pgc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["C Header"]
+extensions = ["h"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["C Shell"]
+extensions = ["csh"]
+single_line = ["#"]
+shebangs = ["#!/bin/csh","csh","tcsh"]
+filenames = [".cshrc"]
+category = "Programming"
+
+["C#"]
+extensions = ["cs","csx"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+shebangs = ["dotnet"]
+category = "Programming"
+
+["C++"]
+extensions = ["cpp","cc","cxx","c++","pcc","tpp","ino","ccm","cppm","cxxm","c++m","mxx"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["C++ Header"]
+extensions = ["hpp","hh","hxx","inl","ipp","h++","ixx","tpp"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["C++ Module"]
+extensions = ["cppm","ixx","ccm","mpp","mxx","cxxm","hppm","hxxm"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["C3"]
+extensions = ["c3"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Cabal"]
+extensions = ["cabal"]
+single_line = ["--"]
+multi_line = [["{-","-}"]]
+category = "Programming"
+
+["Cairo"]
+extensions = ["cairo"]
+single_line = ["//"]
+category = "Programming"
+
+["Cangjie"]
+extensions = ["cj"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Cap'n Proto"]
+extensions = ["capnp"]
+single_line = ["#"]
+category = "Programming"
+
+["Carbon"]
+extensions = ["carbon"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Cassius"]
+extensions = ["cassius"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Ceylon"]
+extensions = ["ceylon"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Chapel"]
+extensions = ["chpl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["CIL (SELinux)"]
+extensions = ["cil"]
+single_line = [";"]
+category = "Programming"
+
+["Circom"]
+extensions = ["circom"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Clipper"]
+extensions = ["prg","ch"]
+single_line = ["//","&&"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Clojure"]
+extensions = ["clj","cljs","cljc"]
+single_line = [";"]
+category = "Programming"
+
+["ClojureC"]
+extensions = ["cljc"]
+single_line = [";"]
+category = "Programming"
+
+["ClojureScript"]
+extensions = ["cljs"]
+single_line = [";"]
+category = "Programming"
+
+["Closure Template"]
+extensions = ["soy"]
+single_line = ["//"]
+multi_line = [["/**","*/"],["/*","*/"]]
+category = "Programming"
+
+["CloudFormation (JSON)"]
+extensions = ["json"]
+category = "Data"
+
+["CloudFormation (YAML)"]
+extensions = ["yaml","yml"]
+single_line = ["#"]
+category = "Data"
+
+["CMake"]
+extensions = ["cmake","cmakelists.txt"]
+single_line = ["#"]
+filenames = ["cmakelists.txt"]
+category = "Config"
+
+["COBOL"]
+extensions = ["cob","cbl","ccp","cobol","cpy"]
+single_line = ["*"]
+category = "Programming"
+
+["CodeQL"]
+extensions = ["ql","qll"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["CoffeeScript"]
+extensions = ["coffee","litcoffee","cjsx"]
+single_line = ["#"]
+multi_line = [["###","###"]]
+category = "Programming"
+
+["Cogent"]
+extensions = ["cogent"]
+single_line = ["--"]
+category = "Programming"
+
+["ColdFusion"]
+extensions = ["cfm"]
+multi_line = [["<!---","--->"]]
+category = "Programming"
+
+["ColdFusion CFScript"]
+extensions = ["cfc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Common Lisp"]
+extensions = ["commonlisp","lisp","lsp","asd"]
+single_line = [";"]
+multi_line = [["#|","|#"]]
+category = "Programming"
+
+["Config"]
+extensions = ["cfg","conf"]
+single_line = ["#",";"]
+category = "Config"
+
+["Coq"]
+extensions = ["coq","v"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["CQL"]
+extensions = ["cql"]
+single_line = ["//"]
+category = "Programming"
+
+["Creole"]
+extensions = ["creole"]
+category = "Programming"
+
+["Crystal"]
+extensions = ["cr"]
+single_line = ["#"]
+shebangs = ["#!/usr/bin/crystal"]
+category = "Programming"
+
+["CSS"]
+extensions = ["css"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["CSV"]
+extensions = ["csv"]
+category = "Data"
+
+["Cuda"]
+extensions = ["cu","cuh"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["CUDA"]
+extensions = ["cu"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["CUDA Header"]
+extensions = ["cuh"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["CUE"]
+extensions = ["cue"]
+single_line = ["//"]
+category = "Programming"
+
+["Cypher"]
+extensions = ["cypher","cql"]
+single_line = ["//"]
+category = "Programming"
+
+["Cython"]
+extensions = ["pyx","pxd","pxi"]
+single_line = ["#"]
+category = "Programming"
+
+["D"]
+extensions = ["d"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+shebangs = ["rdmd"]
+category = "Programming"
+
+["D2"]
+extensions = ["d2"]
+single_line = ["#"]
+multi_line = [["\\\"\\\"\\\"","\\\"\\\"\\\""]]
+category = "Programming"
+
+["DAML"]
+extensions = ["daml"]
+single_line = ["-- "]
+multi_line = [["{-","-}"]]
+category = "Programming"
+
+["Dart"]
+extensions = ["dart"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Delphi"]
+extensions = ["dpr","dpk"]
+single_line = ["//"]
+multi_line = [["(*","*)"],["{","}"]]
+category = "Programming"
+
+["Device Tree"]
+extensions = ["dts","dtsi"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Dhall"]
+extensions = ["dhall"]
+single_line = ["--"]
+multi_line = [["{-","-}"]]
+category = "Programming"
+
+["Djot"]
+extensions = ["dj","djot"]
+category = "Programming"
+
+["DM"]
+extensions = ["dm"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Docker ignore"]
+extensions = []
+single_line = ["#","//"]
+filenames = [".dockerignore"]
+category = "Programming"
+
+["Dockerfile"]
+extensions = ["dockerfile","dockerignore"]
+single_line = ["#"]
+filenames = ["dockerfile"]
+category = "Config"
+
+["Document Type Definition"]
+extensions = ["dtd"]
+category = "Data"
+
+["DOT"]
+extensions = ["dot","gv"]
+single_line = ["//","#"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Dotenv"]
+extensions = ["env"]
+single_line = ["#"]
+category = "Config"
+
+["Dream Maker"]
+extensions = ["dm","dme"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Dust.js"]
+extensions = ["dust"]
+multi_line = [["{!","!}"]]
+category = "Programming"
+
+["Ebuild"]
+extensions = ["ebuild","eclass"]
+single_line = ["#"]
+category = "Programming"
+
+["EdgeDB Schema Definition"]
+extensions = ["esdl"]
+single_line = ["#"]
+category = "Data"
+
+["EdgeQL"]
+extensions = ["edgeql"]
+single_line = ["#"]
+category = "Programming"
+
+["EditorConfig"]
+extensions = ["editorconfig"]
+single_line = ["#",";"]
+category = "Config"
+
+["Edn"]
+extensions = ["edn"]
+single_line = [";"]
+category = "Programming"
+
+["EDN"]
+extensions = ["edn"]
+single_line = [";"]
+category = "Programming"
+
+["EJS"]
+extensions = ["ejs"]
+multi_line = [["<%#","%>"]]
+category = "Programming"
+
+["Elixir"]
+extensions = ["ex","exs"]
+single_line = ["#"]
+category = "Programming"
+
+["Elixir Template"]
+extensions = ["eex"]
+single_line = ["#"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["Elm"]
+extensions = ["elm"]
+single_line = ["--"]
+multi_line = [["{-","-}"]]
+category = "Programming"
+
+["Elvish"]
+extensions = ["elv"]
+single_line = ["#"]
+category = "Programming"
+
+["Emacs Dev Env"]
+extensions = ["ede"]
+single_line = [";"]
+category = "Config"
+
+["Emacs Lisp"]
+extensions = ["el"]
+single_line = [";"]
+category = "Programming"
+
+["EmiT"]
+extensions = ["emit"]
+single_line = ["//"]
+category = "Programming"
+
+["Emojicode"]
+extensions = ["emojic","🍇"]
+single_line = ["💭"]
+multi_line = [["💭🔜","🔚💭"],["📗","📗"],["📘","📘"]]
+category = "Programming"
+
+["ERB"]
+extensions = ["erb"]
+multi_line = [["<%#","%>"]]
+category = "Programming"
+
+["Erlang"]
+extensions = ["erl","hrl"]
+single_line = ["%"]
+shebangs = ["escript"]
+category = "Programming"
+
+["Expect"]
+extensions = ["exp"]
+single_line = ["#"]
+category = "Programming"
+
+["Extensible Stylesheet Language Transformations"]
+extensions = ["xslt","xsl"]
+category = "Programming"
+
+["F*"]
+extensions = ["fst","fsti"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["F#"]
+extensions = ["fs","fsx","fsi","fsscript"]
+single_line = ["//"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Factor"]
+extensions = ["factor"]
+single_line = ["!","#!"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["FEN"]
+extensions = ["fen"]
+category = "Programming"
+
+["Fennel"]
+extensions = ["fnl","fnlm"]
+single_line = [";"]
+category = "Programming"
+
+["FIDL"]
+extensions = ["fidl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Fish"]
+extensions = ["fish"]
+single_line = ["#"]
+shebangs = ["#!/bin/fish","fish"]
+category = "Programming"
+
+["FlatBuffers Schema"]
+extensions = ["fbs"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Flow9"]
+extensions = ["flow"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Forge Config"]
+extensions = ["cfg"]
+single_line = ["#","~"]
+category = "Config"
+
+["Forth"]
+extensions = ["fth","4th","forth","fr","frt","f83","fb","fpm","e4","rx","ft"]
+single_line = ["\\\\ "]
+multi_line = [["(",")"]]
+category = "Programming"
+
+["Fortran"]
+extensions = ["f90","f95","f03","f08"]
+single_line = ["!"]
+category = "Programming"
+
+["Fortran Legacy"]
+extensions = ["f","for"]
+single_line = ["c","C","*","!"]
+category = "Programming"
+
+["FORTRAN Legacy"]
+extensions = ["f","for","ftn","f77","pfo"]
+single_line = ["c","C","!","*"]
+category = "Programming"
+
+["Fortran Modern"]
+extensions = ["f03","f08","f90","f95"]
+single_line = ["!"]
+category = "Programming"
+
+["FORTRAN Modern"]
+extensions = ["f03","f08","f90","f95","fpp"]
+single_line = ["!"]
+category = "Programming"
+
+["Fragment Shader File"]
+extensions = ["fsh"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["FreeMarker"]
+extensions = ["ftl","ftlh","ftlx"]
+multi_line = [["<#--","-->"]]
+category = "Programming"
+
+["Freemarker Template"]
+extensions = ["ftl"]
+multi_line = [["<#--","-->"]]
+category = "Programming"
+
+["FSL"]
+extensions = ["fsl"]
+single_line = ["//"]
+category = "Programming"
+
+["Futhark"]
+extensions = ["fut"]
+single_line = ["--"]
+category = "Programming"
+
+["FXML"]
+extensions = ["fxml"]
+multi_line = [["<!--","-->"]]
+category = "Data"
+
+["Game Maker Language"]
+extensions = ["gml"]
+single_line = ["//","///"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Game Maker Project"]
+extensions = ["yyp"]
+category = "Programming"
+
+["GDB Script"]
+extensions = ["gdb"]
+single_line = ["#"]
+category = "Programming"
+
+["GDResource"]
+extensions = ["tres","tscn"]
+single_line = [";"]
+category = "Programming"
+
+["GDScript"]
+extensions = ["gd"]
+single_line = ["#"]
+category = "Programming"
+
+["GDShader"]
+extensions = ["gdshader","gdshaderinc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Gemfile"]
+extensions = []
+single_line = ["#"]
+filenames = ["gemfile"]
+category = "Config"
+
+["Gherkin (Cucumber)"]
+extensions = ["feature"]
+single_line = ["#"]
+category = "Programming"
+
+["Gherkin Specification"]
+extensions = ["feature"]
+single_line = ["#"]
+category = "Programming"
+
+["gitignore"]
+extensions = []
+single_line = ["#"]
+filenames = [".gitignore"]
+category = "Config"
+
+["Gleam"]
+extensions = ["gleam"]
+single_line = ["//"]
+category = "Programming"
+
+["Glimmer JS"]
+extensions = ["gjs"]
+single_line = ["//"]
+multi_line = [["/*","*/"],["<!--","-->"]]
+category = "Programming"
+
+["Glimmer TS"]
+extensions = ["gts"]
+single_line = ["//"]
+multi_line = [["/*","*/"],["<!--","-->"]]
+category = "Programming"
+
+["GLSL"]
+extensions = ["glsl","vert","tesc","tese","geom","frag","comp","mesh","task","rgen","rint","rahit","rchit","rmiss","rcall"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Gml"]
+extensions = ["gml"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["GN"]
+extensions = ["gn","gni"]
+single_line = ["#"]
+category = "Programming"
+
+["GNU Style Assembly"]
+extensions = ["s"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Go"]
+extensions = ["go"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Go HTML"]
+extensions = ["gohtml"]
+multi_line = [["<!--","-->"],["{{/*","*/}}"]]
+category = "Markup"
+
+["Go Template"]
+extensions = ["tmpl","gohtml","gotxt"]
+multi_line = [["{{/*","*/}}"]]
+category = "Programming"
+
+["Go+"]
+extensions = ["gop"]
+single_line = ["//","#"]
+multi_line = [["/*","*/"]]
+shebangs = ["gop"]
+category = "Programming"
+
+["Godot Scene"]
+extensions = ["tscn"]
+category = "Programming"
+
+["Gradle"]
+extensions = ["gradle"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["GraphQL"]
+extensions = ["graphql","gql"]
+single_line = ["#"]
+category = "Programming"
+
+["Gremlin"]
+extensions = ["gremlin"]
+single_line = ["//"]
+category = "Programming"
+
+["Groovy"]
+extensions = ["groovy","gvy","gy","grt","gtpl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Gwion"]
+extensions = ["gw"]
+single_line = ["#!"]
+category = "Programming"
+
+["Haml"]
+extensions = ["haml"]
+single_line = ["-#"]
+category = "Programming"
+
+["HAML"]
+extensions = ["haml"]
+single_line = ["-#"]
+category = "Programming"
+
+["Hamlet"]
+extensions = ["hamlet"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["Handlebars"]
+extensions = ["hbs","handlebars"]
+multi_line = [["{{!","}}"],["{{!--","--}}"]]
+category = "Markup"
+
+["Happy"]
+extensions = ["y","ly"]
+category = "Programming"
+
+["Hare"]
+extensions = ["ha"]
+single_line = ["//"]
+category = "Programming"
+
+["Haskell"]
+extensions = ["hs"]
+single_line = ["--"]
+multi_line = [["{-","-}"]]
+category = "Programming"
+
+["Haxe"]
+extensions = ["hx"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["HCL"]
+extensions = ["tf","hcl","tfvars"]
+single_line = ["#","//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Headache"]
+extensions = ["ha"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["HEEx"]
+extensions = ["heex"]
+multi_line = [["<%!--","--%>"]]
+category = "Programming"
+
+["HEX"]
+extensions = ["hex"]
+category = "Programming"
+
+["Hex0"]
+extensions = ["hex0"]
+single_line = ["#",";"]
+category = "Programming"
+
+["Hex1"]
+extensions = ["hex1"]
+single_line = ["#",";"]
+category = "Programming"
+
+["Hex2"]
+extensions = ["hex2"]
+single_line = ["#",";"]
+category = "Programming"
+
+["HICAD"]
+extensions = ["MAC","mac"]
+single_line = ["REM","rem"]
+category = "Programming"
+
+["HiveQL"]
+extensions = ["hql"]
+single_line = ["--"]
+category = "Programming"
+
+["hledger"]
+extensions = ["hledger"]
+single_line = [";","#"]
+multi_line = [["comment","end comment"]]
+category = "Programming"
+
+["HLSL"]
+extensions = ["hlsl","fx","fxsub"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["HOCON"]
+extensions = ["hocon"]
+single_line = ["#","//"]
+category = "Data"
+
+["HolyC"]
+extensions = ["HC","hc","ZC","zc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["hoon"]
+extensions = ["hoon"]
+single_line = ["::"]
+category = "Programming"
+
+["HTML"]
+extensions = ["html","htm","xhtml"]
+multi_line = [["<!--","-->"]]
+category = "Markup"
+
+["Hy"]
+extensions = ["hy"]
+single_line = [";"]
+category = "Programming"
+
+["IDL"]
+extensions = ["idl","webidl","widl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Idris"]
+extensions = ["idr","lidr"]
+single_line = ["--"]
+category = "Programming"
+
+["IEC61131-3"]
+extensions = ["scl","s7dcl"]
+single_line = ["//"]
+multi_line = [["(*","*)"],["/*","*/"]]
+category = "Programming"
+
+["ignore"]
+extensions = []
+single_line = ["#"]
+filenames = [".ignore"]
+category = "Programming"
+
+["INI"]
+extensions = ["ini"]
+single_line = [";","#"]
+category = "Data"
+
+["Intel HEX"]
+extensions = ["ihex"]
+category = "Programming"
+
+["Isabelle"]
+extensions = ["thy"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Jade"]
+extensions = ["jade"]
+single_line = ["//-"]
+category = "Programming"
+
+["JAI"]
+extensions = ["jai"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Janet"]
+extensions = ["janet"]
+single_line = ["#"]
+category = "Programming"
+
+["Java"]
+extensions = ["java"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["JavaScript"]
+extensions = ["js","mjs","cjs","jsx"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+shebangs = ["node"]
+category = "Programming"
+
+["JavaServer Pages"]
+extensions = ["jsp"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["JCL"]
+extensions = ["jcl","jcls"]
+single_line = ["//*"]
+category = "Programming"
+
+["Jenkins Buildfile"]
+extensions = ["jenkinsfile"]
+category = "Programming"
+
+["Jinja"]
+extensions = ["jinja","j2","jinja2"]
+multi_line = [["{#","#}"]]
+category = "Programming"
+
+["Jinja2"]
+extensions = ["j2","jinja"]
+multi_line = [["{#","#}"]]
+category = "Programming"
+
+["jq"]
+extensions = ["jq"]
+single_line = ["#"]
+category = "Programming"
+
+["JSLT"]
+extensions = ["jslt"]
+single_line = ["//"]
+category = "Programming"
+
+["JSON"]
+extensions = ["json","webmanifest"]
+category = "Data"
+
+["JSON with Comments"]
+extensions = ["jsonc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Data"
+
+["JSON-LD"]
+extensions = ["jsonld"]
+category = "Data"
+
+["JSON5"]
+extensions = ["json5"]
+single_line = ["//"]
+category = "Data"
+
+["JSONC"]
+extensions = ["jsonc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Data"
+
+["JSONL"]
+extensions = ["jsonl"]
+category = "Data"
+
+["Jsonnet"]
+extensions = ["jsonnet","libsonnet"]
+single_line = ["//","#"]
+multi_line = [["/*","*/"]]
+shebangs = ["jsonnet"]
+category = "Data"
+
+["JSX"]
+extensions = ["jsx"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["Julia"]
+extensions = ["jl"]
+single_line = ["#"]
+multi_line = [["#=","=#"]]
+category = "Programming"
+
+["Julius"]
+extensions = ["julius"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Jupyter"]
+extensions = ["ipynb","jpynb"]
+category = "Programming"
+
+["Jupyter Notebooks"]
+extensions = ["ipynb"]
+category = "Programming"
+
+["Just"]
+extensions = ["just","justfile"]
+single_line = ["#"]
+shebangs = ["#!/usr/bin/env just --justfile"]
+filenames = ["justfile"]
+category = "Programming"
+
+["K"]
+extensions = ["k"]
+single_line = ["/"]
+category = "Programming"
+
+["Kaem"]
+extensions = ["kaem"]
+single_line = ["#"]
+category = "Programming"
+
+["Kakoune script"]
+extensions = ["kak"]
+single_line = ["#"]
+category = "Programming"
+
+["Koka"]
+extensions = ["kk"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Korn shell"]
+extensions = ["ksh"]
+single_line = ["#"]
+shebangs = ["#!/bin/ksh"]
+category = "Programming"
+
+["Korn Shell"]
+extensions = ["ksh"]
+single_line = ["#"]
+shebangs = ["ksh"]
+filenames = [".kshrc"]
+category = "Programming"
+
+["Kotlin"]
+extensions = ["kt","kts","kmp"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Koto"]
+extensions = ["koto"]
+single_line = ["#"]
+multi_line = [["#-","-#"]]
+category = "Programming"
+
+["KV Language"]
+extensions = ["kv"]
+single_line = ["# "]
+category = "Programming"
+
+["LALRPOP"]
+extensions = ["lalrpop"]
+single_line = ["//"]
+category = "Programming"
+
+["LaTeX"]
+extensions = ["tex","sty"]
+single_line = ["%"]
+category = "Markup"
+
+["Lauterbach PRACTICE Script"]
+extensions = ["cmm"]
+single_line = [";","//"]
+category = "Programming"
+
+["LD Script"]
+extensions = ["ld","lds"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Lean"]
+extensions = ["lean","hlean"]
+single_line = ["--"]
+multi_line = [["/-","-/"]]
+category = "Programming"
+
+["Less"]
+extensions = ["less"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["LESS"]
+extensions = ["less"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["Lex"]
+extensions = ["l","lex"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["LEX"]
+extensions = ["l"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["License"]
+extensions = []
+filenames = ["license","licence","copying","copying3","unlicense","unlicence","license-apache","licence-apache","license-mit","licence-mit","copyright"]
+category = "Programming"
+
+["Lingua Franca"]
+extensions = ["lf"]
+single_line = ["//","#"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Liquid"]
+extensions = ["liquid"]
+multi_line = [["{% comment %}","{% endcomment %}"]]
+category = "Markup"
+
+["Lisp"]
+extensions = ["lisp","lsp"]
+single_line = [";"]
+multi_line = [["#|","|#"]]
+shebangs = ["sbcl"]
+category = "Programming"
+
+["LiveScript"]
+extensions = ["ls"]
+single_line = ["#"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["LLVM"]
+extensions = ["ll"]
+single_line = [";"]
+category = "Programming"
+
+["LLVM IR"]
+extensions = ["ll"]
+single_line = [";"]
+category = "Programming"
+
+["Lockfile"]
+extensions = ["lock"]
+single_line = ["#"]
+category = "Programming"
+
+["Logtalk"]
+extensions = ["lgt","logtalk"]
+single_line = ["%"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["LOLCODE"]
+extensions = ["lol","lols"]
+single_line = ["BTW"]
+multi_line = [["OBTW","TLDR"]]
+category = "Programming"
+
+["Lua"]
+extensions = ["lua","luau"]
+single_line = ["--"]
+multi_line = [["--[[","]]"]]
+shebangs = ["lua"]
+category = "Programming"
+
+["Luau"]
+extensions = ["luau"]
+single_line = ["--"]
+multi_line = [["--[[","]]"],["--[=[","]=]"],["--[==[","]==]"],["--[===[","]===]"],["--[====[","]====]"],["--[=====[","]=====]"]]
+shebangs = ["luau"]
+category = "Programming"
+
+["Lucius"]
+extensions = ["lucius"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Luna"]
+extensions = ["luna"]
+single_line = ["#"]
+category = "Programming"
+
+["M1 Assembly"]
+extensions = ["m1"]
+single_line = ["#",";"]
+category = "Programming"
+
+["m4"]
+extensions = ["m4"]
+single_line = ["#"]
+category = "Programming"
+
+["M4"]
+extensions = ["m4"]
+single_line = ["#","dnl"]
+category = "Programming"
+
+["Macromedia eXtensible Markup Language"]
+extensions = ["mxml"]
+category = "Programming"
+
+["Madlang"]
+extensions = ["mad"]
+single_line = ["#"]
+multi_line = [["{#","#}"]]
+category = "Programming"
+
+["Makefile"]
+extensions = ["makefile","mak","mk","bp"]
+single_line = ["#"]
+filenames = ["gnumakefile","makefile"]
+category = "Config"
+
+["Mako"]
+extensions = ["mako","mao"]
+single_line = ["##"]
+multi_line = [["<%doc>","</%doc>"]]
+category = "Programming"
+
+["Markdown"]
+extensions = ["md","markdown"]
+multi_line = [["<!--","-->"]]
+category = "Markup"
+
+["Marko"]
+extensions = ["marko"]
+single_line = ["//"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["MATLAB"]
+extensions = ["mat","matlab","m"]
+single_line = ["%"]
+multi_line = [["%{","%}"]]
+category = "Programming"
+
+["Max"]
+extensions = ["maxpat"]
+category = "Programming"
+
+["MDX"]
+extensions = ["mdx"]
+multi_line = [["<!--","-->"],["{/*","*/}"]]
+category = "Programming"
+
+["Menhir"]
+extensions = ["mll","mly","vy"]
+single_line = ["//"]
+multi_line = [["(*","*)"],["/*","*/"]]
+category = "Programming"
+
+["Mermaid"]
+extensions = ["mmd","mermaid"]
+single_line = ["%%"]
+category = "Markup"
+
+["Meson"]
+extensions = ["meson.build","meson_options.txt"]
+single_line = ["#"]
+filenames = ["meson.build","meson_options.txt"]
+category = "Programming"
+
+["Metal"]
+extensions = ["metal"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Metal Shader"]
+extensions = ["metal"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Metal Shading Language"]
+extensions = ["metal"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Mint"]
+extensions = ["mint"]
+category = "Programming"
+
+["MIPS Assembly"]
+extensions = ["mips"]
+single_line = ["#"]
+category = "Programming"
+
+["Mlatu"]
+extensions = ["mlt"]
+single_line = ["//"]
+category = "Programming"
+
+["MLIR"]
+extensions = ["mlir"]
+single_line = ["//"]
+category = "Programming"
+
+["Modelica"]
+extensions = ["mo","mos"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Modula3"]
+extensions = ["m3","mg","ig","i3"]
+single_line = ["#"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Module-Definition"]
+extensions = ["def"]
+single_line = [";"]
+category = "Data"
+
+["Mog"]
+extensions = ["mog"]
+single_line = ["//"]
+category = "Programming"
+
+["Mojo"]
+extensions = ["mojo","🔥"]
+single_line = ["#"]
+category = "Programming"
+
+["Monkey C"]
+extensions = ["mc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Moonbit"]
+extensions = ["mbt"]
+single_line = ["//"]
+category = "Programming"
+
+["MoonBit"]
+extensions = ["mbt","mbti"]
+single_line = ["//"]
+category = "Programming"
+
+["MoonScript"]
+extensions = ["moon"]
+single_line = ["--"]
+category = "Programming"
+
+["Move"]
+extensions = ["move"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["MQL Header"]
+extensions = ["mqh"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["MQL4"]
+extensions = ["mq4"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["MQL5"]
+extensions = ["mq5"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["MSBuild"]
+extensions = ["csproj","vbproj","fsproj","props","targets","vcproj","vcxproj","vcxproj.filters","ilproj","myapp","rdlc","resx","settings","sln"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["MUMPS"]
+extensions = ["mps"]
+single_line = [";"]
+category = "Programming"
+
+["Mustache"]
+extensions = ["mustache"]
+multi_line = [["{{!","}}"]]
+category = "Markup"
+
+["Nature"]
+extensions = ["n"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Nextflow"]
+extensions = ["nextflow","nf"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Nial"]
+extensions = ["ndf"]
+single_line = ["%"]
+category = "Programming"
+
+["Nim"]
+extensions = ["nim"]
+single_line = ["#"]
+category = "Programming"
+
+["Nix"]
+extensions = ["nix"]
+single_line = ["#"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Not Quite Perl"]
+extensions = ["nqp"]
+single_line = ["#"]
+multi_line = [["=begin","=end"]]
+category = "Programming"
+
+["NuGet Config"]
+extensions = []
+multi_line = [["<!--","-->"]]
+filenames = ["nuget.config","packages.config","nugetdefaults.config"]
+category = "Config"
+
+["Nushell"]
+extensions = ["nu"]
+single_line = ["#"]
+shebangs = ["nu"]
+category = "Programming"
+
+["nuspec"]
+extensions = ["nuspec"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["Objective C"]
+extensions = ["m"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Objective C++"]
+extensions = ["mm"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Objective-C"]
+extensions = ["m"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Objective-C++"]
+extensions = ["mm"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["OCaml"]
+extensions = ["ml","mli","re","rei"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Octave"]
+extensions = ["octave"]
+single_line = ["%","#"]
+multi_line = [["%{","%}"],["#{","#}"]]
+category = "Programming"
+
+["Odin"]
+extensions = ["odin"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Opalang"]
+extensions = ["opa"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Open Policy Agent"]
+extensions = ["rego"]
+single_line = ["#"]
+category = "Programming"
+
+["OpenAPI"]
+extensions = ["swagger"]
+single_line = ["#"]
+category = "Programming"
+
+["OpenCL"]
+extensions = ["cl","ocl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["OpenQASM"]
+extensions = ["qasm"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["OpenSCAD"]
+extensions = ["scad"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["OpenTofu"]
+extensions = ["tofu"]
+single_line = ["#","//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["OpenType Feature File"]
+extensions = ["fea"]
+single_line = ["#"]
+category = "Programming"
+
+["Org"]
+extensions = ["org"]
+single_line = ["# "]
+category = "Prose"
+
+["Org-mode"]
+extensions = ["org"]
+single_line = ["#"]
+category = "Markup"
+
+["Oz"]
+extensions = ["oz"]
+single_line = ["%"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Pacman's makepkg"]
+extensions = []
+single_line = ["#"]
+filenames = ["pkgbuild"]
+category = "Programming"
+
+["Pan"]
+extensions = ["pan","tpl"]
+single_line = ["#"]
+category = "Programming"
+
+["Pascal"]
+extensions = ["pas"]
+single_line = ["//"]
+multi_line = [["{","}"],["(*","*)"]]
+category = "Programming"
+
+["Patch"]
+extensions = ["patch","diff"]
+category = "Programming"
+
+["Pawn"]
+extensions = ["pwn"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Pawn Header"]
+extensions = ["inc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Perl"]
+extensions = ["pl","pm","plx"]
+single_line = ["#"]
+shebangs = ["#!/usr/bin/perl","perl","perl5"]
+category = "Programming"
+
+["Pest"]
+extensions = ["pest"]
+single_line = ["//"]
+category = "Programming"
+
+["Phix"]
+extensions = ["e","exw"]
+single_line = ["--","//","#!"]
+multi_line = [["/*","*/"],["--/*","--*/"]]
+category = "Programming"
+
+["Phoenix LiveView"]
+extensions = ["heex","leex"]
+single_line = ["#","<!--"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["PHP"]
+extensions = ["php"]
+single_line = ["//","#"]
+multi_line = [["/*","*/"]]
+shebangs = ["php","php5"]
+category = "Programming"
+
+["Picat"]
+extensions = ["pi"]
+single_line = ["%"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Pike"]
+extensions = ["pike"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["PKGBUILD"]
+extensions = ["pkgbuild"]
+category = "Programming"
+
+["Pkl"]
+extensions = ["pkl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["PL/SQL"]
+extensions = ["pks","pkb","fnc","prc","trg","vw"]
+single_line = ["--"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Plain Text"]
+extensions = ["txt","text"]
+category = "Markup"
+
+["PlantUML"]
+extensions = ["puml"]
+single_line = ["'"]
+multi_line = [["/'","'/"]]
+category = "Programming"
+
+["PO File"]
+extensions = ["po","pot"]
+single_line = ["#"]
+category = "Programming"
+
+["Poke"]
+extensions = ["pk"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Polly"]
+extensions = ["polly"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["POML"]
+extensions = ["poml"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["Pony"]
+extensions = ["pony"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["PostCSS"]
+extensions = ["pcss","postcss","sss"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["PostScript"]
+extensions = ["ps"]
+single_line = ["%"]
+category = "Programming"
+
+["Powershell"]
+extensions = ["ps1","psm1"]
+single_line = ["#"]
+multi_line = [["<#","#>"]]
+category = "Programming"
+
+["PowerShell"]
+extensions = ["ps1","psm1","psd1","ps1xml","cdxml","pssc","psc1"]
+single_line = ["#"]
+multi_line = [["<#","#>"]]
+category = "Programming"
+
+["Prisma Schema"]
+extensions = ["prisma"]
+single_line = ["//","///"]
+category = "Programming"
+
+["Processing"]
+extensions = ["pde"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Prolog"]
+extensions = ["pro","p"]
+single_line = ["%"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Properties"]
+extensions = ["properties"]
+single_line = ["#","!"]
+category = "Programming"
+
+["Properties File"]
+extensions = ["properties"]
+single_line = ["#"]
+category = "Programming"
+
+["Protocol Buffers"]
+extensions = ["proto"]
+single_line = ["//"]
+category = "Programming"
+
+["PRQL"]
+extensions = ["prql"]
+single_line = ["#"]
+category = "Programming"
+
+["PSL Assertion"]
+extensions = ["psl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Pug"]
+extensions = ["pug"]
+single_line = ["//","//-"]
+category = "Programming"
+
+["Puppet"]
+extensions = ["pp"]
+single_line = ["#"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["PureScript"]
+extensions = ["purs"]
+single_line = ["--"]
+multi_line = [["{-","-}"]]
+category = "Programming"
+
+["Pyret"]
+extensions = ["arr"]
+single_line = ["#"]
+multi_line = [["#|","|#"]]
+category = "Programming"
+
+["Python"]
+extensions = ["py","pyw","pyi"]
+single_line = ["#"]
+multi_line = [["'''","'''"],["\"\"\"","\"\"\""]]
+shebangs = ["python","python2","python3"]
+category = "Programming"
+
+["Q"]
+extensions = ["q"]
+single_line = ["/"]
+category = "Programming"
+
+["Q#"]
+extensions = ["qs"]
+single_line = ["//"]
+category = "Programming"
+
+["QCL"]
+extensions = ["qcl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["QML"]
+extensions = ["qml"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["R"]
+extensions = ["r"]
+single_line = ["#"]
+shebangs = ["Rscript"]
+category = "Programming"
+
+["R Markdown"]
+extensions = ["rmd"]
+single_line = ["#"]
+multi_line = [["<!--","-->"]]
+category = "Markup"
+
+["Racket"]
+extensions = ["rkt","scrbl"]
+single_line = [";"]
+shebangs = ["racket"]
+category = "Programming"
+
+["Rakefile"]
+extensions = ["rake"]
+single_line = ["#"]
+multi_line = [["=begin","=end"]]
+filenames = ["rakefile","rake"]
+category = "Programming"
+
+["Raku"]
+extensions = ["raku","rakumod","rakutest","pm6","pl6","p6","rakudoc","t"]
+single_line = ["#"]
+shebangs = ["#!/usr/bin/raku","#!/usr/bin/perl6","raku"]
+category = "Programming"
+
+["RAML"]
+extensions = ["raml","rml"]
+single_line = ["#"]
+category = "Programming"
+
+["Razor"]
+extensions = ["cshtml","razor"]
+single_line = ["//"]
+multi_line = [["<!--","-->"],["@*","*@"],["/*","*/"]]
+category = "Programming"
+
+["ReasonML"]
+extensions = ["re","rei"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Rebol"]
+extensions = ["reb"]
+single_line = [";"]
+multi_line = [["{","}"]]
+category = "Programming"
+
+["Redscript"]
+extensions = ["reds"]
+single_line = ["//","///"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Ren'Py"]
+extensions = ["rpy"]
+single_line = ["#"]
+category = "Programming"
+
+["Report Definition Language"]
+extensions = ["rdl"]
+multi_line = [["<!--","-->"]]
+category = "Data"
+
+["ReScript"]
+extensions = ["res","resi"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["reStructuredText"]
+extensions = ["rst"]
+single_line = [".. "]
+category = "Markup"
+
+["ReStructuredText"]
+extensions = ["rst"]
+category = "Markup"
+
+["Rich Text Format"]
+extensions = ["rtf"]
+category = "Markup"
+
+["Robot Framework"]
+extensions = ["robot"]
+category = "Programming"
+
+["Roc"]
+extensions = ["roc"]
+single_line = ["#"]
+category = "Programming"
+
+["RPG"]
+extensions = ["rpgle"]
+single_line = ["//","*"]
+category = "Programming"
+
+["RPM Specfile"]
+extensions = ["spec"]
+single_line = ["#"]
+category = "Programming"
+
+["Ruby"]
+extensions = ["rb"]
+single_line = ["#"]
+multi_line = [["=begin","=end"]]
+shebangs = ["ruby"]
+category = "Programming"
+
+["Ruby HTML"]
+extensions = ["rhtml","erb"]
+multi_line = [["<!--","-->"]]
+category = "Markup"
+
+["Rust"]
+extensions = ["rs"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Rusty Object Notation"]
+extensions = ["ron"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["SAS"]
+extensions = ["sas"]
+single_line = ["*"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Sass"]
+extensions = ["sass","scss"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["Scala"]
+extensions = ["scala","sc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Scallop"]
+extensions = ["scl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Scheme"]
+extensions = ["scm","ss"]
+single_line = [";"]
+category = "Programming"
+
+["Scons"]
+extensions = ["csig","sconstruct","sconscript"]
+single_line = ["#"]
+filenames = ["sconstruct","sconscript"]
+category = "Programming"
+
+["SCSS"]
+extensions = ["scss"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["sed"]
+extensions = ["sed"]
+single_line = ["#"]
+shebangs = ["sed"]
+category = "Programming"
+
+["Sed"]
+extensions = ["sed"]
+single_line = ["#"]
+category = "Programming"
+
+["Seed7"]
+extensions = ["sd7","s7i"]
+single_line = ["#"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["ShaderLab"]
+extensions = ["shader","cginc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Shell"]
+extensions = ["sh","bash","zsh","fish","csh","tcsh","ksh"]
+single_line = ["#"]
+shebangs = ["#!/bin/sh","sh"]
+filenames = [".tcshrc"]
+category = "Programming"
+
+["Sieve"]
+extensions = ["sieve"]
+single_line = ["#"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["SIL"]
+extensions = ["sil"]
+single_line = ["//"]
+multi_line = [["/*","*/"],["/+","+/"]]
+category = "Programming"
+
+["SKILL"]
+extensions = ["il"]
+single_line = [";"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Slang"]
+extensions = ["slang"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Slim"]
+extensions = ["slim"]
+single_line = ["/"]
+category = "Programming"
+
+["Slint"]
+extensions = ["slint"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Smalltalk"]
+extensions = ["cs.st","pck.st"]
+multi_line = [["\\\"","\\\""]]
+category = "Programming"
+
+["Smarty Template"]
+extensions = ["tpl"]
+multi_line = [["{*","*}"]]
+category = "Programming"
+
+["Snakemake"]
+extensions = ["smk","rules"]
+single_line = ["#"]
+filenames = ["snakefile"]
+category = "Programming"
+
+["SNOBOL"]
+extensions = ["sno"]
+single_line = ["*"]
+category = "Programming"
+
+["Softbridge Basic"]
+extensions = ["sbl"]
+single_line = ["'"]
+category = "Programming"
+
+["Solidity"]
+extensions = ["sol"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["SPARQL"]
+extensions = ["rq","sparql"]
+single_line = ["#"]
+category = "Programming"
+
+["SPDX"]
+extensions = ["spdx"]
+category = "Programming"
+
+["Specman e"]
+extensions = ["e"]
+single_line = ["--","//"]
+multi_line = [["'>","<'"]]
+category = "Programming"
+
+["Spice Netlist"]
+extensions = ["ckt"]
+single_line = ["*"]
+category = "Programming"
+
+["SPL"]
+extensions = ["spl"]
+multi_line = [["\"","\";"]]
+shebangs = ["spl"]
+category = "Programming"
+
+["SPSS"]
+extensions = ["sps"]
+single_line = ["*"]
+category = "Programming"
+
+["SQF"]
+extensions = ["sqf"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["SQL"]
+extensions = ["sql","dml","ddl","dql"]
+single_line = ["--"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Squirrel"]
+extensions = ["nut"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["SRecode Template"]
+extensions = ["srt"]
+single_line = [";;"]
+category = "Programming"
+
+["Stan"]
+extensions = ["stan"]
+single_line = ["//","#"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Standard ML"]
+extensions = ["sml"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Standard ML (SML)"]
+extensions = ["sml"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Starlark"]
+extensions = ["bzl"]
+single_line = ["#"]
+category = "Programming"
+
+["Stata"]
+extensions = ["do","ado"]
+single_line = ["*","//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Stratego/XT"]
+extensions = ["str"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Stylus"]
+extensions = ["styl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["Svelte"]
+extensions = ["svelte"]
+single_line = ["//"]
+multi_line = [["<!--","-->"],["/*","*/"]]
+category = "Markup"
+
+["SVG"]
+extensions = ["svg"]
+multi_line = [["<!--","-->"]]
+category = "Markup"
+
+["Swift"]
+extensions = ["swift"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Swig"]
+extensions = ["i"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["SWIG"]
+extensions = ["swg","i"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Systemd"]
+extensions = ["automount","device","link","mount","path","scope","service","slice","socket","swap","target","timer"]
+single_line = ["#"]
+category = "Programming"
+
+["SystemVerilog"]
+extensions = ["sv","svh"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["SystemVerilog Header"]
+extensions = ["svh"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["T-SQL"]
+extensions = ["tsql"]
+single_line = ["--"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Tact"]
+extensions = ["tact"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["TaskPaper"]
+extensions = ["taskpaper"]
+category = "Programming"
+
+["Tcl"]
+extensions = ["tcl"]
+single_line = ["#"]
+category = "Programming"
+
+["TCL"]
+extensions = ["tcl"]
+single_line = ["#"]
+shebangs = ["tcl"]
+category = "Programming"
+
+["Teal"]
+extensions = ["teal"]
+single_line = ["//"]
+category = "Programming"
+
+["Templ"]
+extensions = ["templ","tmpl"]
+single_line = ["//"]
+multi_line = [["<!--","-->"],["/*","*/"]]
+category = "Programming"
+
+["TemplateToolkit"]
+extensions = ["tt","tt2"]
+multi_line = [["[%#","%]"]]
+category = "Programming"
+
+["Tera"]
+extensions = ["tera"]
+multi_line = [["<!--","-->"],["{#","#}"]]
+category = "Programming"
+
+["Terraform"]
+extensions = ["tf","tfvars","tf.json"]
+single_line = ["#","//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["TeX"]
+extensions = ["tex","sty"]
+single_line = ["%"]
+category = "Markup"
+
+["Textile"]
+extensions = ["textile"]
+single_line = ["### "]
+category = "Markup"
+
+["The WenYan Programming Language"]
+extensions = ["wy"]
+multi_line = [["批曰。","。"],["疏曰。","。"]]
+category = "Programming"
+
+["Thrift"]
+extensions = ["thrift"]
+single_line = ["#","//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["TL"]
+extensions = ["tl"]
+single_line = ["//","///"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["TOML"]
+extensions = ["toml"]
+single_line = ["#"]
+category = "Data"
+
+["TOON"]
+extensions = ["toon"]
+category = "Programming"
+
+["Treetop"]
+extensions = ["treetop","tt"]
+single_line = ["#"]
+category = "Programming"
+
+["TSX"]
+extensions = ["tsx"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["TTCN-3"]
+extensions = ["ttcn","ttcn3","ttcnpp"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Twig"]
+extensions = ["twig"]
+multi_line = [["{#","#}"]]
+category = "Markup"
+
+["Twig Template"]
+extensions = ["twig"]
+category = "Markup"
+
+["TypeScript"]
+extensions = ["ts","mts","cts","tsx"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["TypeScript Typings"]
+extensions = ["d.ts"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["TypeSpec"]
+extensions = ["tsp"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Typst"]
+extensions = ["typ"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Uiua"]
+extensions = ["ua"]
+single_line = ["#"]
+category = "Programming"
+
+["UMPL"]
+extensions = ["umpl"]
+single_line = ["!"]
+category = "Programming"
+
+["Unison"]
+extensions = ["u"]
+single_line = ["--"]
+multi_line = [["{-","-}"]]
+category = "Programming"
+
+["Unreal Markdown"]
+extensions = ["udn"]
+category = "Markup"
+
+["Unreal Plugin"]
+extensions = ["uplugin"]
+category = "Programming"
+
+["Unreal Project"]
+extensions = ["uproject"]
+category = "Programming"
+
+["Unreal Script"]
+extensions = ["uc","uci","upkg"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Unreal Shader"]
+extensions = ["usf"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Unreal Shader Header"]
+extensions = ["ush"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["UnrealScript"]
+extensions = ["uc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Up"]
+extensions = ["up"]
+single_line = ["//"]
+category = "Programming"
+
+["Ur/Web"]
+extensions = ["ur","urs"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Ur/Web Project"]
+extensions = ["urp"]
+single_line = ["#"]
+category = "Programming"
+
+["V"]
+extensions = ["vlang","v"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Vala"]
+extensions = ["vala"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Varnish Configuration"]
+extensions = ["vcl"]
+single_line = ["#","//"]
+multi_line = [["/*","*/"]]
+category = "Config"
+
+["VB.NET"]
+extensions = ["vb"]
+single_line = ["'"]
+category = "Programming"
+
+["VB6/VBA"]
+extensions = ["frm","bas","cls","ctl","dsr"]
+single_line = ["'"]
+category = "Programming"
+
+["VBA"]
+extensions = ["bas","cls","frm"]
+single_line = ["'"]
+category = "Programming"
+
+["VBScript"]
+extensions = ["vbs"]
+single_line = ["'"]
+category = "Programming"
+
+["Verilog"]
+extensions = ["v","vg","vh"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Verilog Args File"]
+extensions = ["irunargs","xrunargs"]
+category = "Programming"
+
+["Vertex Shader File"]
+extensions = ["vsh"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Markup"
+
+["VHDL"]
+extensions = ["vhd","vhdl"]
+single_line = ["--"]
+category = "Programming"
+
+["Vim Script"]
+extensions = ["vim","vimrc","gvimrc"]
+single_line = ["\\\""]
+filenames = ["_vimrc",".vimrc","_gvimrc",".gvimrc","vimrc","gvimrc"]
+category = "Programming"
+
+["Virgil"]
+extensions = ["v3"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Visual Basic"]
+extensions = ["vb"]
+single_line = ["'"]
+category = "Programming"
+
+["Visual Basic for Applications"]
+extensions = ["cls"]
+single_line = ["'"]
+category = "Programming"
+
+["Visual Studio Project"]
+extensions = ["vcproj","vcxproj"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["Visual Studio Solution"]
+extensions = ["sln"]
+category = "Programming"
+
+["Vue"]
+extensions = ["vue"]
+single_line = ["//"]
+multi_line = [["<!--","-->"],["/*","*/"]]
+category = "Markup"
+
+["Vyper"]
+extensions = ["vy"]
+single_line = ["#"]
+multi_line = [["'''","'''"]]
+category = "Programming"
+
+["W.I.S.E. Jobfile"]
+extensions = ["fgmj"]
+category = "Programming"
+
+["Web Services Description Language"]
+extensions = ["wsdl"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["WebAssembly"]
+extensions = ["wat","wast"]
+single_line = [";;"]
+category = "Programming"
+
+["WebAssembly Text"]
+extensions = ["wat","wast"]
+single_line = [";;"]
+multi_line = [["(;",";)"]]
+category = "Markup"
+
+["WebGPU Enhanced Shading Language"]
+extensions = ["wesl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["WebGPU Shader Language"]
+extensions = ["wgsl"]
+single_line = ["//"]
+category = "Programming"
+
+["WebGPU Shading Language"]
+extensions = ["wgsl"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["wenyan"]
+extensions = ["wy"]
+single_line = ["批曰","注曰","疏曰"]
+category = "Programming"
+
+["WGSL"]
+extensions = ["wgsl"]
+single_line = ["//"]
+category = "Programming"
+
+["Windows Resource-Definition Script"]
+extensions = ["rc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Data"
+
+["Wolfram"]
+extensions = ["nb","wl"]
+multi_line = [["(*","*)"]]
+category = "Programming"
+
+["Wren"]
+extensions = ["wren"]
+single_line = ["//"]
+category = "Programming"
+
+["XAML"]
+extensions = ["xaml"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["Xcode Config"]
+extensions = ["xcconfig"]
+single_line = ["//"]
+category = "Config"
+
+["Xcode Project"]
+extensions = ["pbxproj"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["XHTML"]
+extensions = ["xhtml","xhtm","xht"]
+multi_line = [["<!--","-->"]]
+category = "Markup"
+
+["XMake"]
+extensions = []
+single_line = ["--"]
+multi_line = [["--[[","]]"],["--[=[","]=]"],["--[==[","]==]"],["--[===[","]===]"],["--[====[","]====]"],["--[=====[","]=====]"]]
+filenames = ["xmake.lua","xpack.lua"]
+category = "Programming"
+
+["XML"]
+extensions = ["xml","storyboard","xib","plist"]
+multi_line = [["<!--","-->"]]
+category = "Data"
+
+["XML Schema"]
+extensions = ["xsd"]
+category = "Data"
+
+["XSL"]
+extensions = ["xsl","xslt"]
+multi_line = [["<!--","-->"]]
+category = "Programming"
+
+["Xtend"]
+extensions = ["xtend"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Yacc"]
+extensions = ["y"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["YAML"]
+extensions = ["yaml","yml"]
+single_line = ["#"]
+category = "Data"
+
+["Yarn"]
+extensions = ["yarn"]
+category = "Programming"
+
+["Zen C"]
+extensions = ["zc"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["ZenCode"]
+extensions = ["zs"]
+single_line = ["//","#"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Zig"]
+extensions = ["zig"]
+single_line = ["//"]
+category = "Programming"
+
+["Zig Config"]
+extensions = ["zon"]
+single_line = ["//"]
+category = "Config"
+
+["ZoKrates"]
+extensions = ["zok"]
+single_line = ["//"]
+multi_line = [["/*","*/"]]
+category = "Programming"
+
+["Zsh"]
+extensions = ["zsh","zshenv","zlogin","zlogout","zprofile","zshrc"]
+single_line = ["#"]
+shebangs = ["#!/bin/zsh","zsh"]
+filenames = [".zshenv",".zlogin",".zlogout",".zprofile",".zshrc"]
+category = "Programming"
+

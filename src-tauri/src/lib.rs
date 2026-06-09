@@ -1,6 +1,6 @@
-mod models;
-mod engine;
-mod commands;
+pub mod models;
+pub mod engine;
+pub mod commands;
 
 use commands::{
     scan_directory,

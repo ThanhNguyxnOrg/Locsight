@@ -1,0 +1,5 @@
+[dependencies]
+axum = "1.0"
+rayon = "1.0"
+serde = "1.0"
+tokio = "1.0"

@@ -1,0 +1,8 @@
+dependencies {
+    implementation 'org.test:exposed:1.0'
+    implementation 'org.test:koin-core:1.0'
+    implementation 'org.test:kotlinx-coroutines-core:1.0'
+    implementation 'org.test:kotlinx-coroutines-reactor:1.0'
+    implementation 'org.test:kotlinx-serialization:1.0'
+    implementation 'org.test:kotlinx-serialization-json:1.0'
+}

@@ -1,0 +1,3656 @@
+{
+  "_net_resource.resx": {
+    "language": ".NET Resource",
+    "extension": "resx",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "8th.8th": {
+    "language": "8th",
+    "extension": "8th",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "abap.abap": {
+    "language": "ABAP",
+    "extension": "abap",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "abnf.abnf": {
+    "language": "ABNF",
+    "extension": "abnf",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "actionscript.as": {
+    "language": "ActionScript",
+    "extension": "as",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "ada.adb": {
+    "language": "Ada",
+    "extension": "adb",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "agda.agda": {
+    "language": "Agda",
+    "extension": "agda",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "alchemist.crn": {
+    "language": "Alchemist",
+    "extension": "crn",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "alex.x": {
+    "language": "Alex",
+    "extension": "x",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "algol_68.a68": {
+    "language": "Algol 68",
+    "extension": "a68",
+    "code": 2,
+    "comments": 9,
+    "blanks": 1
+  },
+  "alloy.als": {
+    "language": "Alloy",
+    "extension": "als",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "amber.ab": {
+    "language": "Amber",
+    "extension": "ab",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "android_interface_definition_language.aidl": {
+    "language": "Android Interface Definition Language",
+    "extension": "aidl",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "apache_velocity.vm": {
+    "language": "Apache Velocity",
+    "extension": "vm",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "apex.apex": {
+    "language": "Apex",
+    "extension": "apex",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "apl.apl": {
+    "language": "APL",
+    "extension": "apl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "applescript.applescript": {
+    "language": "AppleScript",
+    "extension": "applescript",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "arduino_c__.ino": {
+    "language": "Arduino C++",
+    "extension": "ino",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "ark_typescript.ets": {
+    "language": "Ark TypeScript",
+    "extension": "ets",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "arkts.ets": {
+    "language": "ArkTs",
+    "extension": "ets",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "arturo.art": {
+    "language": "Arturo",
+    "extension": "art",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "asciidoc.adoc": {
+    "language": "AsciiDoc",
+    "extension": "adoc",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "asn_1.asn1": {
+    "language": "ASN.1",
+    "extension": "asn1",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "asp.asa": {
+    "language": "ASP",
+    "extension": "asa",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "asp_net.asax": {
+    "language": "ASP.NET",
+    "extension": "asax",
+    "code": 2,
+    "comments": 6,
+    "blanks": 1
+  },
+  "assembly.asm": {
+    "language": "Assembly",
+    "extension": "asm",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "astro.astro": {
+    "language": "Astro",
+    "extension": "astro",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "ats.dats": {
+    "language": "ATS",
+    "extension": "dats",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "autoconf.in": {
+    "language": "Autoconf",
+    "extension": "in",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "autohotkey.ahk": {
+    "language": "AutoHotKey",
+    "extension": "ahk",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "autoit.au3": {
+    "language": "AutoIt",
+    "extension": "au3",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "automake.am": {
+    "language": "Automake",
+    "extension": "am",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "avro.avdl": {
+    "language": "Avro",
+    "extension": "avdl",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "awk.awk": {
+    "language": "AWK",
+    "extension": "awk",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "axaml.axaml": {
+    "language": "AXAML",
+    "extension": "axaml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "bait.bt": {
+    "language": "bait",
+    "extension": "bt",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "ballerina.bal": {
+    "language": "Ballerina",
+    "extension": "bal",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "bash.bash": {
+    "language": "BASH",
+    "extension": "bash",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "basic.bas": {
+    "language": "Basic",
+    "extension": "bas",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "batch.bat": {
+    "language": "Batch",
+    "extension": "bat",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "bazel.bzl": {
+    "language": "Bazel",
+    "extension": "bzl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "bean.bean": {
+    "language": "Bean",
+    "extension": "bean",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "beancount.beancount": {
+    "language": "Beancount",
+    "extension": "beancount",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "bicep.bicep": {
+    "language": "Bicep",
+    "extension": "bicep",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "bitbake.bb": {
+    "language": "Bitbake",
+    "extension": "bb",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "bitbucket_pipeline.bitbucket-pipelines.yml": {
+    "language": "Bitbucket Pipeline",
+    "extension": "bitbucket-pipelines.yml",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "blade.blade": {
+    "language": "Blade",
+    "extension": "blade",
+    "code": 2,
+    "comments": 6,
+    "blanks": 1
+  },
+  "blade_template.blade.php": {
+    "language": "Blade template",
+    "extension": "blade.php",
+    "code": 2,
+    "comments": 6,
+    "blanks": 1
+  },
+  "blueprint.blp": {
+    "language": "Blueprint",
+    "extension": "blp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "boo.boo": {
+    "language": "Boo",
+    "extension": "boo",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "bosque.bsq": {
+    "language": "Bosque",
+    "extension": "bsq",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "bqn.bqn": {
+    "language": "BQN",
+    "extension": "bqn",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "brainfuck.bf": {
+    "language": "Brainfuck",
+    "extension": "bf",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "brightscript.brs": {
+    "language": "BrightScript",
+    "extension": "brs",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "bru.bru": {
+    "language": "Bru",
+    "extension": "bru",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "buildstream.bst": {
+    "language": "BuildStream",
+    "extension": "bst",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "c.c": {
+    "language": "C",
+    "extension": "c",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "c_header.h": {
+    "language": "C Header",
+    "extension": "h",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "c_shell.csh": {
+    "language": "C Shell",
+    "extension": "csh",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "c_.cs": {
+    "language": "C#",
+    "extension": "cs",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "c__.cpp": {
+    "language": "C++",
+    "extension": "cpp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "c___header.hpp": {
+    "language": "C++ Header",
+    "extension": "hpp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "c___module.cppm": {
+    "language": "C++ Module",
+    "extension": "cppm",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "c3.c3": {
+    "language": "C3",
+    "extension": "c3",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "cabal.cabal": {
+    "language": "Cabal",
+    "extension": "cabal",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "cairo.cairo": {
+    "language": "Cairo",
+    "extension": "cairo",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "cangjie.cj": {
+    "language": "Cangjie",
+    "extension": "cj",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "cap_n_proto.capnp": {
+    "language": "Cap'n Proto",
+    "extension": "capnp",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "carbon.carbon": {
+    "language": "Carbon",
+    "extension": "carbon",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "cassius.cassius": {
+    "language": "Cassius",
+    "extension": "cassius",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "ceylon.ceylon": {
+    "language": "Ceylon",
+    "extension": "ceylon",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "chapel.chpl": {
+    "language": "Chapel",
+    "extension": "chpl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "cil__selinux_.cil": {
+    "language": "CIL (SELinux)",
+    "extension": "cil",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "circom.circom": {
+    "language": "Circom",
+    "extension": "circom",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "clipper.prg": {
+    "language": "Clipper",
+    "extension": "prg",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "clojure.clj": {
+    "language": "Clojure",
+    "extension": "clj",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "clojurec.cljc": {
+    "language": "ClojureC",
+    "extension": "cljc",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "clojurescript.cljs": {
+    "language": "ClojureScript",
+    "extension": "cljs",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "closure_template.soy": {
+    "language": "Closure Template",
+    "extension": "soy",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "cloudformation__json_.json": {
+    "language": "CloudFormation (JSON)",
+    "extension": "json",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "cloudformation__yaml_.yaml": {
+    "language": "CloudFormation (YAML)",
+    "extension": "yaml",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "cmake.cmake": {
+    "language": "CMake",
+    "extension": "cmake",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "cobol.cob": {
+    "language": "COBOL",
+    "extension": "cob",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "codeql.ql": {
+    "language": "CodeQL",
+    "extension": "ql",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "coffeescript.coffee": {
+    "language": "CoffeeScript",
+    "extension": "coffee",
+    "code": 3,
+    "comments": 3,
+    "blanks": 1
+  },
+  "cogent.cogent": {
+    "language": "Cogent",
+    "extension": "cogent",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "coldfusion.cfm": {
+    "language": "ColdFusion",
+    "extension": "cfm",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "coldfusion_cfscript.cfc": {
+    "language": "ColdFusion CFScript",
+    "extension": "cfc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "common_lisp.commonlisp": {
+    "language": "Common Lisp",
+    "extension": "commonlisp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "config.cfg": {
+    "language": "Config",
+    "extension": "cfg",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "coq.coq": {
+    "language": "Coq",
+    "extension": "coq",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "cql.cql": {
+    "language": "CQL",
+    "extension": "cql",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "creole.creole": {
+    "language": "Creole",
+    "extension": "creole",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "crystal.cr": {
+    "language": "Crystal",
+    "extension": "cr",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "css.css": {
+    "language": "CSS",
+    "extension": "css",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "csv.csv": {
+    "language": "CSV",
+    "extension": "csv",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "cuda.cu": {
+    "language": "CUDA",
+    "extension": "cu",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "cuda_header.cuh": {
+    "language": "CUDA Header",
+    "extension": "cuh",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "cue.cue": {
+    "language": "CUE",
+    "extension": "cue",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "cypher.cypher": {
+    "language": "Cypher",
+    "extension": "cypher",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "cython.pyx": {
+    "language": "Cython",
+    "extension": "pyx",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "d.d": {
+    "language": "D",
+    "extension": "d",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "d2.d2": {
+    "language": "D2",
+    "extension": "d2",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "daml.daml": {
+    "language": "DAML",
+    "extension": "daml",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "dart.dart": {
+    "language": "Dart",
+    "extension": "dart",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "delphi.dpr": {
+    "language": "Delphi",
+    "extension": "dpr",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "device_tree.dts": {
+    "language": "Device Tree",
+    "extension": "dts",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "dhall.dhall": {
+    "language": "Dhall",
+    "extension": "dhall",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "djot.dj": {
+    "language": "Djot",
+    "extension": "dj",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "dm.dm": {
+    "language": "DM",
+    "extension": "dm",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "dockerfile.dockerfile": {
+    "language": "Dockerfile",
+    "extension": "dockerfile",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "document_type_definition.dtd": {
+    "language": "Document Type Definition",
+    "extension": "dtd",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "dot.dot": {
+    "language": "DOT",
+    "extension": "dot",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "dotenv.env": {
+    "language": "Dotenv",
+    "extension": "env",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "dream_maker.dm": {
+    "language": "Dream Maker",
+    "extension": "dm",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "dust_js.dust": {
+    "language": "Dust.js",
+    "extension": "dust",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "ebuild.ebuild": {
+    "language": "Ebuild",
+    "extension": "ebuild",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "edgedb_schema_definition.esdl": {
+    "language": "EdgeDB Schema Definition",
+    "extension": "esdl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "edgeql.edgeql": {
+    "language": "EdgeQL",
+    "extension": "edgeql",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "editorconfig.editorconfig": {
+    "language": "EditorConfig",
+    "extension": "editorconfig",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "edn.edn": {
+    "language": "EDN",
+    "extension": "edn",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "ejs.ejs": {
+    "language": "EJS",
+    "extension": "ejs",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "elixir.ex": {
+    "language": "Elixir",
+    "extension": "ex",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "elixir_template.eex": {
+    "language": "Elixir Template",
+    "extension": "eex",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "elm.elm": {
+    "language": "Elm",
+    "extension": "elm",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "elvish.elv": {
+    "language": "Elvish",
+    "extension": "elv",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "emacs_dev_env.ede": {
+    "language": "Emacs Dev Env",
+    "extension": "ede",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "emacs_lisp.el": {
+    "language": "Emacs Lisp",
+    "extension": "el",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "emit.emit": {
+    "language": "EmiT",
+    "extension": "emit",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "emojicode.emojic": {
+    "language": "Emojicode",
+    "extension": "emojic",
+    "code": 4,
+    "comments": 8,
+    "blanks": 1
+  },
+  "erb.erb": {
+    "language": "ERB",
+    "extension": "erb",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "erlang.erl": {
+    "language": "Erlang",
+    "extension": "erl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "expect.exp": {
+    "language": "Expect",
+    "extension": "exp",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "extensible_stylesheet_language_transformations.xslt": {
+    "language": "Extensible Stylesheet Language Transformations",
+    "extension": "xslt",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "f_.fst": {
+    "language": "F*",
+    "extension": "fst",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "f_.fs": {
+    "language": "F#",
+    "extension": "fs",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "factor.factor": {
+    "language": "Factor",
+    "extension": "factor",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "fen.fen": {
+    "language": "FEN",
+    "extension": "fen",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "fennel.fnl": {
+    "language": "Fennel",
+    "extension": "fnl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "fidl.fidl": {
+    "language": "FIDL",
+    "extension": "fidl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "fish.fish": {
+    "language": "Fish",
+    "extension": "fish",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "flatbuffers_schema.fbs": {
+    "language": "FlatBuffers Schema",
+    "extension": "fbs",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "flow9.flow": {
+    "language": "Flow9",
+    "extension": "flow",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "forge_config.cfg": {
+    "language": "Forge Config",
+    "extension": "cfg",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "forth.fth": {
+    "language": "Forth",
+    "extension": "fth",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "fortran.f90": {
+    "language": "Fortran",
+    "extension": "f90",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "fortran_legacy.f": {
+    "language": "FORTRAN Legacy",
+    "extension": "f",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "fortran_modern.f03": {
+    "language": "FORTRAN Modern",
+    "extension": "f03",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "fragment_shader_file.fsh": {
+    "language": "Fragment Shader File",
+    "extension": "fsh",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "freemarker.ftl": {
+    "language": "FreeMarker",
+    "extension": "ftl",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "freemarker_template.ftl": {
+    "language": "Freemarker Template",
+    "extension": "ftl",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "fsl.fsl": {
+    "language": "FSL",
+    "extension": "fsl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "futhark.fut": {
+    "language": "Futhark",
+    "extension": "fut",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "fxml.fxml": {
+    "language": "FXML",
+    "extension": "fxml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "game_maker_language.gml": {
+    "language": "Game Maker Language",
+    "extension": "gml",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "game_maker_project.yyp": {
+    "language": "Game Maker Project",
+    "extension": "yyp",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "gdb_script.gdb": {
+    "language": "GDB Script",
+    "extension": "gdb",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "gdresource.tres": {
+    "language": "GDResource",
+    "extension": "tres",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "gdscript.gd": {
+    "language": "GDScript",
+    "extension": "gd",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "gdshader.gdshader": {
+    "language": "GDShader",
+    "extension": "gdshader",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "gherkin__cucumber_.feature": {
+    "language": "Gherkin (Cucumber)",
+    "extension": "feature",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "gherkin_specification.feature": {
+    "language": "Gherkin Specification",
+    "extension": "feature",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "gleam.gleam": {
+    "language": "Gleam",
+    "extension": "gleam",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "glimmer_js.gjs": {
+    "language": "Glimmer JS",
+    "extension": "gjs",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "glimmer_ts.gts": {
+    "language": "Glimmer TS",
+    "extension": "gts",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "glsl.glsl": {
+    "language": "GLSL",
+    "extension": "glsl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "gml.gml": {
+    "language": "Gml",
+    "extension": "gml",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "gn.gn": {
+    "language": "GN",
+    "extension": "gn",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "gnu_style_assembly.s": {
+    "language": "GNU Style Assembly",
+    "extension": "s",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "go.go": {
+    "language": "Go",
+    "extension": "go",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "go_html.gohtml": {
+    "language": "Go HTML",
+    "extension": "gohtml",
+    "code": 2,
+    "comments": 6,
+    "blanks": 1
+  },
+  "go_template.tmpl": {
+    "language": "Go Template",
+    "extension": "tmpl",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "go_.gop": {
+    "language": "Go+",
+    "extension": "gop",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "godot_scene.tscn": {
+    "language": "Godot Scene",
+    "extension": "tscn",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "gradle.gradle": {
+    "language": "Gradle",
+    "extension": "gradle",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "graphql.graphql": {
+    "language": "GraphQL",
+    "extension": "graphql",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "gremlin.gremlin": {
+    "language": "Gremlin",
+    "extension": "gremlin",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "groovy.groovy": {
+    "language": "Groovy",
+    "extension": "groovy",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "gwion.gw": {
+    "language": "Gwion",
+    "extension": "gw",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "haml.haml": {
+    "language": "HAML",
+    "extension": "haml",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "hamlet.hamlet": {
+    "language": "Hamlet",
+    "extension": "hamlet",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "handlebars.hbs": {
+    "language": "Handlebars",
+    "extension": "hbs",
+    "code": 2,
+    "comments": 6,
+    "blanks": 1
+  },
+  "happy.y": {
+    "language": "Happy",
+    "extension": "y",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "hare.ha": {
+    "language": "Hare",
+    "extension": "ha",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "haskell.hs": {
+    "language": "Haskell",
+    "extension": "hs",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "haxe.hx": {
+    "language": "Haxe",
+    "extension": "hx",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "hcl.tf": {
+    "language": "HCL",
+    "extension": "tf",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "headache.ha": {
+    "language": "Headache",
+    "extension": "ha",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "heex.heex": {
+    "language": "HEEx",
+    "extension": "heex",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "hex.hex": {
+    "language": "HEX",
+    "extension": "hex",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "hex0.hex0": {
+    "language": "Hex0",
+    "extension": "hex0",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "hex1.hex1": {
+    "language": "Hex1",
+    "extension": "hex1",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "hex2.hex2": {
+    "language": "Hex2",
+    "extension": "hex2",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "hicad.mac": {
+    "language": "HICAD",
+    "extension": "mac",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "hiveql.hql": {
+    "language": "HiveQL",
+    "extension": "hql",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "hledger.hledger": {
+    "language": "hledger",
+    "extension": "hledger",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "hlsl.hlsl": {
+    "language": "HLSL",
+    "extension": "hlsl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "hocon.hocon": {
+    "language": "HOCON",
+    "extension": "hocon",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "holyc.hc": {
+    "language": "HolyC",
+    "extension": "hc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "hoon.hoon": {
+    "language": "hoon",
+    "extension": "hoon",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "html.html": {
+    "language": "HTML",
+    "extension": "html",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "hy.hy": {
+    "language": "Hy",
+    "extension": "hy",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "idl.idl": {
+    "language": "IDL",
+    "extension": "idl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "idris.idr": {
+    "language": "Idris",
+    "extension": "idr",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "iec61131-3.scl": {
+    "language": "IEC61131-3",
+    "extension": "scl",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "ini.ini": {
+    "language": "INI",
+    "extension": "ini",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "intel_hex.ihex": {
+    "language": "Intel HEX",
+    "extension": "ihex",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "isabelle.thy": {
+    "language": "Isabelle",
+    "extension": "thy",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "jade.jade": {
+    "language": "Jade",
+    "extension": "jade",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "jai.jai": {
+    "language": "JAI",
+    "extension": "jai",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "janet.janet": {
+    "language": "Janet",
+    "extension": "janet",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "java.java": {
+    "language": "Java",
+    "extension": "java",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "javascript.js": {
+    "language": "JavaScript",
+    "extension": "js",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "javaserver_pages.jsp": {
+    "language": "JavaServer Pages",
+    "extension": "jsp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "jcl.jcl": {
+    "language": "JCL",
+    "extension": "jcl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "jenkins_buildfile.jenkinsfile": {
+    "language": "Jenkins Buildfile",
+    "extension": "jenkinsfile",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "jinja.jinja": {
+    "language": "Jinja",
+    "extension": "jinja",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "jinja2.j2": {
+    "language": "Jinja2",
+    "extension": "j2",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "jq.jq": {
+    "language": "jq",
+    "extension": "jq",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "jslt.jslt": {
+    "language": "JSLT",
+    "extension": "jslt",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "json.json": {
+    "language": "JSON",
+    "extension": "json",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "json_with_comments.jsonc": {
+    "language": "JSON with Comments",
+    "extension": "jsonc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "json-ld.jsonld": {
+    "language": "JSON-LD",
+    "extension": "jsonld",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "json5.json5": {
+    "language": "JSON5",
+    "extension": "json5",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "jsonc.jsonc": {
+    "language": "JSONC",
+    "extension": "jsonc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "jsonl.jsonl": {
+    "language": "JSONL",
+    "extension": "jsonl",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "jsonnet.jsonnet": {
+    "language": "Jsonnet",
+    "extension": "jsonnet",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "jsx.jsx": {
+    "language": "JSX",
+    "extension": "jsx",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "julia.jl": {
+    "language": "Julia",
+    "extension": "jl",
+    "code": 4,
+    "comments": 2,
+    "blanks": 1
+  },
+  "julius.julius": {
+    "language": "Julius",
+    "extension": "julius",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "jupyter.ipynb": {
+    "language": "Jupyter",
+    "extension": "ipynb",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "jupyter_notebooks.ipynb": {
+    "language": "Jupyter Notebooks",
+    "extension": "ipynb",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "just.just": {
+    "language": "Just",
+    "extension": "just",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "k.k": {
+    "language": "K",
+    "extension": "k",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "kaem.kaem": {
+    "language": "Kaem",
+    "extension": "kaem",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "kakoune_script.kak": {
+    "language": "Kakoune script",
+    "extension": "kak",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "koka.kk": {
+    "language": "Koka",
+    "extension": "kk",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "korn_shell.ksh": {
+    "language": "Korn Shell",
+    "extension": "ksh",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "kotlin.kt": {
+    "language": "Kotlin",
+    "extension": "kt",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "koto.koto": {
+    "language": "Koto",
+    "extension": "koto",
+    "code": 4,
+    "comments": 2,
+    "blanks": 1
+  },
+  "kv_language.kv": {
+    "language": "KV Language",
+    "extension": "kv",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "lalrpop.lalrpop": {
+    "language": "LALRPOP",
+    "extension": "lalrpop",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "latex.tex": {
+    "language": "LaTeX",
+    "extension": "tex",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "lauterbach_practice_script.cmm": {
+    "language": "Lauterbach PRACTICE Script",
+    "extension": "cmm",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "ld_script.ld": {
+    "language": "LD Script",
+    "extension": "ld",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "lean.lean": {
+    "language": "Lean",
+    "extension": "lean",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "less.less": {
+    "language": "LESS",
+    "extension": "less",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "lex.l": {
+    "language": "LEX",
+    "extension": "l",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "lingua_franca.lf": {
+    "language": "Lingua Franca",
+    "extension": "lf",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "liquid.liquid": {
+    "language": "Liquid",
+    "extension": "liquid",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "lisp.lisp": {
+    "language": "Lisp",
+    "extension": "lisp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "livescript.ls": {
+    "language": "LiveScript",
+    "extension": "ls",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "llvm.ll": {
+    "language": "LLVM",
+    "extension": "ll",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "llvm_ir.ll": {
+    "language": "LLVM IR",
+    "extension": "ll",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "lockfile.lock": {
+    "language": "Lockfile",
+    "extension": "lock",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "logtalk.lgt": {
+    "language": "Logtalk",
+    "extension": "lgt",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "lolcode.lol": {
+    "language": "LOLCODE",
+    "extension": "lol",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "lua.lua": {
+    "language": "Lua",
+    "extension": "lua",
+    "code": 4,
+    "comments": 2,
+    "blanks": 1
+  },
+  "luau.luau": {
+    "language": "Luau",
+    "extension": "luau",
+    "code": 14,
+    "comments": 7,
+    "blanks": 1
+  },
+  "lucius.lucius": {
+    "language": "Lucius",
+    "extension": "lucius",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "luna.luna": {
+    "language": "Luna",
+    "extension": "luna",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "m1_assembly.m1": {
+    "language": "M1 Assembly",
+    "extension": "m1",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "m4.m4": {
+    "language": "M4",
+    "extension": "m4",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "macromedia_extensible_markup_language.mxml": {
+    "language": "Macromedia eXtensible Markup Language",
+    "extension": "mxml",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "madlang.mad": {
+    "language": "Madlang",
+    "extension": "mad",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "makefile.makefile": {
+    "language": "Makefile",
+    "extension": "makefile",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "mako.mako": {
+    "language": "Mako",
+    "extension": "mako",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "markdown.md": {
+    "language": "Markdown",
+    "extension": "md",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "marko.marko": {
+    "language": "Marko",
+    "extension": "marko",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "matlab.mat": {
+    "language": "MATLAB",
+    "extension": "mat",
+    "code": 3,
+    "comments": 3,
+    "blanks": 1
+  },
+  "max.maxpat": {
+    "language": "Max",
+    "extension": "maxpat",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "mdx.mdx": {
+    "language": "MDX",
+    "extension": "mdx",
+    "code": 2,
+    "comments": 6,
+    "blanks": 1
+  },
+  "menhir.mll": {
+    "language": "Menhir",
+    "extension": "mll",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "mermaid.mmd": {
+    "language": "Mermaid",
+    "extension": "mmd",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "meson.meson.build": {
+    "language": "Meson",
+    "extension": "meson.build",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "metal.metal": {
+    "language": "Metal",
+    "extension": "metal",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "metal_shader.metal": {
+    "language": "Metal Shader",
+    "extension": "metal",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "metal_shading_language.metal": {
+    "language": "Metal Shading Language",
+    "extension": "metal",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "mint.mint": {
+    "language": "Mint",
+    "extension": "mint",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "mips_assembly.mips": {
+    "language": "MIPS Assembly",
+    "extension": "mips",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "mlatu.mlt": {
+    "language": "Mlatu",
+    "extension": "mlt",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "mlir.mlir": {
+    "language": "MLIR",
+    "extension": "mlir",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "modelica.mo": {
+    "language": "Modelica",
+    "extension": "mo",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "modula3.m3": {
+    "language": "Modula3",
+    "extension": "m3",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "module-definition.def": {
+    "language": "Module-Definition",
+    "extension": "def",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "mog.mog": {
+    "language": "Mog",
+    "extension": "mog",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "mojo.mojo": {
+    "language": "Mojo",
+    "extension": "mojo",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "monkey_c.mc": {
+    "language": "Monkey C",
+    "extension": "mc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "moonbit.mbt": {
+    "language": "MoonBit",
+    "extension": "mbt",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "moonscript.moon": {
+    "language": "MoonScript",
+    "extension": "moon",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "move.move": {
+    "language": "Move",
+    "extension": "move",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "mql_header.mqh": {
+    "language": "MQL Header",
+    "extension": "mqh",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "mql4.mq4": {
+    "language": "MQL4",
+    "extension": "mq4",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "mql5.mq5": {
+    "language": "MQL5",
+    "extension": "mq5",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "msbuild.csproj": {
+    "language": "MSBuild",
+    "extension": "csproj",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "mumps.mps": {
+    "language": "MUMPS",
+    "extension": "mps",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "mustache.mustache": {
+    "language": "Mustache",
+    "extension": "mustache",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "nature.n": {
+    "language": "Nature",
+    "extension": "n",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "nextflow.nextflow": {
+    "language": "Nextflow",
+    "extension": "nextflow",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "nial.ndf": {
+    "language": "Nial",
+    "extension": "ndf",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "nim.nim": {
+    "language": "Nim",
+    "extension": "nim",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "nix.nix": {
+    "language": "Nix",
+    "extension": "nix",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "not_quite_perl.nqp": {
+    "language": "Not Quite Perl",
+    "extension": "nqp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "nushell.nu": {
+    "language": "Nushell",
+    "extension": "nu",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "nuspec.nuspec": {
+    "language": "nuspec",
+    "extension": "nuspec",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "objective_c.m": {
+    "language": "Objective C",
+    "extension": "m",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "objective_c__.mm": {
+    "language": "Objective C++",
+    "extension": "mm",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "objective-c.m": {
+    "language": "Objective-C",
+    "extension": "m",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "objective-c__.mm": {
+    "language": "Objective-C++",
+    "extension": "mm",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "ocaml.ml": {
+    "language": "OCaml",
+    "extension": "ml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "octave.octave": {
+    "language": "Octave",
+    "extension": "octave",
+    "code": 4,
+    "comments": 6,
+    "blanks": 1
+  },
+  "odin.odin": {
+    "language": "Odin",
+    "extension": "odin",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "opalang.opa": {
+    "language": "Opalang",
+    "extension": "opa",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "open_policy_agent.rego": {
+    "language": "Open Policy Agent",
+    "extension": "rego",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "openapi.swagger": {
+    "language": "OpenAPI",
+    "extension": "swagger",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "opencl.cl": {
+    "language": "OpenCL",
+    "extension": "cl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "openqasm.qasm": {
+    "language": "OpenQASM",
+    "extension": "qasm",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "openscad.scad": {
+    "language": "OpenSCAD",
+    "extension": "scad",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "opentofu.tofu": {
+    "language": "OpenTofu",
+    "extension": "tofu",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "opentype_feature_file.fea": {
+    "language": "OpenType Feature File",
+    "extension": "fea",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "org.org": {
+    "language": "Org",
+    "extension": "org",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "org-mode.org": {
+    "language": "Org-mode",
+    "extension": "org",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "oz.oz": {
+    "language": "Oz",
+    "extension": "oz",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "pan.pan": {
+    "language": "Pan",
+    "extension": "pan",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "pascal.pas": {
+    "language": "Pascal",
+    "extension": "pas",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "patch.patch": {
+    "language": "Patch",
+    "extension": "patch",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "pawn.pwn": {
+    "language": "Pawn",
+    "extension": "pwn",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "pawn_header.inc": {
+    "language": "Pawn Header",
+    "extension": "inc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "perl.pl": {
+    "language": "Perl",
+    "extension": "pl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "pest.pest": {
+    "language": "Pest",
+    "extension": "pest",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "phix.e": {
+    "language": "Phix",
+    "extension": "e",
+    "code": 3,
+    "comments": 8,
+    "blanks": 1
+  },
+  "phoenix_liveview.heex": {
+    "language": "Phoenix LiveView",
+    "extension": "heex",
+    "code": 4,
+    "comments": 3,
+    "blanks": 1
+  },
+  "php.php": {
+    "language": "PHP",
+    "extension": "php",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "picat.pi": {
+    "language": "Picat",
+    "extension": "pi",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "pike.pike": {
+    "language": "Pike",
+    "extension": "pike",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "pkgbuild.pkgbuild": {
+    "language": "PKGBUILD",
+    "extension": "pkgbuild",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "pkl.pkl": {
+    "language": "Pkl",
+    "extension": "pkl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "pl_sql.pks": {
+    "language": "PL/SQL",
+    "extension": "pks",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "plain_text.txt": {
+    "language": "Plain Text",
+    "extension": "txt",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "plantuml.puml": {
+    "language": "PlantUML",
+    "extension": "puml",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "po_file.po": {
+    "language": "PO File",
+    "extension": "po",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "poke.pk": {
+    "language": "Poke",
+    "extension": "pk",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "polly.polly": {
+    "language": "Polly",
+    "extension": "polly",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "poml.poml": {
+    "language": "POML",
+    "extension": "poml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "pony.pony": {
+    "language": "Pony",
+    "extension": "pony",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "postcss.pcss": {
+    "language": "PostCSS",
+    "extension": "pcss",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "postscript.ps": {
+    "language": "PostScript",
+    "extension": "ps",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "powershell.ps1": {
+    "language": "PowerShell",
+    "extension": "ps1",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "prisma_schema.prisma": {
+    "language": "Prisma Schema",
+    "extension": "prisma",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "processing.pde": {
+    "language": "Processing",
+    "extension": "pde",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "prolog.pro": {
+    "language": "Prolog",
+    "extension": "pro",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "properties.properties": {
+    "language": "Properties",
+    "extension": "properties",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "properties_file.properties": {
+    "language": "Properties File",
+    "extension": "properties",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "protocol_buffers.proto": {
+    "language": "Protocol Buffers",
+    "extension": "proto",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "prql.prql": {
+    "language": "PRQL",
+    "extension": "prql",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "psl_assertion.psl": {
+    "language": "PSL Assertion",
+    "extension": "psl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "pug.pug": {
+    "language": "Pug",
+    "extension": "pug",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "puppet.pp": {
+    "language": "Puppet",
+    "extension": "pp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "purescript.purs": {
+    "language": "PureScript",
+    "extension": "purs",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "pyret.arr": {
+    "language": "Pyret",
+    "extension": "arr",
+    "code": 4,
+    "comments": 2,
+    "blanks": 1
+  },
+  "python.py": {
+    "language": "Python",
+    "extension": "py",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "q.q": {
+    "language": "Q",
+    "extension": "q",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "q_.qs": {
+    "language": "Q#",
+    "extension": "qs",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "qcl.qcl": {
+    "language": "QCL",
+    "extension": "qcl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "qml.qml": {
+    "language": "QML",
+    "extension": "qml",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "r.r": {
+    "language": "R",
+    "extension": "r",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "r_markdown.rmd": {
+    "language": "R Markdown",
+    "extension": "rmd",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "racket.rkt": {
+    "language": "Racket",
+    "extension": "rkt",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "rakefile.rake": {
+    "language": "Rakefile",
+    "extension": "rake",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "raku.raku": {
+    "language": "Raku",
+    "extension": "raku",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "raml.raml": {
+    "language": "RAML",
+    "extension": "raml",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "razor.cshtml": {
+    "language": "Razor",
+    "extension": "cshtml",
+    "code": 2,
+    "comments": 10,
+    "blanks": 1
+  },
+  "reasonml.re": {
+    "language": "ReasonML",
+    "extension": "re",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "rebol.reb": {
+    "language": "Rebol",
+    "extension": "reb",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "redscript.reds": {
+    "language": "Redscript",
+    "extension": "reds",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "ren_py.rpy": {
+    "language": "Ren'Py",
+    "extension": "rpy",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "report_definition_language.rdl": {
+    "language": "Report Definition Language",
+    "extension": "rdl",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "rescript.res": {
+    "language": "ReScript",
+    "extension": "res",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "restructuredtext.rst": {
+    "language": "ReStructuredText",
+    "extension": "rst",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "rich_text_format.rtf": {
+    "language": "Rich Text Format",
+    "extension": "rtf",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "robot_framework.robot": {
+    "language": "Robot Framework",
+    "extension": "robot",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "roc.roc": {
+    "language": "Roc",
+    "extension": "roc",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "rpg.rpgle": {
+    "language": "RPG",
+    "extension": "rpgle",
+    "code": 2,
+    "comments": 2,
+    "blanks": 1
+  },
+  "rpm_specfile.spec": {
+    "language": "RPM Specfile",
+    "extension": "spec",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "ruby.rb": {
+    "language": "Ruby",
+    "extension": "rb",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "ruby_html.rhtml": {
+    "language": "Ruby HTML",
+    "extension": "rhtml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "rust.rs": {
+    "language": "Rust",
+    "extension": "rs",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "rusty_object_notation.ron": {
+    "language": "Rusty Object Notation",
+    "extension": "ron",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "sas.sas": {
+    "language": "SAS",
+    "extension": "sas",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "sass.sass": {
+    "language": "Sass",
+    "extension": "sass",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "scala.scala": {
+    "language": "Scala",
+    "extension": "scala",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "scallop.scl": {
+    "language": "Scallop",
+    "extension": "scl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "scheme.scm": {
+    "language": "Scheme",
+    "extension": "scm",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "scons.csig": {
+    "language": "Scons",
+    "extension": "csig",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "scss.scss": {
+    "language": "SCSS",
+    "extension": "scss",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "sed.sed": {
+    "language": "Sed",
+    "extension": "sed",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "seed7.sd7": {
+    "language": "Seed7",
+    "extension": "sd7",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "shaderlab.shader": {
+    "language": "ShaderLab",
+    "extension": "shader",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "shell.sh": {
+    "language": "Shell",
+    "extension": "sh",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "sieve.sieve": {
+    "language": "Sieve",
+    "extension": "sieve",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "sil.sil": {
+    "language": "SIL",
+    "extension": "sil",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "skill.il": {
+    "language": "SKILL",
+    "extension": "il",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "slang.slang": {
+    "language": "Slang",
+    "extension": "slang",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "slim.slim": {
+    "language": "Slim",
+    "extension": "slim",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "slint.slint": {
+    "language": "Slint",
+    "extension": "slint",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "smalltalk.cs.st": {
+    "language": "Smalltalk",
+    "extension": "cs.st",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "smarty_template.tpl": {
+    "language": "Smarty Template",
+    "extension": "tpl",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "snakemake.smk": {
+    "language": "Snakemake",
+    "extension": "smk",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "snobol.sno": {
+    "language": "SNOBOL",
+    "extension": "sno",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "softbridge_basic.sbl": {
+    "language": "Softbridge Basic",
+    "extension": "sbl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "solidity.sol": {
+    "language": "Solidity",
+    "extension": "sol",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "sparql.rq": {
+    "language": "SPARQL",
+    "extension": "rq",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "spdx.spdx": {
+    "language": "SPDX",
+    "extension": "spdx",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "specman_e.e": {
+    "language": "Specman e",
+    "extension": "e",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "spice_netlist.ckt": {
+    "language": "Spice Netlist",
+    "extension": "ckt",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "spl.spl": {
+    "language": "SPL",
+    "extension": "spl",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "spss.sps": {
+    "language": "SPSS",
+    "extension": "sps",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "sqf.sqf": {
+    "language": "SQF",
+    "extension": "sqf",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "sql.sql": {
+    "language": "SQL",
+    "extension": "sql",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "squirrel.nut": {
+    "language": "Squirrel",
+    "extension": "nut",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "srecode_template.srt": {
+    "language": "SRecode Template",
+    "extension": "srt",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "stan.stan": {
+    "language": "Stan",
+    "extension": "stan",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "standard_ml.sml": {
+    "language": "Standard ML",
+    "extension": "sml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "standard_ml__sml_.sml": {
+    "language": "Standard ML (SML)",
+    "extension": "sml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "starlark.bzl": {
+    "language": "Starlark",
+    "extension": "bzl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "stata.do": {
+    "language": "Stata",
+    "extension": "do",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "stratego_xt.str": {
+    "language": "Stratego/XT",
+    "extension": "str",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "stylus.styl": {
+    "language": "Stylus",
+    "extension": "styl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "svelte.svelte": {
+    "language": "Svelte",
+    "extension": "svelte",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "svg.svg": {
+    "language": "SVG",
+    "extension": "svg",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "swift.swift": {
+    "language": "Swift",
+    "extension": "swift",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "swig.i": {
+    "language": "Swig",
+    "extension": "i",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "swig.swg": {
+    "language": "SWIG",
+    "extension": "swg",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "systemd.automount": {
+    "language": "Systemd",
+    "extension": "automount",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "systemverilog.sv": {
+    "language": "SystemVerilog",
+    "extension": "sv",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "systemverilog_header.svh": {
+    "language": "SystemVerilog Header",
+    "extension": "svh",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "t-sql.tsql": {
+    "language": "T-SQL",
+    "extension": "tsql",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "tact.tact": {
+    "language": "Tact",
+    "extension": "tact",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "taskpaper.taskpaper": {
+    "language": "TaskPaper",
+    "extension": "taskpaper",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "tcl.tcl": {
+    "language": "TCL",
+    "extension": "tcl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "teal.teal": {
+    "language": "Teal",
+    "extension": "teal",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "templ.templ": {
+    "language": "Templ",
+    "extension": "templ",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "templatetoolkit.tt": {
+    "language": "TemplateToolkit",
+    "extension": "tt",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "tera.tera": {
+    "language": "Tera",
+    "extension": "tera",
+    "code": 2,
+    "comments": 6,
+    "blanks": 1
+  },
+  "terraform.tf": {
+    "language": "Terraform",
+    "extension": "tf",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "tex.tex": {
+    "language": "TeX",
+    "extension": "tex",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "textile.textile": {
+    "language": "Textile",
+    "extension": "textile",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "the_wenyan_programming_language.wy": {
+    "language": "The WenYan Programming Language",
+    "extension": "wy",
+    "code": 2,
+    "comments": 6,
+    "blanks": 1
+  },
+  "thrift.thrift": {
+    "language": "Thrift",
+    "extension": "thrift",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "tl.tl": {
+    "language": "TL",
+    "extension": "tl",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "toml.toml": {
+    "language": "TOML",
+    "extension": "toml",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "toon.toon": {
+    "language": "TOON",
+    "extension": "toon",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "treetop.treetop": {
+    "language": "Treetop",
+    "extension": "treetop",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "tsx.tsx": {
+    "language": "TSX",
+    "extension": "tsx",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "ttcn-3.ttcn": {
+    "language": "TTCN-3",
+    "extension": "ttcn",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "twig.twig": {
+    "language": "Twig",
+    "extension": "twig",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "twig_template.twig": {
+    "language": "Twig Template",
+    "extension": "twig",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "typescript.ts": {
+    "language": "TypeScript",
+    "extension": "ts",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "typescript_typings.d.ts": {
+    "language": "TypeScript Typings",
+    "extension": "d.ts",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "typespec.tsp": {
+    "language": "TypeSpec",
+    "extension": "tsp",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "typst.typ": {
+    "language": "Typst",
+    "extension": "typ",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "uiua.ua": {
+    "language": "Uiua",
+    "extension": "ua",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "umpl.umpl": {
+    "language": "UMPL",
+    "extension": "umpl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "unison.u": {
+    "language": "Unison",
+    "extension": "u",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "unreal_markdown.udn": {
+    "language": "Unreal Markdown",
+    "extension": "udn",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "unreal_plugin.uplugin": {
+    "language": "Unreal Plugin",
+    "extension": "uplugin",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "unreal_project.uproject": {
+    "language": "Unreal Project",
+    "extension": "uproject",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "unreal_script.uc": {
+    "language": "Unreal Script",
+    "extension": "uc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "unreal_shader.usf": {
+    "language": "Unreal Shader",
+    "extension": "usf",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "unreal_shader_header.ush": {
+    "language": "Unreal Shader Header",
+    "extension": "ush",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "unrealscript.uc": {
+    "language": "UnrealScript",
+    "extension": "uc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "up.up": {
+    "language": "Up",
+    "extension": "up",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "ur_web.ur": {
+    "language": "Ur/Web",
+    "extension": "ur",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "ur_web_project.urp": {
+    "language": "Ur/Web Project",
+    "extension": "urp",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "v.vlang": {
+    "language": "V",
+    "extension": "vlang",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "vala.vala": {
+    "language": "Vala",
+    "extension": "vala",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "varnish_configuration.vcl": {
+    "language": "Varnish Configuration",
+    "extension": "vcl",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "vb_net.vb": {
+    "language": "VB.NET",
+    "extension": "vb",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "vb6_vba.frm": {
+    "language": "VB6/VBA",
+    "extension": "frm",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "vba.bas": {
+    "language": "VBA",
+    "extension": "bas",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "vbscript.vbs": {
+    "language": "VBScript",
+    "extension": "vbs",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "verilog.v": {
+    "language": "Verilog",
+    "extension": "v",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "verilog_args_file.irunargs": {
+    "language": "Verilog Args File",
+    "extension": "irunargs",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "vertex_shader_file.vsh": {
+    "language": "Vertex Shader File",
+    "extension": "vsh",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "vhdl.vhd": {
+    "language": "VHDL",
+    "extension": "vhd",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "vim_script.vim": {
+    "language": "Vim Script",
+    "extension": "vim",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "virgil.v3": {
+    "language": "Virgil",
+    "extension": "v3",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "visual_basic.vb": {
+    "language": "Visual Basic",
+    "extension": "vb",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "visual_basic_for_applications.cls": {
+    "language": "Visual Basic for Applications",
+    "extension": "cls",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "visual_studio_project.vcproj": {
+    "language": "Visual Studio Project",
+    "extension": "vcproj",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "visual_studio_solution.sln": {
+    "language": "Visual Studio Solution",
+    "extension": "sln",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "vue.vue": {
+    "language": "Vue",
+    "extension": "vue",
+    "code": 2,
+    "comments": 7,
+    "blanks": 1
+  },
+  "vyper.vy": {
+    "language": "Vyper",
+    "extension": "vy",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "w_i_s_e__jobfile.fgmj": {
+    "language": "W.I.S.E. Jobfile",
+    "extension": "fgmj",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "web_services_description_language.wsdl": {
+    "language": "Web Services Description Language",
+    "extension": "wsdl",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "webassembly.wat": {
+    "language": "WebAssembly",
+    "extension": "wat",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "webassembly_text.wat": {
+    "language": "WebAssembly Text",
+    "extension": "wat",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "webgpu_enhanced_shading_language.wesl": {
+    "language": "WebGPU Enhanced Shading Language",
+    "extension": "wesl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "webgpu_shader_language.wgsl": {
+    "language": "WebGPU Shader Language",
+    "extension": "wgsl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "webgpu_shading_language.wgsl": {
+    "language": "WebGPU Shading Language",
+    "extension": "wgsl",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "wenyan.wy": {
+    "language": "wenyan",
+    "extension": "wy",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "wgsl.wgsl": {
+    "language": "WGSL",
+    "extension": "wgsl",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "windows_resource-definition_script.rc": {
+    "language": "Windows Resource-Definition Script",
+    "extension": "rc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "wolfram.nb": {
+    "language": "Wolfram",
+    "extension": "nb",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "wren.wren": {
+    "language": "Wren",
+    "extension": "wren",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "xaml.xaml": {
+    "language": "XAML",
+    "extension": "xaml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "xcode_config.xcconfig": {
+    "language": "Xcode Config",
+    "extension": "xcconfig",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "xcode_project.pbxproj": {
+    "language": "Xcode Project",
+    "extension": "pbxproj",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "xhtml.xhtml": {
+    "language": "XHTML",
+    "extension": "xhtml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "xml.xml": {
+    "language": "XML",
+    "extension": "xml",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "xml_schema.xsd": {
+    "language": "XML Schema",
+    "extension": "xsd",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "xsl.xsl": {
+    "language": "XSL",
+    "extension": "xsl",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "xtend.xtend": {
+    "language": "Xtend",
+    "extension": "xtend",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "yacc.y": {
+    "language": "Yacc",
+    "extension": "y",
+    "code": 2,
+    "comments": 3,
+    "blanks": 1
+  },
+  "yaml.yaml": {
+    "language": "YAML",
+    "extension": "yaml",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "yarn.yarn": {
+    "language": "Yarn",
+    "extension": "yarn",
+    "code": 2,
+    "comments": 0,
+    "blanks": 1
+  },
+  "zen_c.zc": {
+    "language": "Zen C",
+    "extension": "zc",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "zencode.zs": {
+    "language": "ZenCode",
+    "extension": "zs",
+    "code": 2,
+    "comments": 5,
+    "blanks": 1
+  },
+  "zig.zig": {
+    "language": "Zig",
+    "extension": "zig",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "zig_config.zon": {
+    "language": "Zig Config",
+    "extension": "zon",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  },
+  "zokrates.zok": {
+    "language": "ZoKrates",
+    "extension": "zok",
+    "code": 2,
+    "comments": 4,
+    "blanks": 1
+  },
+  "zsh.zsh": {
+    "language": "Zsh",
+    "extension": "zsh",
+    "code": 2,
+    "comments": 1,
+    "blanks": 1
+  }
+}
