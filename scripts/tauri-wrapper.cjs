@@ -12,11 +12,15 @@ const result = spawnSync(cmd, ['tauri', ...args], {
 });
 
 if (result.status === 0 && args.includes('build')) {
-  console.log('[tauri-wrapper] Build succeeded. Running artifact renaming...');
-  try {
-    require('./rename-artifacts.cjs');
-  } catch (err) {
-    console.error(`[tauri-wrapper] Renaming failed: ${err.message}`);
+  if (process.env.CI) {
+    console.log('[tauri-wrapper] CI environment detected. Skipping artifact renaming (handled by CI release pipeline).');
+  } else {
+    console.log('[tauri-wrapper] Build succeeded. Running artifact renaming...');
+    try {
+      require('./rename-artifacts.cjs');
+    } catch (err) {
+      console.error(`[tauri-wrapper] Renaming failed: ${err.message}`);
+    }
   }
 }
 

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Home, LayoutDashboard, FolderTree, Share2, Download, Minus, Square, X, Activity, ShieldAlert, History, Maximize2, Settings, FolderOpen } from "lucide-react";
+import { Home, LayoutDashboard, FolderTree, Share2, Download, Minus, Square, X, Activity, ShieldAlert, History, Maximize2, Settings, FolderOpen, Bug } from "lucide-react";
 import { C, mono } from "./tokens";
 import { useAnalysis } from "../hooks/useAnalysis";
 import { getCurrentWindow } from "@tauri-apps/api/window";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 // Add "settings" to the available screens
 export type Screen = "welcome" | "dashboard" | "files" | "graph" | "health" | "insights" | "git" | "export" | "settings";
@@ -386,7 +387,7 @@ export function Shell({
               border: "1px solid transparent",
               cursor: "pointer",
               transition: "color 120ms, background 120ms",
-              marginBottom: 12
+              marginBottom: 4
             }}
             onMouseEnter={(e) => {
               if (screen !== "settings") (e.currentTarget as HTMLElement).style.color = C.text;
@@ -409,6 +410,36 @@ export function Shell({
               />
             )}
             <Settings size={16} strokeWidth={1.75} />
+          </button>
+
+          {/* Report Issue Button */}
+          <button
+            onClick={() => openUrl("https://github.com/ThanhNguyxnOrg/Locsight/issues/new").catch(console.error)}
+            title="Report Issue"
+            className="flex items-center justify-center relative group"
+            style={{
+              width: 34,
+              height: 34,
+              borderRadius: 4,
+              background: "transparent",
+              color: "#f97316", // Subtle orange
+              border: "1px solid transparent",
+              cursor: "pointer",
+              transition: "color 120ms, background 120ms, transform 120ms",
+              marginBottom: 12
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.color = "#fb923c"; // Lighter orange on hover
+              (e.currentTarget as HTMLElement).style.background = "rgba(249, 115, 22, 0.1)";
+              (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.color = "#f97316";
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.transform = "scale(1)";
+            }}
+          >
+            <Bug size={16} strokeWidth={1.75} />
           </button>
 
           <div

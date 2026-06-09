@@ -89,6 +89,16 @@ fn get_tech_icon(name: &str) -> Option<String> {
         "java" => "java",
         "kotlin" => "kotlin",
         "c#" | ".net" => "csharp",
+        "htmx" => "htmx",
+        "alpine.js" | "alpinejs" => "alpinejs",
+        "lit" => "lit",
+        "qwik" => "qwik",
+        "remix" => "remix",
+        "gatsby" => "gatsby",
+        "bun" => "bun",
+        "deno" => "deno",
+        "storybook" => "storybook",
+        "drizzle" | "drizzle orm" | "drizzle-orm" => "drizzle",
         _ => "code",
     };
     Some(icon_name.to_string())
@@ -124,6 +134,9 @@ fn check_dotnet_file(
         if !*has_dotnet {
             items.push(new_item(".NET".to_string(), "".to_string(), "Environment".to_string()));
             *has_dotnet = true;
+        }
+        if content.contains("<UseMaui>true</UseMaui>") || content.contains("<UseMaui>True</UseMaui>") {
+            items.push(new_item("MAUI".to_string(), "".to_string(), "Mobile".to_string()));
         }
         let pr_regex = Regex::new(r#"<PackageReference\s+Include="([^"]+)"(?:\s+Version="([^"]+)")?"#).unwrap();
         for cap in pr_regex.captures_iter(&content) {
@@ -385,6 +398,73 @@ fn get_known_tech_map() -> HashMap<&'static str, (&'static str, &'static str)> {
     m.insert("plug", ("Plug", "Library"));
     m.insert("jason", ("Jason", "Library"));
     
+    // v1.2.0 AI/ML
+    m.insert("transformers", ("transformers (HuggingFace)", "Library"));
+    m.insert("openai", ("OpenAI API", "Library"));
+    m.insert("langchain", ("LangChain", "Library"));
+    m.insert("llama-index", ("LlamaIndex", "Library"));
+    m.insert("anthropic", ("Anthropic API", "Library"));
+    m.insert("keras", ("Keras", "Library"));
+    m.insert("xgboost", ("XGBoost", "Library"));
+    m.insert("lightgbm", ("LightGBM", "Library"));
+    m.insert("mlflow", ("MLflow", "Library"));
+    m.insert("wandb", ("Weights & Biases", "Library"));
+
+    // v1.2.0 Frontend Frameworks & Libraries
+    m.insert("qwik", ("Qwik", "Frontend"));
+    m.insert("@builder.io/qwik", ("Qwik", "Frontend"));
+    m.insert("remix", ("Remix", "Frontend"));
+    m.insert("@remix-run/react", ("Remix", "Frontend"));
+    m.insert("gatsby", ("Gatsby", "Frontend"));
+    m.insert("eleventy", ("Eleventy", "Frontend"));
+    m.insert("@11ty/eleventy", ("Eleventy", "Frontend"));
+    m.insert("htmx.org", ("htmx", "Frontend"));
+    m.insert("htmx", ("htmx", "Frontend"));
+    m.insert("alpinejs", ("Alpine.js", "Frontend"));
+    m.insert("lit", ("Lit", "Frontend"));
+    m.insert("stencil", ("Stencil", "Frontend"));
+    m.insert("@stencil/core", ("Stencil", "Frontend"));
+
+    // v1.2.0 Backend
+    m.insert("hono", ("Hono", "Backend"));
+    m.insert("elysia", ("Elysia", "Backend"));
+    m.insert("adonisjs", ("AdonisJS", "Backend"));
+    m.insert("@adonisjs/core", ("AdonisJS", "Backend"));
+    m.insert("sails", ("Sails", "Backend"));
+    m.insert("loopback", ("LoopBack", "Backend"));
+    m.insert("@loopback/core", ("LoopBack", "Backend"));
+
+    // v1.2.0 Database & ORM
+    m.insert("drizzle-orm", ("Drizzle ORM", "Database/ORM"));
+    m.insert("knex", ("Knex", "Database/ORM"));
+    m.insert("mikro-orm", ("MikroORM", "Database/ORM"));
+    m.insert("@mikro-orm/core", ("MikroORM", "Database/ORM"));
+    m.insert("objection", ("Objection.js", "Database/ORM"));
+    m.insert("bookshelf", ("Bookshelf.js", "Database/ORM"));
+    m.insert("pg", ("pg (PostgreSQL)", "Database/ORM"));
+    m.insert("mysql2", ("mysql2 (MySQL)", "Database/ORM"));
+    m.insert("mongodb", ("MongoDB Driver", "Database/ORM"));
+
+    // v1.2.0 Testing
+    m.insert("mocha", ("Mocha", "Testing"));
+    m.insert("chai", ("Chai", "Testing"));
+    m.insert("ava", ("Ava", "Testing"));
+    m.insert("tap", ("Tap", "Testing"));
+    m.insert("supertest", ("Supertest", "Testing"));
+    m.insert("msw", ("Mock Service Worker", "Testing"));
+    m.insert("storybook", ("Storybook", "Testing"));
+    m.insert("@storybook/react", ("Storybook", "Testing"));
+    m.insert("testing-library", ("Testing Library", "Testing"));
+    m.insert("@testing-library/react", ("Testing Library", "Testing"));
+
+    // v1.2.0 DevOps & Infra
+    m.insert("pulumi", ("Pulumi", "DevOps"));
+    m.insert("@pulumi/pulumi", ("Pulumi", "DevOps"));
+
+    // v1.2.0 Mobile
+    m.insert("nativescript", ("NativeScript", "Mobile"));
+    m.insert("@nativescript/core", ("NativeScript", "Mobile"));
+    
     m
 }
 
@@ -589,6 +669,9 @@ pub fn detect_tech_stack(root: &Path) -> Vec<TechStackItem> {
         items.push(new_item("Gradle".to_string(), "".to_string(), "Build Tool".to_string()));
         let content_path = if build_gradle.exists() { build_gradle } else { build_gradle_kts };
         if let Ok(content) = fs::read_to_string(content_path) {
+            if content.contains("multiplatform") || content.contains("org.jetbrains.kotlin.multiplatform") {
+                items.push(new_item("Kotlin Multiplatform".to_string(), "".to_string(), "Mobile".to_string()));
+            }
             let gradle_regex = Regex::new(r#"(?:implementation|compile|testImplementation|api)\s+['"](?:group:\s*)?([^'"]+)['"]"#).unwrap();
             for cap in gradle_regex.captures_iter(&content) {
                 let dep_name = cap[1].split(':').last().unwrap_or(cap[1].split(',').last().unwrap_or(&cap[1])).trim();
@@ -751,6 +834,113 @@ pub fn detect_tech_stack(root: &Path) -> Vec<TechStackItem> {
         items.push(new_item("pnpm Workspaces".to_string(), "".to_string(), "Build Tool".to_string()));
     }
 
+    // v1.2.0 File-based detections
+    // Heroku (Procfile)
+    if root.join("Procfile").exists() {
+        items.push(new_item("Heroku".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Vercel (vercel.json)
+    if root.join("vercel.json").exists() {
+        items.push(new_item("Vercel".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Netlify (netlify.toml)
+    if root.join("netlify.toml").exists() {
+        items.push(new_item("Netlify".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Fly.io (fly.toml)
+    if root.join("fly.toml").exists() {
+        items.push(new_item("Fly.io".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Render (render.yaml)
+    if root.join("render.yaml").exists() || root.join("render.yml").exists() {
+        items.push(new_item("Render".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Railway (railway.json)
+    if root.join("railway.json").exists() {
+        items.push(new_item("Railway".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Deno (deno.json / deno.jsonc)
+    if root.join("deno.json").exists() || root.join("deno.jsonc").exists() {
+        items.push(new_item("Deno".to_string(), "".to_string(), "Environment".to_string()));
+    }
+    // Bun (bun.lockb)
+    if root.join("bun.lockb").exists() {
+        items.push(new_item("Bun".to_string(), "".to_string(), "Environment".to_string()));
+    }
+    // Taskfile (Taskfile.yml / Taskfile.yaml)
+    if root.join("Taskfile.yml").exists() || root.join("Taskfile.yaml").exists() {
+        items.push(new_item("Taskfile".to_string(), "".to_string(), "Build Tool".to_string()));
+    }
+    // Justfile (justfile / Justfile)
+    if root.join("justfile").exists() || root.join("Justfile").exists() {
+        items.push(new_item("Justfile".to_string(), "".to_string(), "Build Tool".to_string()));
+    }
+    // Make (Makefile / makefile)
+    if root.join("Makefile").exists() || root.join("makefile").exists() {
+        items.push(new_item("Make".to_string(), "".to_string(), "Build Tool".to_string()));
+    }
+    // EditorConfig (.editorconfig)
+    if root.join(".editorconfig").exists() {
+        items.push(new_item("EditorConfig".to_string(), "".to_string(), "Library".to_string()));
+    }
+    // Pre-commit (.pre-commit-config.yaml)
+    if root.join(".pre-commit-config.yaml").exists() {
+        items.push(new_item("Pre-commit".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Husky (.husky directory)
+    let husky_dir = root.join(".husky");
+    if husky_dir.exists() && husky_dir.is_dir() {
+        items.push(new_item("Husky".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Ansible (ansible.cfg / playbook.yml / playbook.yaml)
+    if root.join("ansible.cfg").exists() || root.join("playbook.yml").exists() || root.join("playbook.yaml").exists() {
+        items.push(new_item("Ansible".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Vagrant (Vagrantfile)
+    if root.join("Vagrantfile").exists() {
+        items.push(new_item("Vagrant".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Helm (Chart.yaml)
+    if root.join("Chart.yaml").exists() {
+        items.push(new_item("Helm".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Argo CD (.argocd / argocd.yaml / argocd.yml)
+    if root.join(".argocd").exists() || root.join("argocd.yaml").exists() || root.join("argocd.yml").exists() {
+        items.push(new_item("Argo CD".to_string(), "".to_string(), "DevOps".to_string()));
+    }
+    // Caddy (Caddyfile)
+    if root.join("Caddyfile").exists() {
+        items.push(new_item("Caddy".to_string(), "".to_string(), "Infrastructure".to_string()));
+    }
+    // Traefik (traefik.yml / traefik.yaml / traefik.toml)
+    if root.join("traefik.yml").exists() || root.join("traefik.yaml").exists() || root.join("traefik.toml").exists() {
+        items.push(new_item("Traefik".to_string(), "".to_string(), "Infrastructure".to_string()));
+    }
+    // Envoy (envoy.yaml / envoy.yml)
+    if root.join("envoy.yaml").exists() || root.join("envoy.yml").exists() {
+        items.push(new_item("Envoy".to_string(), "".to_string(), "Infrastructure".to_string()));
+    }
+    // HAProxy (haproxy.cfg)
+    if root.join("haproxy.cfg").exists() {
+        items.push(new_item("HAProxy".to_string(), "".to_string(), "Infrastructure".to_string()));
+    }
+    // Rush (rush.json)
+    if root.join("rush.json").exists() {
+        items.push(new_item("Rush".to_string(), "".to_string(), "Build Tool".to_string()));
+    }
+    // Bazel (WORKSPACE / BUILD / BUILD.bazel)
+    if root.join("WORKSPACE").exists() || root.join("BUILD").exists() || root.join("BUILD.bazel").exists() {
+        items.push(new_item("Bazel".to_string(), "".to_string(), "Build Tool".to_string()));
+    }
+    // Pants (pants.toml)
+    if root.join("pants.toml").exists() {
+        items.push(new_item("Pants".to_string(), "".to_string(), "Build Tool".to_string()));
+    }
+    // Moon (moon.yml)
+    if root.join(".moon").exists() || root.join("moon.yml").exists() {
+        items.push(new_item("Moon".to_string(), "".to_string(), "Build Tool".to_string()));
+    }
+
     // De-duplicate items by name
     let mut unique_items: Vec<TechStackItem> = Vec::new();
     for item in items {
@@ -760,4 +950,32 @@ pub fn detect_tech_stack(root: &Path) -> Vec<TechStackItem> {
     }
     
     unique_items
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs::File;
+
+    #[test]
+    fn test_detect_tech_stack_files() {
+        let dir = std::env::temp_dir().join("locsight_techstack_test");
+        let _ = std::fs::create_dir_all(&dir);
+
+        // Create test files
+        File::create(dir.join("bun.lockb")).unwrap();
+        File::create(dir.join("deno.json")).unwrap();
+        File::create(dir.join("Procfile")).unwrap();
+        File::create(dir.join("Caddyfile")).unwrap();
+
+        let detected = detect_tech_stack(&dir);
+        let names: Vec<String> = detected.iter().map(|item| item.name.clone()).collect();
+
+        assert!(names.contains(&"Bun".to_string()));
+        assert!(names.contains(&"Deno".to_string()));
+        assert!(names.contains(&"Heroku".to_string()));
+        assert!(names.contains(&"Caddy".to_string()));
+
+        let _ = std::fs::remove_dir_all(&dir);
+    }
 }

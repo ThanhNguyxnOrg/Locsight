@@ -419,6 +419,36 @@ const LANGUAGE_CONFIGS: &[(&str, LanguageConfig)] = &[
     ("dats", LanguageConfig { name: "ATS", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
     ("sats", LanguageConfig { name: "ATS", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
     ("kmp", LanguageConfig { name: "Kotlin", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+
+    // v1.2.0 New Languages
+    ("rmd", LanguageConfig { name: "R Markdown", single_line_comments: &["#"], multi_line_comments: &[("<!--", "-->")] }),
+    ("sas", LanguageConfig { name: "SAS", single_line_comments: &["*"], multi_line_comments: &[("/*", "*/")] }),
+    ("do", LanguageConfig { name: "Stata", single_line_comments: &["*", "//"], multi_line_comments: &[("/*", "*/")] }),
+    ("ado", LanguageConfig { name: "Stata", single_line_comments: &["*", "//"], multi_line_comments: &[("/*", "*/")] }),
+    ("sps", LanguageConfig { name: "SPSS", single_line_comments: &["*"], multi_line_comments: &[] }),
+    ("f08", LanguageConfig { name: "Fortran", single_line_comments: &["!"], multi_line_comments: &[] }),
+    ("octave", LanguageConfig { name: "Octave", single_line_comments: &["%", "#"], multi_line_comments: &[("%{", "%}"), ("#{", "#}")] }),
+    ("svh", LanguageConfig { name: "SystemVerilog Header", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("exp", LanguageConfig { name: "Expect", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("pike", LanguageConfig { name: "Pike", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("hocon", LanguageConfig { name: "HOCON", single_line_comments: &["#", "//"], multi_line_comments: &[] }),
+    ("csv", LanguageConfig { name: "CSV", single_line_comments: &[], multi_line_comments: &[] }),
+    ("mmd", LanguageConfig { name: "Mermaid", single_line_comments: &["%%"], multi_line_comments: &[] }),
+    ("mermaid", LanguageConfig { name: "Mermaid", single_line_comments: &["%%"], multi_line_comments: &[] }),
+    ("vy", LanguageConfig { name: "Vyper", single_line_comments: &["#"], multi_line_comments: &[("\"\"\"", "\"\"\""), ("'''", "'''")] }),
+    ("cairo", LanguageConfig { name: "Cairo", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("move", LanguageConfig { name: "Move", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("pwn", LanguageConfig { name: "Pawn", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("inc", LanguageConfig { name: "Pawn Header", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("gdshaderinc", LanguageConfig { name: "GDShader", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("mustache", LanguageConfig { name: "Mustache", single_line_comments: &[], multi_line_comments: &[("{{!", "}}")] }),
+    ("cypher", LanguageConfig { name: "Cypher", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("rq", LanguageConfig { name: "SPARQL", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("sparql", LanguageConfig { name: "SPARQL", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("fst", LanguageConfig { name: "F*", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("fsti", LanguageConfig { name: "F*", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("lean", LanguageConfig { name: "Lean", single_line_comments: &["--"], multi_line_comments: &[("/-", "-/")] }),
+    ("thy", LanguageConfig { name: "Isabelle", single_line_comments: &[], multi_line_comments: &[("(*", "*)")] }),
 ];
 
 fn get_language_config(extension: &str) -> Option<LanguageConfig> {
@@ -466,6 +496,9 @@ fn detect_shebang_with_ext(path: &Path) -> Option<(LanguageConfig, String)> {
             "dart" => "dart",
             "raku" => "raku",
             "swift" => "swift",
+            "Rscript" => "r",
+            "expect" => "exp",
+            "pike" => "pike",
             _ => return None,
         };
         
@@ -483,6 +516,8 @@ fn resolve_conflicts(path: &Path, ext: &str) -> String {
                 let sample = &content[..limit];
                 if sample.contains("#import") || sample.contains("@interface") || sample.contains("@implementation") || sample.contains("@protocol") || sample.contains("@end") || sample.contains("NSLog(") {
                     "m".to_string()
+                } else if sample.contains("#{") || sample.contains("pkg load") {
+                    "octave".to_string()
                 } else if sample.contains("function") || sample.contains("%") {
                     "matlab".to_string()
                 } else {
@@ -1045,6 +1080,51 @@ mod tests {
         assert_eq!(config_sh.name, "Shell");
         assert_eq!(ext_sh, "sh");
         let _ = std::fs::remove_file(&sh_path);
+
+        // Test Rscript shebang (v1.2.0 addition)
+        let r_path = dir.join("test_script_r");
+        {
+            let mut file = std::fs::File::create(&r_path).unwrap();
+            writeln!(file, "#!/usr/bin/env Rscript").unwrap();
+            writeln!(file, "print('Hello')").unwrap();
+        }
+        let (config_r, ext_r) = detect_shebang_with_ext(&r_path).unwrap();
+        assert_eq!(config_r.name, "R");
+        assert_eq!(ext_r, "r");
+        let _ = std::fs::remove_file(&r_path);
+    }
+
+    #[test]
+    fn test_conflict_resolution_octave() {
+        use std::io::Write;
+        let dir = std::env::temp_dir();
+        let m_path = dir.join("test_script.m");
+        
+        // 1. Objective-C
+        {
+            let mut file = std::fs::File::create(&m_path).unwrap();
+            writeln!(file, "#import <Foundation/Foundation.h>").unwrap();
+        }
+        let ext = resolve_conflicts(&m_path, "m");
+        assert_eq!(ext, "m"); // "m" means Objective-C
+
+        // 2. Octave
+        {
+            let mut file = std::fs::File::create(&m_path).unwrap();
+            writeln!(file, "pkg load statistics").unwrap();
+        }
+        let ext = resolve_conflicts(&m_path, "m");
+        assert_eq!(ext, "octave");
+
+        // 3. MATLAB
+        {
+            let mut file = std::fs::File::create(&m_path).unwrap();
+            writeln!(file, "function y = f(x)\n  y = x + 1;\nend").unwrap();
+        }
+        let ext = resolve_conflicts(&m_path, "m");
+        assert_eq!(ext, "matlab");
+        
+        let _ = std::fs::remove_file(&m_path);
     }
 }
 

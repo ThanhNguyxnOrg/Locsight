@@ -8,32 +8,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [1.1.0] — 2026-06-09
 
-### 🚀 Comprehensive Upgrades & Enhancements: v1.1.0
+### 🚀 Issue Reporter, 160+ Languages, 220+ Tech Stack Detections & Ignore Configurations: v1.1.0
 
-This release introduces powerful new features for tech stack detection, directory scanning exclusion configurations, pre-scan ignore rule editors, and automated deployment pipeline improvements.
+This release marks a massive upgrade to **Locsight**, bringing a dedicated GitHub Issue Reporter, expanding scanner capabilities with support for over 160 languages (including smart contracts, scientific computation, and functional languages), integrating over 220 tech stack libraries/frameworks, enabling pre-scan ignore rule configurations with glob matching, and resolving CI/CD release pipeline artifacts.
+
+#### 🐛 Issue Reporter (UI)
+- **Sidebar Integration**: Added a prominent, style-curated `Bug` icon button in the sidebar above the version tag, featuring custom micro-animation hover scales and subtle orange highlights.
+- **One-click URL Launcher**: Clicking the reporter uses the Tauri v2 `opener` plugin to open a pre-filled GitHub issue window (`https://github.com/ThanhNguyxnOrg/Locsight/issues/new`) in the user's default browser.
 
 #### 📁 Ignore Rules & Folder Picker (Pre-scan configuration)
-- **Pre-scan ignore configuration**: When selecting a new folder or clicking recent projects, users are prompted with a scan configuration screen to configure ignore rules rather than scanning immediately.
+- **Pre-scan Ignore Configuration**: When selecting a new folder or clicking recent projects, users are prompted with a scan configuration screen to configure ignore rules rather than scanning immediately.
 - **Import from `.gitignore`**: Added a one-click button to import and append rules from the directory's `.gitignore` file into the editor.
 - **Exclusion Glob Matching**: Replaced substring checking in directory walker with proper Rust `globset` matching supporting recursive wildcards (`**`), single wildcards (`*`), and negation patterns (`!`).
 - **Enhanced Gutter Editor**: Added a scroll-synced line-number gutter and quick presets (`node_modules/`, `dist/`, `build/`, `*.log`, `.env*`, `coverage/`) in the Settings tab.
 
-#### ⚙️ Language Engine & Tech Stack Detection
-- **Over 180 Technologies**: Expands scanning capabilities to detect backend libraries, state management, validation libraries, databases, ORMs, CMS, etc.
+#### ⚙️ Language Engine Expansion (160+ Languages)
+- **28+ New Configurations**: Extends scanner's language support to data/scientific (R, SAS, Stata, SPSS, Fortran 2008), smart contracts (Vyper, Cairo, Move), functional/proofs (F*, Lean, Isabelle), templates/markup (Mustache, Mermaid), query/config (SPARQL, Cypher, HOCON, CSV), and more (Pike, Pawn, Expect, Godot GDShaderinc) – total of 160+ supported languages.
+- **Intelligent Octave Heuristics**: Added deep conflict heuristics resolving `.m` files, distinguishing between Objective-C, MATLAB, and GNU Octave based on specific keywords (e.g. `pkg load`, `#{`).
+- **Conflict Heuristics for Extension Clashes**: Added heuristics to intelligently resolve extension conflicts for `.m` (Objective-C vs MATLAB vs Octave), `.v` (Verilog vs V vs Coq), and `.cl` (Common Lisp vs OpenCL).
+- **Additional Shebang Resolvers**: Support for shebang interpreters for `Rscript`, `expect`, and `pike`.
+
+#### 🔍 Extended Tech Stack Detection (220+ Mappings)
+- **AI/ML Ecosystem**: Integrated detection for HuggingFace Transformers, OpenAI, LangChain, LlamaIndex, Anthropic, Keras, XGBoost, LightGBM, MLflow, and Weights & Biases.
+- **Frontend & Backend Mappings**: Detects Qwik, Remix, Gatsby, Eleventy, htmx, Alpine.js, Lit, Stencil, Hono, Elysia, AdonisJS, Sails, and LoopBack.
+- **Database & Testing**: Detects Drizzle ORM, Knex, MikroORM, Objection.js, Bookshelf.js, pg, mysql2, mongodb, Mocha, Chai, Ava, Tap, Supertest, MSW, Storybook, and Testing Library.
+- **Mobile & Monorepo**: Detects NativeScript, Microsoft MAUI (parsing `.csproj`), Kotlin Multiplatform (parsing `.gradle`), and Monorepo frameworks (Rush, Bazel, Pants, Moon).
+- **Environment & Infra**: Added file-based detectors for Bun (`bun.lockb`), Deno (`deno.json`), Heroku (`Procfile`), Vercel (`vercel.json`), Netlify (`netlify.toml`), Fly.io (`fly.toml`), Render (`render.yaml`), Railway (`railway.json`), Taskfile (`Taskfile.yml`), Justfile (`justfile`), Make (`Makefile`), EditorConfig (`.editorconfig`), Pre-commit (`.pre-commit-config.yaml`), Husky (`.husky`), Caddy (`Caddyfile`), Traefik (`traefik.yml`), Envoy (`envoy.yaml`), and HAProxy (`haproxy.cfg`).
 - **8 New Ecosystem Package Parsers**: Built new parsers for Java Maven (`pom.xml`), Java Gradle (`build.gradle`), Ruby (`Gemfile`), .NET (`*.csproj`), Swift Package (`Package.swift`), Dart/Flutter (`pubspec.yaml`), Elixir (`mix.exs`), and Python Poetry (`pyproject.toml`).
-- **CI/CD & DevOps detection**: Added automatic discovery for GitLab CI, Jenkins, CircleCI, Azure Pipelines, Terraform, Kubernetes, Nginx, Turborepo, Nx, Lerna, and pnpm workspaces.
-- **Language config expansion**: Added support for functional, legacy, game development, scripting, and configuration markup languages, supporting over 130+ languages.
-- **Conflict Heuristics**: Added heuristics to intelligently resolve extension conflicts for `.m` (Objective-C vs MATLAB), `.v` (Verilog vs V vs Coq) and `.cl` (Common Lisp vs OpenCL).
+- **CI/CD & DevOps Detection**: Added automatic discovery for GitLab CI, Jenkins, CircleCI, Azure Pipelines, Terraform, Kubernetes, Nginx, Turborepo, Nx, Lerna, and pnpm workspaces.
 
 #### 🎨 User Experience (UX Polish)
 - **Dynamic Tooltips**: Keybinding tooltips dynamically adapt to the client Operating System (displaying `⌘` for macOS and `Ctrl+` for Windows/Linux).
 - **Global Keybindings**: Added handlers for screen switching tabs (`Ctrl/Cmd + 1` through `8`) and folder picking (`Ctrl/Cmd + Shift + O`).
-- **Folder Confirmation dialog**: Guard rail alert added to prevent accidental data loss when switching active folders.
+- **Folder Confirmation Dialog**: Guard rail alert added to prevent accidental data loss when switching active folders.
 - **Welcome App Logo**: Replaced the square CSS-simulated shape with the actual `/logo.png` image on the welcome screen.
 
 #### 📦 Artifact Packaging & Tauri Build
 - **Clean Output Filenames (Version-Free Installer)**: Automatically strips version strings from build output installers (e.g. `Locsight_x64-setup.exe` instead of `Locsight_1.1.0_x64-setup.exe`), enabling persistent download paths.
 - **Tauri Wrapper Proxy**: Implemented a Node-based wrapper script for `tauri build` that intercept and executes renaming processes both locally and on CI/CD GitHub Actions workflow.
+- **CI Environment Resiliency**: Optimized `tauri-wrapper.cjs` to detect CI environments (`process.env.CI`) and skip renaming during automated workflows, ensuring GitHub Actions Release runner (`tauri-action`) successfully publishes Linux/Windows/macOS artifacts.
 
 ---
 
