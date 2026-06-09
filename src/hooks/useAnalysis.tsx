@@ -22,6 +22,13 @@ interface AnalysisContextType {
   selectFolderAndScan: () => Promise<void>;
   exportSummaryReport: (filePath: string, format: string) => Promise<void>;
   resetAnalysis: () => void;
+  pendingFolder: string | null;
+  pendingLocignore: string;
+  setPendingLocignore: (content: string) => void;
+  preparePendingFolder: (path: string) => Promise<void>;
+  confirmAndScanPending: () => Promise<void>;
+  cancelPending: () => void;
+  importGitignoreToPending: () => Promise<void>;
 }
 
 const AnalysisContext = createContext<AnalysisContextType | undefined>(undefined);
@@ -34,6 +41,10 @@ export function AnalysisProvider({ children }: { children: React.ReactNode }) {
   const [cocomoRate, setCocomoRate] = useState<number>(2400); // Default multiplier ($2,400)
   const [cocomo, setCocomo] = useState<CocomoResult | null>(null);
   const [recentProjects, setRecentProjects] = useState<RecentProject[]>([]);
+  
+  // Pending scan config states
+  const [pendingFolder, setPendingFolder] = useState<string | null>(null);
+  const [pendingLocignore, setPendingLocignore] = useState<string>("");
 
   // Load recent projects on mount
   useEffect(() => {
@@ -105,7 +116,48 @@ export function AnalysisProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Open native system folder picker dialog and start scan
+  const preparePendingFolder = async (folderPath: string) => {
+    setPendingFolder(folderPath);
+    setError(null);
+    try {
+      const content = await invoke<string>("read_locignore", { rootPath: folderPath });
+      setPendingLocignore(content);
+    } catch (err: any) {
+      setPendingLocignore("");
+    }
+  };
+
+  const confirmAndScanPending = async () => {
+    if (!pendingFolder) return;
+    try {
+      await invoke("write_locignore", { rootPath: pendingFolder, content: pendingLocignore });
+      await scanFolder(pendingFolder);
+      setPendingFolder(null);
+      setPendingLocignore("");
+    } catch (err: any) {
+      setError(err?.toString() || "Failed to write .locignore or scan directory.");
+    }
+  };
+
+  const cancelPending = () => {
+    setPendingFolder(null);
+    setPendingLocignore("");
+  };
+
+  const importGitignoreToPending = async () => {
+    if (!pendingFolder) return;
+    try {
+      const content = await invoke<string>("read_gitignore", { rootPath: pendingFolder });
+      setPendingLocignore((prev) => {
+        const separator = prev.trim() ? "\n\n" : "";
+        return `${prev}${separator}# Imported from .gitignore\n${content}`;
+      });
+    } catch (err: any) {
+      throw new Error(err?.toString() || "No .gitignore file found in the selected folder.");
+    }
+  };
+
+  // Open native system folder picker dialog and prepare scan config
   const selectFolderAndScan = async () => {
     try {
       const selected = await open({
@@ -115,7 +167,7 @@ export function AnalysisProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (selected && typeof selected === "string") {
-        await scanFolder(selected);
+        await preparePendingFolder(selected);
       }
     } catch (err: any) {
       setError(err?.toString() || "Failed to open folder picker.");
@@ -153,6 +205,13 @@ export function AnalysisProvider({ children }: { children: React.ReactNode }) {
         selectFolderAndScan,
         exportSummaryReport,
         resetAnalysis,
+        pendingFolder,
+        pendingLocignore,
+        setPendingLocignore,
+        preparePendingFolder,
+        confirmAndScanPending,
+        cancelPending,
+        importGitignoreToPending,
       }}
     >
       {children}

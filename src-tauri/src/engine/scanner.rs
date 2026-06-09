@@ -4,6 +4,7 @@ use std::path::Path;
 use std::time::Instant;
 use rayon::prelude::*;
 use walkdir::WalkDir;
+use globset::{Glob, GlobSet, GlobSetBuilder};
 
 use crate::models::{FileInfo, LanguageStats, ProjectSummary};
 use super::complexity::analyze_complexity;
@@ -14,6 +15,8 @@ use super::annotations::{self, Annotation};
 use super::secrets::{self, SecretFinding};
 use super::git;
 use super::config;
+use super::techstack;
+
 
 #[derive(Clone, Copy)]
 pub struct LanguageConfig {
@@ -206,9 +209,6 @@ const LANGUAGE_CONFIGS: &[(&str, LanguageConfig)] = &[
     ("ml", LanguageConfig { name: "OCaml", single_line_comments: &[], multi_line_comments: &[("(*", "*)")] }),
     ("mli", LanguageConfig { name: "OCaml", single_line_comments: &[], multi_line_comments: &[("(*", "*)")] }),
     
-    // Scala
-    ("sc", LanguageConfig { name: "Scala", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
-    
     // Assembly
     ("asm", LanguageConfig { name: "Assembly", single_line_comments: &[";"], multi_line_comments: &[] }),
     ("s", LanguageConfig { name: "Assembly", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
@@ -263,6 +263,162 @@ const LANGUAGE_CONFIGS: &[(&str, LanguageConfig)] = &[
     
     // Groovy
     ("groovy", LanguageConfig { name: "Groovy", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+
+    // Functional
+    ("ex", LanguageConfig { name: "Elixir", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("exs", LanguageConfig { name: "Elixir", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("erl", LanguageConfig { name: "Erlang", single_line_comments: &["%"], multi_line_comments: &[] }),
+    ("hrl", LanguageConfig { name: "Erlang", single_line_comments: &["%"], multi_line_comments: &[] }),
+    ("elm", LanguageConfig { name: "Elm", single_line_comments: &["--"], multi_line_comments: &[("{-", "-}")] }),
+    ("purs", LanguageConfig { name: "PureScript", single_line_comments: &["--"], multi_line_comments: &[("{-", "-}")] }),
+
+    // Systems
+    ("d", LanguageConfig { name: "D", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("nim", LanguageConfig { name: "Nim", single_line_comments: &["#"], multi_line_comments: &[("#[", "]#")] }),
+    ("nims", LanguageConfig { name: "Nim", single_line_comments: &["#"], multi_line_comments: &[("#[", "]#")] }),
+    ("cr", LanguageConfig { name: "Crystal", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("mojo", LanguageConfig { name: "Mojo", single_line_comments: &["#"], multi_line_comments: &[] }),
+
+    // LaTeX / Scientific
+    ("tex", LanguageConfig { name: "LaTeX", single_line_comments: &["%"], multi_line_comments: &[] }),
+    ("sty", LanguageConfig { name: "LaTeX", single_line_comments: &["%"], multi_line_comments: &[] }),
+    ("mat", LanguageConfig { name: "MATLAB", single_line_comments: &["%"], multi_line_comments: &[("%{", "%}")] }),
+
+    // Config / DevOps / Environment
+    ("env", LanguageConfig { name: "Dotenv", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("properties", LanguageConfig { name: "Properties", single_line_comments: &["#", "!"], multi_line_comments: &[] }),
+    ("cfg", LanguageConfig { name: "Config", single_line_comments: &["#", ";"], multi_line_comments: &[] }),
+    ("conf", LanguageConfig { name: "Config", single_line_comments: &["#", ";"], multi_line_comments: &[] }),
+    ("editorconfig", LanguageConfig { name: "EditorConfig", single_line_comments: &["#", ";"], multi_line_comments: &[] }),
+    ("pp", LanguageConfig { name: "Puppet", single_line_comments: &["#"], multi_line_comments: &[("/*", "*/")] }),
+    ("bicep", LanguageConfig { name: "Bicep", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("bzl", LanguageConfig { name: "Starlark", single_line_comments: &["#"], multi_line_comments: &[] }),
+
+    // Template Engines
+    ("ejs", LanguageConfig { name: "EJS", single_line_comments: &[], multi_line_comments: &[("<%#", "%>")] }),
+    ("hbs", LanguageConfig { name: "Handlebars", single_line_comments: &[], multi_line_comments: &[("{{!", "}}"), ("{{!--", "--}}")] }),
+    ("pug", LanguageConfig { name: "Pug", single_line_comments: &["//", "//-"], multi_line_comments: &[] }),
+    ("jinja", LanguageConfig { name: "Jinja", single_line_comments: &[], multi_line_comments: &[("{#", "#}")] }),
+    ("j2", LanguageConfig { name: "Jinja", single_line_comments: &[], multi_line_comments: &[("{#", "#}")] }),
+    ("erb", LanguageConfig { name: "ERB", single_line_comments: &[], multi_line_comments: &[("<%#", "%>")] }),
+    ("twig", LanguageConfig { name: "Twig", single_line_comments: &[], multi_line_comments: &[("{#", "#}")] }),
+    ("liquid", LanguageConfig { name: "Liquid", single_line_comments: &[], multi_line_comments: &[("{% comment %}", "{% endcomment %}")] }),
+
+    // GPU / Hardware / Shader
+    ("metal", LanguageConfig { name: "Metal Shader", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("cu", LanguageConfig { name: "CUDA", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("cuh", LanguageConfig { name: "CUDA Header", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("cl", LanguageConfig { name: "OpenCL", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+
+    // Mobile / Schema / API / WASM
+    ("xaml", LanguageConfig { name: "XAML", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("prisma", LanguageConfig { name: "Prisma Schema", single_line_comments: &["//", "///"], multi_line_comments: &[] }),
+    ("swagger", LanguageConfig { name: "OpenAPI", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("pkl", LanguageConfig { name: "Pkl", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("wat", LanguageConfig { name: "WebAssembly Text", single_line_comments: &[";;"], multi_line_comments: &[("(;", ";)")] }),
+    ("wast", LanguageConfig { name: "WebAssembly Text", single_line_comments: &[";;"], multi_line_comments: &[("(;", ";)")] }),
+
+    // Clojure / Lisp / Common Lisp / Scheme / Racket / Functional
+    ("edn", LanguageConfig { name: "EDN", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("commonlisp", LanguageConfig { name: "Common Lisp", single_line_comments: &[";"], multi_line_comments: &[("#|", "|#")] }),
+    ("scm", LanguageConfig { name: "Scheme", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("ss", LanguageConfig { name: "Scheme", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("rkt", LanguageConfig { name: "Racket", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("coq", LanguageConfig { name: "Coq", single_line_comments: &[], multi_line_comments: &[("(*", "*)")] }),
+    ("vlang", LanguageConfig { name: "V", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("matlab", LanguageConfig { name: "MATLAB", single_line_comments: &["%"], multi_line_comments: &[("%{", "%}")] }),
+    
+    // Scripting / Legacy
+    ("gvy", LanguageConfig { name: "Groovy", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("gy", LanguageConfig { name: "Groovy", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("gradle", LanguageConfig { name: "Gradle", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("vb", LanguageConfig { name: "VB.NET", single_line_comments: &["'"], multi_line_comments: &[] }),
+    ("vbs", LanguageConfig { name: "VBScript", single_line_comments: &["'"], multi_line_comments: &[] }),
+    ("bas", LanguageConfig { name: "VBA", single_line_comments: &["'"], multi_line_comments: &[] }),
+    ("cls", LanguageConfig { name: "VBA", single_line_comments: &["'"], multi_line_comments: &[] }),
+    ("frm", LanguageConfig { name: "VBA", single_line_comments: &["'"], multi_line_comments: &[] }),
+    ("dpr", LanguageConfig { name: "Delphi", single_line_comments: &["//"], multi_line_comments: &[("(*", "*)"), ("{", "}")] }),
+    ("dpk", LanguageConfig { name: "Delphi", single_line_comments: &["//"], multi_line_comments: &[("(*", "*)"), ("{", "}")] }),
+    ("rpgle", LanguageConfig { name: "RPG", single_line_comments: &["//", "*"], multi_line_comments: &[] }),
+    ("tcl", LanguageConfig { name: "Tcl", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("awk", LanguageConfig { name: "AWK", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("sed", LanguageConfig { name: "Sed", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("ahk", LanguageConfig { name: "AutoHotkey", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("au3", LanguageConfig { name: "AutoIt", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("applescript", LanguageConfig { name: "AppleScript", single_line_comments: &["--"], multi_line_comments: &[("(*", "*)")] }),
+
+    // Functional / Logic / Proof / Systems
+    ("sml", LanguageConfig { name: "Standard ML", single_line_comments: &[], multi_line_comments: &[("(*", "*)")] }),
+    ("agda", LanguageConfig { name: "Agda", single_line_comments: &["--"], multi_line_comments: &[] }),
+    ("idr", LanguageConfig { name: "Idris", single_line_comments: &["--"], multi_line_comments: &[] }),
+    ("gleam", LanguageConfig { name: "Gleam", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("fnl", LanguageConfig { name: "Fennel", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("wren", LanguageConfig { name: "Wren", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("nut", LanguageConfig { name: "Squirrel", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("pro", LanguageConfig { name: "Prolog", single_line_comments: &["%"], multi_line_comments: &[("/*", "*/")] }),
+    
+    // Web / Frontend / Templates
+    ("mdx", LanguageConfig { name: "MDX", single_line_comments: &[], multi_line_comments: &[("<!--", "-->"), ("{/*", "*/}")] }),
+    ("styl", LanguageConfig { name: "Stylus", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("pcss", LanguageConfig { name: "PostCSS", single_line_comments: &[], multi_line_comments: &[("/*", "*/")] }),
+    ("postcss", LanguageConfig { name: "PostCSS", single_line_comments: &[], multi_line_comments: &[("/*", "*/")] }),
+    ("coffee", LanguageConfig { name: "CoffeeScript", single_line_comments: &["#"], multi_line_comments: &[("###", "###")] }),
+    ("litcoffee", LanguageConfig { name: "CoffeeScript", single_line_comments: &["#"], multi_line_comments: &[("###", "###")] }),
+    ("slim", LanguageConfig { name: "Slim", single_line_comments: &["/"], multi_line_comments: &[] }),
+    ("haml", LanguageConfig { name: "Haml", single_line_comments: &["-#"], multi_line_comments: &[] }),
+    ("marko", LanguageConfig { name: "Marko", single_line_comments: &["//"], multi_line_comments: &[("<!--", "-->")] }),
+
+    // Systems / Embedded
+    ("ll", LanguageConfig { name: "LLVM IR", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("l", LanguageConfig { name: "Lex", single_line_comments: &[], multi_line_comments: &[("/*", "*/")] }),
+    ("y", LanguageConfig { name: "Yacc", single_line_comments: &[], multi_line_comments: &[("/*", "*/")] }),
+    ("fth", LanguageConfig { name: "Forth", single_line_comments: &["\\ "], multi_line_comments: &[("(", ")")] }),
+    ("4th", LanguageConfig { name: "Forth", single_line_comments: &["\\ "], multi_line_comments: &[("(", ")")] }),
+    ("mips", LanguageConfig { name: "MIPS Assembly", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("odin", LanguageConfig { name: "Odin", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("bal", LanguageConfig { name: "Ballerina", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("carbon", LanguageConfig { name: "Carbon", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("zon", LanguageConfig { name: "Zig Config", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("beancount", LanguageConfig { name: "Beancount", single_line_comments: &[";"], multi_line_comments: &[] }),
+
+    // Config / IaC / Metadata
+    ("tfvars", LanguageConfig { name: "HCL", single_line_comments: &["#", "//"], multi_line_comments: &[("/*", "*/")] }),
+    ("dhall", LanguageConfig { name: "Dhall", single_line_comments: &["--"], multi_line_comments: &[("{-", "-}")] }),
+    ("cue", LanguageConfig { name: "CUE", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("jsonnet", LanguageConfig { name: "Jsonnet", single_line_comments: &["//", "#"], multi_line_comments: &[("/*", "*/")] }),
+    ("jsonld", LanguageConfig { name: "JSON-LD", single_line_comments: &[], multi_line_comments: &[] }),
+    ("webmanifest", LanguageConfig { name: "JSON", single_line_comments: &[], multi_line_comments: &[] }),
+
+    // Database / Query
+    ("pks", LanguageConfig { name: "PL/SQL", single_line_comments: &["--"], multi_line_comments: &[("/*", "*/")] }),
+    ("pkb", LanguageConfig { name: "PL/SQL", single_line_comments: &["--"], multi_line_comments: &[("/*", "*/")] }),
+    ("tsql", LanguageConfig { name: "T-SQL", single_line_comments: &["--"], multi_line_comments: &[("/*", "*/")] }),
+    ("cql", LanguageConfig { name: "CQL", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("hql", LanguageConfig { name: "HiveQL", single_line_comments: &["--"], multi_line_comments: &[] }),
+    ("prql", LanguageConfig { name: "PRQL", single_line_comments: &["#"], multi_line_comments: &[] }),
+
+    // Markup / Docs
+    ("rst", LanguageConfig { name: "reStructuredText", single_line_comments: &[".. "], multi_line_comments: &[] }),
+    ("adoc", LanguageConfig { name: "AsciiDoc", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("asciidoc", LanguageConfig { name: "AsciiDoc", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("org", LanguageConfig { name: "Org-mode", single_line_comments: &["#"], multi_line_comments: &[] }),
+    ("textile", LanguageConfig { name: "Textile", single_line_comments: &["### "], multi_line_comments: &[] }),
+
+    // Apple / Game Dev
+    ("uc", LanguageConfig { name: "UnrealScript", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("tres", LanguageConfig { name: "GDResource", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("tscn", LanguageConfig { name: "GDResource", single_line_comments: &[";"], multi_line_comments: &[] }),
+    ("gdshader", LanguageConfig { name: "GDShader", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("xcconfig", LanguageConfig { name: "Xcode Config", single_line_comments: &["//"], multi_line_comments: &[] }),
+    ("pbxproj", LanguageConfig { name: "Xcode Project", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("storyboard", LanguageConfig { name: "XML", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("xib", LanguageConfig { name: "XML", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+    ("plist", LanguageConfig { name: "XML", single_line_comments: &[], multi_line_comments: &[("<!--", "-->")] }),
+
+    // Other / Scientific
+    ("dats", LanguageConfig { name: "ATS", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("sats", LanguageConfig { name: "ATS", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
+    ("kmp", LanguageConfig { name: "Kotlin", single_line_comments: &["//"], multi_line_comments: &[("/*", "*/")] }),
 ];
 
 fn get_language_config(extension: &str) -> Option<LanguageConfig> {
@@ -304,6 +460,12 @@ fn detect_shebang_with_ext(path: &Path) -> Option<(LanguageConfig, String)> {
             "groovy" => "groovy",
             "php" => "php",
             "tcl" | "tclsh" => "tcl",
+            "elixir" | "iex" => "ex",
+            "julia" => "jl",
+            "lua" => "lua",
+            "dart" => "dart",
+            "raku" => "raku",
+            "swift" => "swift",
             _ => return None,
         };
         
@@ -313,7 +475,76 @@ fn detect_shebang_with_ext(path: &Path) -> Option<(LanguageConfig, String)> {
     }
 }
 
+fn resolve_conflicts(path: &Path, ext: &str) -> String {
+    match ext {
+        "m" => {
+            if let Ok(content) = fs::read_to_string(path) {
+                let limit = content.len().min(1000);
+                let sample = &content[..limit];
+                if sample.contains("#import") || sample.contains("@interface") || sample.contains("@implementation") || sample.contains("@protocol") || sample.contains("@end") || sample.contains("NSLog(") {
+                    "m".to_string()
+                } else if sample.contains("function") || sample.contains("%") {
+                    "matlab".to_string()
+                } else {
+                    "m".to_string()
+                }
+            } else {
+                "m".to_string()
+            }
+        }
+        "v" => {
+            if let Ok(content) = fs::read_to_string(path) {
+                let limit = content.len().min(1000);
+                let sample = &content[..limit];
+                if sample.contains("Require Import") || sample.contains("Theorem") || sample.contains("Proof") || sample.contains("Qed.") || sample.contains("Lemma") {
+                    "coq".to_string()
+                } else if sample.contains("fn ") || sample.contains("struct ") || sample.contains("import ") {
+                    "vlang".to_string()
+                } else {
+                    "v".to_string()
+                }
+            } else {
+                "v".to_string()
+            }
+        }
+        "cl" => {
+            if let Ok(content) = fs::read_to_string(path) {
+                let limit = content.len().min(1000);
+                let sample = &content[..limit];
+                if sample.contains(';') || sample.contains("(defun ") || sample.contains("(defparameter ") || sample.contains("(let ") {
+                    "commonlisp".to_string()
+                } else {
+                    "cl".to_string()
+                }
+            } else {
+                "cl".to_string()
+            }
+        }
+        _ => ext.to_string(),
+    }
+}
+
 fn get_file_language_config(path: &Path, custom_cfg: &config::CustomConfig) -> Option<(LanguageConfig, String)> {
+    if let Some(filename) = path.file_name().and_then(|s| s.to_str()) {
+        let filename_lower = filename.to_lowercase();
+        let matched_ext = match filename_lower.as_str() {
+            "dockerfile" => Some("dockerfile"),
+            "makefile" => Some("makefile"),
+            "rakefile" => Some("rb"),
+            "gemfile" => Some("rb"),
+            "vagrantfile" => Some("rb"),
+            "jenkinsfile" => Some("groovy"),
+            "cmakelists.txt" => Some("cmake"),
+            ".eslintrc" | ".prettierrc" | ".babelrc" | ".nycrc" => Some("json"),
+            _ => None,
+        };
+        if let Some(ext) = matched_ext {
+            if let Some(cfg) = get_language_config(ext) {
+                return Some((cfg, ext.to_string()));
+            }
+        }
+    }
+
     if let Some(ext) = path.extension().and_then(|s| s.to_str()) {
         let ext_lower = ext.to_lowercase();
         if let Some(ref custom_langs) = custom_cfg.custom_languages {
@@ -321,7 +552,8 @@ fn get_file_language_config(path: &Path, custom_cfg: &config::CustomConfig) -> O
                 return Some((make_static_config(mapping), ext_lower));
             }
         }
-        get_language_config(&ext_lower).map(|cfg| (cfg, ext_lower))
+        let resolved_ext = resolve_conflicts(path, &ext_lower);
+        get_language_config(&resolved_ext).map(|cfg| (cfg, resolved_ext))
     } else {
         detect_shebang_with_ext(path)
     }
@@ -425,28 +657,97 @@ fn parse_gitignore_rules(root: &Path) -> Vec<String> {
             }
         }
     }
+
+    let locignore_path = root.join(".locignore");
+    if locignore_path.exists() {
+        if let Ok(content) = fs::read_to_string(locignore_path) {
+            for line in content.lines() {
+                let trimmed = line.trim();
+                if trimmed.is_empty() || trimmed.starts_with('#') {
+                    continue;
+                }
+                let cleaned = trimmed.trim_start_matches('/').trim_end_matches('/');
+                if !cleaned.is_empty() {
+                    rules.push(cleaned.to_string());
+                }
+            }
+        }
+    }
+
     rules
 }
 
-fn should_ignore(path: &Path, root: &Path, ignore_rules: &[String]) -> bool {
+struct IgnoreMatcher {
+    ignore_set: GlobSet,
+    allow_set: GlobSet,
+}
+
+impl IgnoreMatcher {
+    fn new(rules: &[String]) -> Self {
+        let mut ignore_builder = GlobSetBuilder::new();
+        let mut allow_builder = GlobSetBuilder::new();
+        
+        for rule in rules {
+            let mut r = rule.trim().replace('\\', "/");
+            if r.is_empty() || r.starts_with('#') {
+                continue;
+            }
+            
+            let is_negated = r.starts_with('!');
+            if is_negated {
+                r = r[1..].to_string();
+            }
+            
+            let has_slash = r.contains('/');
+            let r_clean = r.trim_start_matches('/').trim_end_matches('/');
+            
+            let builder = if is_negated { &mut allow_builder } else { &mut ignore_builder };
+            
+            if !has_slash {
+                if let Ok(glob) = Glob::new(r_clean) {
+                    builder.add(glob);
+                }
+                if let Ok(glob) = Glob::new(&format!("**/{}", r_clean)) {
+                    builder.add(glob);
+                }
+                if let Ok(glob) = Glob::new(&format!("{}/**", r_clean)) {
+                    builder.add(glob);
+                }
+                if let Ok(glob) = Glob::new(&format!("**/{}/**", r_clean)) {
+                    builder.add(glob);
+                }
+            } else {
+                if let Ok(glob) = Glob::new(r_clean) {
+                    builder.add(glob);
+                }
+                if let Ok(glob) = Glob::new(&format!("{}/**", r_clean)) {
+                    builder.add(glob);
+                }
+            }
+        }
+        
+        Self {
+            ignore_set: ignore_builder.build().unwrap_or_else(|_| GlobSetBuilder::new().build().unwrap()),
+            allow_set: allow_builder.build().unwrap_or_else(|_| GlobSetBuilder::new().build().unwrap()),
+        }
+    }
+    
+    fn is_ignored(&self, path_str: &str) -> bool {
+        if self.allow_set.is_match(path_str) {
+            return false;
+        }
+        self.ignore_set.is_match(path_str)
+    }
+}
+
+fn should_ignore(path: &Path, root: &Path, matcher: &IgnoreMatcher) -> bool {
     let relative_path = match path.strip_prefix(root) {
         Ok(p) => p,
         Err(_) => path,
     };
 
     let path_str = relative_path.to_string_lossy().replace('\\', "/");
-    let components: Vec<&str> = path_str.split('/').collect();
-
-    for rule in ignore_rules {
-        let rule_cleaned = rule.replace('\\', "/");
-        if components.iter().any(|&c| c == rule_cleaned || c == rule) {
-            return true;
-        }
-        if path_str.contains(&rule_cleaned) {
-            return true;
-        }
-    }
-    false
+    matcher.is_ignored(&path_str)
 }
 
 pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String> {
@@ -464,13 +765,15 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
             ignore_rules.push(rule.clone());
         }
     }
+    
+    let matcher = IgnoreMatcher::new(&ignore_rules);
 
     let mut files_to_scan = Vec::new();
 
     for entry in WalkDir::new(root).into_iter().filter_map(|e| e.ok()) {
         let path = entry.path();
         if path.is_file() {
-            if !should_ignore(path, root, &ignore_rules) {
+            if !should_ignore(path, root, &matcher) {
                 if get_file_language_config(path, &custom_cfg).is_some() {
                     files_to_scan.push(path.to_path_buf());
                 }
@@ -646,6 +949,8 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
     let git_available = git_stats.is_some();
     let (file_churn, top_contributors) = git_stats.unwrap_or_else(|| (Vec::new(), Vec::new()));
 
+    let tech_stack = techstack::detect_tech_stack(root);
+
     let scan_duration_ms = start_time.elapsed().as_millis() as u64;
 
     Ok(ProjectSummary {
@@ -674,6 +979,7 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         git_available,
         file_churn,
         top_contributors,
+        tech_stack,
     })
 }
 

@@ -75,7 +75,16 @@ export interface ProjectSummary {
   gitAvailable: boolean;
   fileChurn: FileChurn[];
   topContributors: Contributor[];
+  techStack: TechStackItem[];
 }
+
+export interface TechStackItem {
+  name: string;
+  version: string;
+  category: string;
+  icon?: string;
+}
+
 
 export interface CocomoResult {
   effortPersonMonths: number;

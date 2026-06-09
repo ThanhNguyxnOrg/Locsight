@@ -8,11 +8,12 @@ import { Health } from "./components/Health";
 import { Insights } from "./components/Insights";
 import { Git } from "./components/Git";
 import { Export } from "./components/Export";
+import { Settings } from "./components/Settings";
 import { useAnalysis } from "./hooks/useAnalysis";
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>("welcome");
-  const { summary, loading, progress, error, selectFolderAndScan, resetAnalysis } = useAnalysis();
+  const { summary, loading, progress, error, selectFolderAndScan, pendingFolder } = useAnalysis();
 
   // Route automatically to dashboard upon successful directory scan
   // but if we are already on some other screen like files/graph, don't kick us back
@@ -22,12 +23,50 @@ export default function App() {
     }
   }, [summary]);
 
-  // If user navigates back to welcome, clear current scan summary
+  // Route automatically to welcome screen when preparing a scan (ignore configuration)
   useEffect(() => {
-    if (screen === "welcome" && summary) {
-      resetAnalysis();
+    if (pendingFolder) {
+      setScreen("welcome");
     }
-  }, [screen]);
+  }, [pendingFolder]);
+
+  // Confirm folder switch wrapper
+  const handleOpenFolderWithConfirm = () => {
+    if (summary) {
+      const confirmSwitch = window.confirm("Are you sure you want to select another folder? Your current analysis data will be replaced.");
+      if (!confirmSwitch) return;
+    }
+    selectFolderAndScan();
+  };
+
+  // Keyboard Shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // 1. Folder picker: Ctrl/Cmd + Shift + O
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "o") {
+        e.preventDefault();
+        handleOpenFolderWithConfirm();
+        return;
+      }
+      
+      // 2. Tab Navigation: Ctrl/Cmd + 1-8
+      if ((e.ctrlKey || e.metaKey) && !e.shiftKey) {
+        const numKeys = ["1", "2", "3", "4", "5", "6", "7", "8"];
+        if (numKeys.includes(e.key)) {
+          e.preventDefault();
+          const targetScreens: Screen[] = ["welcome", "dashboard", "files", "graph", "health", "insights", "git", "export"];
+          const targetScreen = targetScreens[Number(e.key) - 1];
+          
+          if (targetScreen === "welcome" || summary) {
+            setScreen(targetScreen);
+          }
+        }
+      }
+    };
+    
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [summary, selectFolderAndScan]);
 
   const status =
     loading
@@ -39,8 +78,16 @@ export default function App() {
       : `scan complete · ${summary?.path || ""}`;
 
   return (
-    <Shell screen={screen} onChange={setScreen} progress={loading ? progress : undefined} status={status}>
-      {screen === "welcome" && <Welcome onOpen={selectFolderAndScan} />}
+    <Shell
+      screen={screen}
+      onChange={setScreen}
+      progress={loading ? progress : undefined}
+      status={status}
+      onOpenFolder={handleOpenFolderWithConfirm}
+    >
+      {screen === "welcome" && (
+        <Welcome onOpen={handleOpenFolderWithConfirm} onGoToDashboard={() => setScreen("dashboard")} />
+      )}
       {screen === "dashboard" && <Dashboard />}
       {screen === "files" && <Files />}
       {screen === "graph" && <Graph />}
@@ -48,7 +95,9 @@ export default function App() {
       {screen === "insights" && <Insights />}
       {screen === "git" && <Git />}
       {screen === "export" && <Export />}
+      {screen === "settings" && <Settings onNavigateToDashboard={() => setScreen("dashboard")} />}
     </Shell>
   );
 }
+
 

@@ -35,5 +35,6 @@ pub struct ProjectSummary {
     pub git_available: bool,
     pub file_churn: Vec<FileChurn>,
     pub top_contributors: Vec<Contributor>,
+    pub tech_stack: Vec<crate::engine::techstack::TechStackItem>,
 }
 

@@ -2,7 +2,14 @@ mod models;
 mod engine;
 mod commands;
 
-use commands::{scan_directory, get_cocomo_estimate, export_report};
+use commands::{
+    scan_directory,
+    get_cocomo_estimate,
+    export_report,
+    read_locignore,
+    write_locignore,
+    read_gitignore,
+};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -25,7 +32,10 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             scan_directory,
             get_cocomo_estimate,
-            export_report
+            export_report,
+            read_locignore,
+            write_locignore,
+            read_gitignore
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

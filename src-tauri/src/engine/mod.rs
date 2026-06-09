@@ -8,4 +8,4 @@ pub mod annotations;
 pub mod secrets;
 pub mod git;
 pub mod config;
-
+pub mod techstack;

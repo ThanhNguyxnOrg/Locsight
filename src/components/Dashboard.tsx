@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { C, mono, LANG_COLORS } from "./tokens";
+import { C, mono, LANG_COLORS, TECH_CATEGORY_COLORS } from "./tokens";
 import { Card } from "./Card";
 import { useAnalysis } from "../hooks/useAnalysis";
 
@@ -24,9 +24,29 @@ export function Dashboard() {
   return (
     <div className="px-10 py-8 h-full overflow-y-auto">
       {/* breadcrumb */}
-      <div style={{ ...mono, fontSize: 11, color: C.muted, marginBottom: 32 }}>
-        {summary.path.substring(0, summary.path.length - projectName.length)}
-        <span style={{ color: C.text }}>{projectName}</span>
+      <div className="flex justify-between items-center mb-6">
+        <div style={{ ...mono, fontSize: 11, color: C.muted }}>
+          {summary.path.substring(0, summary.path.length - projectName.length)}
+          <span style={{ color: C.text }}>{projectName}</span>
+        </div>
+        
+        {/* Mini tech stack summary bar */}
+        {summary.techStack && summary.techStack.length > 0 && (
+          <div className="flex items-center gap-1.5 overflow-x-auto max-w-[50%] no-scrollbar">
+            {summary.techStack
+              .filter(item => ["Frontend", "Backend", "Desktop Framework", "Environment", "Database/ORM"].includes(item.category))
+              .slice(0, 8)
+              .map(item => (
+                <span 
+                  key={item.name}
+                  style={{ ...mono, fontSize: 10, borderColor: C.border }}
+                  className="px-2 py-0.5 rounded border bg-white/[0.02] text-white/80 font-medium whitespace-nowrap"
+                >
+                  {item.name}
+                </span>
+              ))}
+          </div>
+        )}
       </div>
 
       <div className="grid gap-8" style={{ gridTemplateColumns: "2fr 1fr" }}>
@@ -202,6 +222,93 @@ export function Dashboard() {
 
         {/* Right column */}
         <div className="flex flex-col gap-4">
+          <Card label="DETECTED TECH STACK">
+            {summary.techStack && summary.techStack.length > 0 ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }} className="max-h-72 overflow-y-auto pr-1">
+                {Object.entries(
+                  summary.techStack.reduce((acc, item) => {
+                    const cat = item.category || "General";
+                    if (!acc[cat]) acc[cat] = [];
+                    acc[cat].push(item);
+                    return acc;
+                  }, {} as Record<string, typeof summary.techStack>)
+                ).map(([category, items]) => {
+                  const catColors = TECH_CATEGORY_COLORS[category] || {
+                    bg: "rgba(255, 255, 255, 0.05)",
+                    text: C.muted,
+                    border: C.border
+                  };
+                  return (
+                    <div key={category} className="border-b border-white/[0.03] pb-3 last:border-b-0 last:pb-0">
+                      <div className="flex justify-between items-center mb-2.5">
+                        <span
+                          style={{
+                            ...mono,
+                            fontSize: 9.5,
+                            color: catColors.text,
+                            letterSpacing: "0.08em",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {category.toUpperCase()}
+                        </span>
+                        <span 
+                          style={{
+                            ...mono,
+                            fontSize: 9,
+                            background: catColors.bg,
+                            color: catColors.text,
+                            borderColor: catColors.border,
+                          }}
+                          className="px-1.5 py-0.2 rounded-full border text-[9px] font-semibold"
+                        >
+                          {items.length}
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {items.map((item) => (
+                          <div
+                            key={item.name}
+                            className="px-2.5 py-1 rounded flex items-center gap-1.5 border text-xs transition-all hover:bg-white/[0.04]"
+                            style={{
+                              borderColor: C.border,
+                              background: "rgba(255, 255, 255, 0.01)",
+                            }}
+                            title={`Category: ${category}${item.version ? `\nVersion: ${item.version}` : ""}`}
+                          >
+                            <span 
+                              style={{ background: catColors.text }} 
+                              className="inline-block w-1.5 h-1.5 rounded-full"
+                            />
+                            <span style={{ color: C.text, fontWeight: 500 }}>{item.name}</span>
+                            {item.version && (
+                              <span 
+                                style={{ 
+                                  color: C.accent, 
+                                  fontSize: 9.5, 
+                                  fontFamily: "monospace",
+                                  background: "rgba(245, 158, 11, 0.08)",
+                                  borderColor: "rgba(245, 158, 11, 0.15)"
+                                }} 
+                                className="px-1 py-0.2 rounded border text-[9px]"
+                              >
+                                {item.version}
+                              </span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div style={{ ...mono, fontSize: 11, color: C.muted, padding: "8px 0" }}>
+                No dependencies detected. (Scan a project containing package.json, Cargo.toml, go.mod, etc.)
+              </div>
+            )}
+          </Card>
+
           <Card label="COMPLEXITY">
             <div
               style={{

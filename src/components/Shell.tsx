@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Home, LayoutDashboard, FolderTree, Share2, Download, Minus, Square, X, Activity, ShieldAlert, History, Maximize2 } from "lucide-react";
+import { Home, LayoutDashboard, FolderTree, Share2, Download, Minus, Square, X, Activity, ShieldAlert, History, Maximize2, Settings, FolderOpen } from "lucide-react";
 import { C, mono } from "./tokens";
 import { useAnalysis } from "../hooks/useAnalysis";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 
-export type Screen = "welcome" | "dashboard" | "files" | "graph" | "health" | "insights" | "git" | "export";
+// Add "settings" to the available screens
+export type Screen = "welcome" | "dashboard" | "files" | "graph" | "health" | "insights" | "git" | "export" | "settings";
 
 const ITEMS: { id: Screen; icon: any; label: string; key: string }[] = [
   { id: "welcome", icon: Home, label: "Home", key: "1" },
@@ -23,12 +24,14 @@ export function Shell({
   children,
   progress,
   status,
+  onOpenFolder,
 }: {
   screen: Screen;
   onChange: (s: Screen) => void;
   children: React.ReactNode;
   progress?: number;
   status: string;
+  onOpenFolder?: () => void;
 }) {
   const { summary } = useAnalysis();
   const [platform, setPlatform] = useState<"windows" | "macos" | "linux">("windows");
@@ -299,12 +302,13 @@ export function Shell({
             // Disable dashboard, files, graph, export if no summary is loaded
             const disabled = !summary && it.id !== "welcome";
 
+            const mod = platform === "macos" ? "⌘" : "Ctrl+";
             return (
               <button
                 key={it.id}
                 onClick={() => !disabled && onChange(it.id)}
                 disabled={disabled}
-                title={disabled ? `${it.label} (Scan codebase first)` : `${it.label} (⌘${it.key})`}
+                title={disabled ? `${it.label} (Scan codebase first)` : `${it.label} (${mod}${it.key})`}
                 className="flex items-center justify-center relative group disabled:opacity-30 disabled:cursor-not-allowed"
                 style={{
                   width: 34,
@@ -341,6 +345,72 @@ export function Shell({
             );
           })}
           <div className="flex-1" />
+
+          {/* Open Another Folder Quick Switch */}
+          <button
+            onClick={onOpenFolder}
+            title={platform === "macos" ? "Open Another Folder (⌘⇧O)" : "Open Another Folder (Ctrl+Shift+O)"}
+            className="flex items-center justify-center relative group"
+            style={{
+              width: 34,
+              height: 34,
+              borderRadius: 4,
+              background: "transparent",
+              color: C.muted,
+              border: "1px solid transparent",
+              cursor: "pointer",
+              transition: "color 120ms, background 120ms",
+              marginBottom: 4
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.color = C.text;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.color = C.muted;
+            }}
+          >
+            <FolderOpen size={16} strokeWidth={1.75} />
+          </button>
+
+          {/* Settings / Locignore Button */}
+          <button
+            onClick={() => onChange("settings")}
+            title="Locignore Settings"
+            className="flex items-center justify-center relative group"
+            style={{
+              width: 34,
+              height: 34,
+              borderRadius: 4,
+              background: screen === "settings" ? `${C.accent}1a` : "transparent",
+              color: screen === "settings" ? C.accent : C.muted,
+              border: "1px solid transparent",
+              cursor: "pointer",
+              transition: "color 120ms, background 120ms",
+              marginBottom: 12
+            }}
+            onMouseEnter={(e) => {
+              if (screen !== "settings") (e.currentTarget as HTMLElement).style.color = C.text;
+            }}
+            onMouseLeave={(e) => {
+              if (screen !== "settings") (e.currentTarget as HTMLElement).style.color = C.muted;
+            }}
+          >
+            {screen === "settings" && (
+              <span
+                style={{
+                  position: "absolute",
+                  left: -1,
+                  top: 6,
+                  bottom: 6,
+                  width: 2,
+                  background: C.accent,
+                  borderRadius: 1,
+                }}
+              />
+            )}
+            <Settings size={16} strokeWidth={1.75} />
+          </button>
+
           <div
             style={{
               ...mono,
@@ -352,7 +422,7 @@ export function Shell({
               padding: "8px 0",
             }}
           >
-            v1.0.0
+            v1.1.0
           </div>
         </nav>
 
