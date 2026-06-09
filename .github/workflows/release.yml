@@ -68,10 +68,31 @@ jobs:
             echo "| 🐧 Linux | ARM64 | \`.deb\` / \`.AppImage\` |"
           } > release_body.md
 
-      - name: Create and push tag
+      - name: Bump version in config files
         run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          
+          # Update package.json
+          jq '.version = "'$VERSION'"' package.json > temp.json && mv temp.json package.json
+          
+          # Update src-tauri/tauri.conf.json
+          jq '.version = "'$VERSION'"' src-tauri/tauri.conf.json > temp.json && mv temp.json src-tauri/tauri.conf.json
+          
+          # Update src-tauri/Cargo.toml
+          sed -i 's/^version = ".*"/version = "'$VERSION'"/' src-tauri/Cargo.toml
+          
+          # Configure Git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Commit changes
+          git add package.json src-tauri/tauri.conf.json src-tauri/Cargo.toml
+          git commit -m "ci: bump version to v$VERSION [skip ci]" || echo "No changes to commit"
+          
+          # Push changes back to main branch
+          git push origin HEAD:main || echo "Warning: Could not push to main branch directly, continuing with tagging."
+          
+          # Tag the version-bumped commit
           git tag -a "${{ steps.version.outputs.tag }}" -m "Release ${{ steps.version.outputs.tag }}"
           git push origin "${{ steps.version.outputs.tag }}"
 
@@ -133,11 +154,19 @@ jobs:
         with:
           workspaces: './src-tauri -> target'
 
+      - name: Install MSVC ARM64 Build Tools (Windows ARM64)
+        if: matrix.rust_target == 'aarch64-pc-windows-msvc'
+        shell: pwsh
+        run: |
+          $vsPath = &(vswhere -latest -property installationPath)
+          echo "VS Installation Path: $vsPath"
+          Start-Process -FilePath "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" -ArgumentList "modify", "--installPath", """$vsPath""", "--add", "Microsoft.VisualStudio.Component.VC.Tools.ARM64", "--quiet", "--norestart" -Wait -NoNewWindow
+
       - name: Install system dependencies (Linux)
         if: startsWith(matrix.platform, 'ubuntu-')
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          sudo apt-get install -y build-essential pkg-config libssl-dev libgtk-3-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
       - name: Install frontend dependencies
         run: npm install
