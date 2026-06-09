@@ -37,24 +37,35 @@ A blazing-fast ⚡ desktop app that scans, visualizes, and grades your codebase 
 
 ## 🚀 Quick Start
 
+Locsight is a pre-compiled desktop app. **You do not need to clone the code or install Node.js/Rust to use it.**
+
+1. Download the installer for your operating system from [Releases](https://github.com/ThanhNguyxnOrg/Locsight/releases).
+2. Install and launch:
+   - **Windows**: Run the `.msi` or `.exe` installer.
+   - **macOS**: Drag the `.dmg` application to your `/Applications` directory.
+   - **Linux**: Install the `.deb` package or execute the `.AppImage`.
+
+> 💡 For detailed setup guides, security bypass instructions (SmartScreen/Gatekeeper), system dependency packages, and graphics hardware troubleshooting for **Virtual Machines (blank screen fix)**, please consult the [Full Installation Guide](docs/INSTALLATION.md).
+
+## 🛠️ Development Setup
+
+If you want to compile Locsight from source:
+
 ```bash
-# Clone
+# 1. Clone repository
 git clone https://github.com/ThanhNguyxnOrg/Locsight.git
 cd Locsight
 
-# Install
+# 2. Install dependencies
 npm install
 
-# Run (dev mode)
+# 3. Launch dev environment
 npm run tauri dev
-
-# Build for production
-npm run tauri build
 ```
 
-> 📋 **Prerequisites**: [Rust](https://rustup.rs/), [Node.js](https://nodejs.org/), [Tauri v2 prereqs](https://v2.tauri.app/start/prerequisites/)
+> 📋 **Prerequisites**: [Node.js](https://nodejs.org/) (v18+), [Rust](https://rustup.rs/) (v1.75+), and [Tauri v2 prerequisites](https://v2.tauri.app/start/prerequisites/) for compilation.
 
-## 🛠️ Tech Stack
+## ⚙️ Tech Stack
 
 ```
 Backend   →  Rust · Tauri v2 · Rayon · WalkDir · SHA-256 · Regex
@@ -66,6 +77,7 @@ CI/CD     →  GitHub Actions · Dependabot · Auto-merge
 
 | 📄 Document | Description |
 |:---|:---|
+| [🚀 Installation](docs/INSTALLATION.md) | Cross-platform setup, security bypass, and VM troubleshooting |
 | [📐 Architecture](docs/ARCHITECTURE.md) | System design, module breakdown, data flow |
 | [✨ Features](docs/FEATURES.md) | Detailed feature guide with examples |
 | [💻 Development](docs/DEVELOPMENT.md) | Local setup, project structure, debugging |

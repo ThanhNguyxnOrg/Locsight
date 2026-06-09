@@ -1,4 +1,5 @@
-import { Home, LayoutDashboard, FolderTree, Share2, Download, Minus, Square, X, Activity, ShieldAlert, History } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Home, LayoutDashboard, FolderTree, Share2, Download, Minus, Square, X, Activity, ShieldAlert, History, Maximize2 } from "lucide-react";
 import { C, mono } from "./tokens";
 import { useAnalysis } from "../hooks/useAnalysis";
 import { getCurrentWindow } from "@tauri-apps/api/window";
@@ -30,6 +31,18 @@ export function Shell({
   status: string;
 }) {
   const { summary } = useAnalysis();
+  const [platform, setPlatform] = useState<"windows" | "macos" | "linux">("windows");
+
+  useEffect(() => {
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.includes("mac")) {
+      setPlatform("macos");
+    } else if (ua.includes("linux")) {
+      setPlatform("linux");
+    } else {
+      setPlatform("windows");
+    }
+  }, []);
 
   // Native window controls using Tauri APIs
   const handleMinimize = () => {
@@ -44,21 +57,156 @@ export function Shell({
     getCurrentWindow().close().catch((err) => console.error(err));
   };
 
-  return (
-    <div
-      className="size-full flex flex-col overflow-hidden"
-      style={{ background: C.bg, color: C.text, fontFamily: "'Inter', sans-serif" }}
-    >
-      {/* Title bar — OS-agnostic */}
+  const renderTitlebar = () => {
+    if (platform === "macos") {
+      return (
+        <div
+          className="flex items-center select-none"
+          style={{ height: 32, borderBottom: `1px solid ${C.border}`, paddingLeft: 12, paddingRight: 12 }}
+        >
+          {/* macOS traffic light controls on left */}
+          <div className="flex items-center gap-2 group/mac" style={{ height: "100%" }}>
+            <button
+              onClick={handleClose}
+              style={{ ...macBtnStyle, background: "#ff5f56" }}
+              className="flex items-center justify-center relative active:brightness-75"
+              title="Close"
+            >
+              <X className="opacity-0 group-hover/mac:opacity-100 transition-opacity" style={{ width: 6, height: 6, color: "#4c0002" }} strokeWidth={4} />
+            </button>
+            <button
+              onClick={handleMinimize}
+              style={{ ...macBtnStyle, background: "#ffbd2e" }}
+              className="flex items-center justify-center relative active:brightness-75"
+              title="Minimize"
+            >
+              <Minus className="opacity-0 group-hover/mac:opacity-100 transition-opacity" style={{ width: 6, height: 6, color: "#5c3e00" }} strokeWidth={4} />
+            </button>
+            <button
+              onClick={handleMaximize}
+              style={{ ...macBtnStyle, background: "#27c93f" }}
+              className="flex items-center justify-center relative active:brightness-75"
+              title="Maximize"
+            >
+              <Maximize2 className="opacity-0 group-hover/mac:opacity-100 transition-opacity" style={{ width: 6, height: 6, color: "#004d04" }} strokeWidth={4} />
+            </button>
+          </div>
+
+          {/* Draggable Title Area - Centered for macOS */}
+          <div
+            data-tauri-drag-region
+            className="flex-1 flex items-center justify-center h-full select-none"
+            style={{ marginRight: 52 }} // Offset to visually balance traffic lights
+          >
+            <div data-tauri-drag-region className="flex items-center gap-2">
+              <div
+                data-tauri-drag-region
+                style={{
+                  width: 5,
+                  height: 5,
+                  borderRadius: 1,
+                  background: C.accent,
+                }}
+              />
+              <div
+                data-tauri-drag-region
+                style={{
+                  ...mono,
+                  color: C.text,
+                  fontSize: 11,
+                  letterSpacing: "0.06em",
+                  fontWeight: 600,
+                }}
+              >
+                LOCSIGHT
+              </div>
+              <div data-tauri-drag-region style={{ ...mono, color: C.muted, fontSize: 11, marginLeft: 6 }} className="truncate max-w-sm">
+                {summary ? `— ${summary.path.split(/[\/\\]/).pop()}` : "— Welcome"}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (platform === "linux") {
+      return (
+        <div
+          className="flex items-center select-none"
+          style={{ height: 32, borderBottom: `1px solid ${C.border}`, paddingLeft: 12 }}
+        >
+          {/* Title Area left-aligned */}
+          <div
+            data-tauri-drag-region
+            className="flex items-center gap-2 h-full flex-1"
+          >
+            <div
+              data-tauri-drag-region
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: 1,
+                background: C.accent,
+              }}
+            />
+            <div
+              data-tauri-drag-region
+              style={{
+                ...mono,
+                color: C.text,
+                fontSize: 11,
+                letterSpacing: "0.06em",
+                fontWeight: 500,
+              }}
+            >
+              LOCSIGHT
+            </div>
+            <div data-tauri-drag-region style={{ ...mono, color: C.muted, fontSize: 11, marginLeft: 8 }} className="truncate max-w-lg">
+              {summary ? `— ${summary.path}` : "— Welcome"}
+            </div>
+          </div>
+
+          {/* Linux GTK circle buttons on right */}
+          <div className="flex items-center gap-1.5 px-2" style={{ height: "100%" }}>
+            <button
+              onClick={handleMinimize}
+              style={linuxBtnStyle}
+              className="hover:bg-white/10 active:bg-white/15"
+              title="Minimize"
+            >
+              <Minus size={11} strokeWidth={2} />
+            </button>
+            <button
+              onClick={handleMaximize}
+              style={linuxBtnStyle}
+              className="hover:bg-white/10 active:bg-white/15"
+              title="Maximize"
+            >
+              <Square size={9} strokeWidth={2} />
+            </button>
+            <button
+              onClick={handleClose}
+              style={{ ...linuxBtnStyle }}
+              className="hover:bg-red-500/80 hover:text-white active:bg-red-600"
+              title="Close"
+            >
+              <X size={11} strokeWidth={2} />
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // Windows Layout (Default)
+    return (
       <div
-        data-tauri-drag-region
         className="flex items-center select-none"
-        style={{ height: 30, borderBottom: `1px solid ${C.border}` }}
+        style={{ height: 32, borderBottom: `1px solid ${C.border}`, paddingLeft: 12 }}
       >
+        {/* Title Area left-aligned */}
         <div
           data-tauri-drag-region
-          className="flex items-center gap-2"
-          style={{ paddingLeft: 14, flex: 1 }}
+          className="flex items-center gap-2 h-full flex-1"
         >
           <div
             data-tauri-drag-region
@@ -81,58 +229,48 @@ export function Shell({
           >
             LOCSIGHT
           </div>
-          <div data-tauri-drag-region style={{ ...mono, color: C.muted, fontSize: 11, marginLeft: 8 }} className="truncate max-w-xl">
+          <div data-tauri-drag-region style={{ ...mono, color: C.muted, fontSize: 11, marginLeft: 8 }} className="truncate max-w-lg">
             {summary ? `— ${summary.path}` : "— Welcome"}
           </div>
         </div>
+
+        {/* Windows 11 style window controls on right */}
         <div className="flex" style={{ height: "100%" }}>
           <button
             onClick={handleMinimize}
-            className="flex items-center justify-center"
-            style={titleBarBtnStyle}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#ffffff0d";
-              e.currentTarget.style.color = C.text;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = C.muted;
-            }}
+            style={winBtnStyle}
+            className="hover:bg-white/5 text-white/70 hover:text-white active:bg-white/10"
+            title="Minimize"
           >
-            <Minus size={12} strokeWidth={1.75} />
+            <Minus size={13} strokeWidth={1.5} />
           </button>
           <button
             onClick={handleMaximize}
-            className="flex items-center justify-center"
-            style={titleBarBtnStyle}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#ffffff0d";
-              e.currentTarget.style.color = C.text;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = C.muted;
-            }}
+            style={winBtnStyle}
+            className="hover:bg-white/5 text-white/70 hover:text-white active:bg-white/10"
+            title="Maximize"
           >
-            <Square size={12} strokeWidth={1.75} />
+            <Square size={10} strokeWidth={1.5} />
           </button>
           <button
             onClick={handleClose}
-            className="flex items-center justify-center"
-            style={titleBarBtnStyle}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#e8443e";
-              e.currentTarget.style.color = "#fff";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = C.muted;
-            }}
+            style={winBtnStyle}
+            className="hover:bg-[#e81123] text-white/70 hover:text-white active:bg-[#f1707a]"
+            title="Close"
           >
-            <X size={12} strokeWidth={1.75} />
+            <X size={13} strokeWidth={1.5} />
           </button>
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div
+      className="size-full flex flex-col overflow-hidden"
+      style={{ background: C.bg, color: C.text, fontFamily: "'Inter', sans-serif" }}
+    >
+      {renderTitlebar()}
 
       {/* Progress bar */}
       <div style={{ height: 2, position: "relative" }}>
@@ -261,11 +399,39 @@ export function Shell({
   );
 }
 
-const titleBarBtnStyle: React.CSSProperties = {
-  width: 42,
+const macBtnStyle: React.CSSProperties = {
+  width: 12,
+  height: 12,
+  borderRadius: "50%",
+  border: "none",
+  padding: 0,
+  cursor: "pointer",
+  outline: "none",
+};
+
+const winBtnStyle: React.CSSProperties = {
+  width: 46,
   height: "100%",
   background: "transparent",
   border: "none",
-  color: C.muted,
   cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transition: "background-color 100ms, color 100ms",
+  outline: "none",
+};
+
+const linuxBtnStyle: React.CSSProperties = {
+  width: 24,
+  height: 24,
+  borderRadius: "50%",
+  background: "transparent",
+  border: "none",
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transition: "background-color 100ms, color 100ms",
+  outline: "none",
 };
