@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { C, mono } from "./tokens";
 import { useAnalysis } from "../hooks/useAnalysis";
-import { ShieldCheck, ShieldAlert, Search, Filter } from "lucide-react";
+import { ShieldCheck, ShieldAlert, Search, Filter, AlertCircle, CheckCircle, ArrowRight } from "lucide-react";
 
 export function Insights() {
   const { summary } = useAnalysis();
@@ -10,7 +10,8 @@ export function Insights() {
 
   if (!summary) return null;
 
-  const { secrets, annotations } = summary;
+  const { secrets, annotations, architectureReport } = summary;
+  const ruleViolations = architectureReport?.ruleViolations || [];
 
   // Filter annotations
   const filteredAnnotations = annotations.filter((ann) => {
@@ -24,14 +25,98 @@ export function Insights() {
   const annotationKinds = ["ALL", ...Array.from(new Set(annotations.map(a => a.kind.toUpperCase())))];
 
   return (
-    <div className="px-10 py-8 h-full overflow-y-auto">
+    <div className="px-10 py-8 h-full overflow-y-auto" style={{ background: C.bg }}>
       {/* Title */}
       <div className="mb-8">
         <h2 style={{ ...mono, fontSize: 24, fontWeight: 500, color: C.text, margin: 0 }}>CODEBASE INSIGHTS</h2>
-        <p style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>Security warnings, credentials, and code annotations</p>
+        <p style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>Security alerts, architecture rule validation, and code annotations</p>
       </div>
 
-      {/* Security Check Section */}
+      {/* 1. Architecture Violations Section */}
+      <div className="mb-10">
+        <div style={{ ...mono, fontSize: 14, color: C.muted, letterSpacing: "0.08em", marginBottom: 16 }}>
+          ARCHITECTURE COMPLIANCE VALIDATOR
+        </div>
+
+        {ruleViolations.length === 0 ? (
+          <div 
+            className="p-5 rounded-lg border flex items-center gap-4"
+            style={{ background: "#22c55e08", borderColor: "#22c55e22" }}
+          >
+            <CheckCircle size={28} style={{ color: "#22c55e" }} />
+            <div>
+              <div style={{ ...mono, fontSize: 13, fontWeight: 600, color: "#22c55e" }}>
+                Architecture rules are fully compliant
+              </div>
+              <p style={{ fontSize: 11, color: C.muted, margin: "2px 0 0 0" }}>
+                No restricted imports detected. Validated against rules configured in <code>.locsight.rules.json</code>.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div 
+              className="p-5 rounded-lg border flex items-center gap-4 mb-4"
+              style={{ background: "#ef444408", borderColor: "#ef444422" }}
+            >
+              <AlertCircle size={28} style={{ color: "#ef4444" }} />
+              <div>
+                <div style={{ ...mono, fontSize: 13, fontWeight: 600, color: "#ef4444" }}>
+                  {ruleViolations.length} architecture rule violation{ruleViolations.length > 1 ? "s" : ""} detected!
+                </div>
+                <p style={{ fontSize: 11, color: C.muted, margin: "2px 0 0 0" }}>
+                  Restricted imports found between architectural component boundaries. Refactor to preserve layering.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-3">
+              {ruleViolations.map((violation, idx) => {
+                const isError = violation.severity.toLowerCase() === "error";
+                const sevColor = isError ? "#ef4444" : "#eab308";
+                const sevBg = isError ? "#ef444410" : "#eab30810";
+
+                return (
+                  <div 
+                    key={idx}
+                    className="p-4 rounded-lg border flex flex-col justify-between gap-2"
+                    style={{ background: C.surface, borderColor: C.border }}
+                  >
+                    <div className="flex items-center justify-between gap-4 flex-wrap">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span 
+                          style={{ 
+                            ...mono, 
+                            fontSize: 9, 
+                            fontWeight: 600, 
+                            color: sevColor, 
+                            background: sevBg, 
+                            padding: "2px 6px", 
+                            borderRadius: 3 
+                          }}
+                        >
+                          {violation.ruleName.toUpperCase()}
+                        </span>
+                        <div style={{ ...mono, fontSize: 11, color: C.text }} className="flex items-center gap-2">
+                          <span className="bg-white/[0.03] px-1.5 py-0.5 rounded truncate max-w-xs">{violation.source}</span>
+                          <ArrowRight size={12} color={C.muted} />
+                          <span className="bg-white/[0.03] px-1.5 py-0.5 rounded truncate max-w-xs">{violation.target}</span>
+                        </div>
+                      </div>
+                      <span style={{ ...mono, fontSize: 9, color: C.muted }}>{violation.severity.toUpperCase()}</span>
+                    </div>
+                    <p style={{ fontSize: 11, color: C.muted, margin: "4px 0 0 0", lineHeight: 1.4 }}>
+                      {violation.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 2. Security Check Section */}
       <div className="mb-10">
         <div style={{ ...mono, fontSize: 14, color: C.muted, letterSpacing: "0.08em", marginBottom: 16 }}>
           SECURITY CREDENTIAL SCANNER
@@ -39,15 +124,15 @@ export function Insights() {
 
         {secrets.length === 0 ? (
           <div 
-            className="p-6 rounded border flex items-center gap-4"
-            style={{ background: "#4ade800a", borderColor: "#4ade8022" }}
+            className="p-5 rounded-lg border flex items-center gap-4"
+            style={{ background: "#22c55e08", borderColor: "#22c55e22" }}
           >
-            <ShieldCheck size={32} style={{ color: "#4ade80" }} />
+            <ShieldCheck size={28} style={{ color: "#22c55e" }} />
             <div>
-              <div style={{ ...mono, fontSize: 14, fontWeight: 600, color: "#4ade80" }}>
+              <div style={{ ...mono, fontSize: 13, fontWeight: 600, color: "#22c55e" }}>
                 No exposed keys or credentials detected
               </div>
-              <p style={{ fontSize: 12, color: C.muted, margin: "2px 0 0 0" }}>
+              <p style={{ fontSize: 11, color: C.muted, margin: "2px 0 0 0" }}>
                 No AWS credentials, GitHub tokens, Google API keys, or private keys found in codebase files.
               </p>
             </div>
@@ -55,15 +140,15 @@ export function Insights() {
         ) : (
           <div>
             <div 
-              className="p-6 rounded border flex items-center gap-4 mb-4"
-              style={{ background: "#ef44440a", borderColor: "#ef444422" }}
+              className="p-5 rounded-lg border flex items-center gap-4 mb-4"
+              style={{ background: "#ef444408", borderColor: "#ef444422" }}
             >
-              <ShieldAlert size={32} style={{ color: "#ef4444" }} />
+              <ShieldAlert size={28} style={{ color: "#ef4444" }} />
               <div>
-                <div style={{ ...mono, fontSize: 14, fontWeight: 600, color: "#ef4444" }}>
+                <div style={{ ...mono, fontSize: 13, fontWeight: 600, color: "#ef4444" }}>
                   {secrets.length} exposed credential finding{secrets.length > 1 ? "s" : ""} detected!
                 </div>
-                <p style={{ fontSize: 12, color: C.muted, margin: "2px 0 0 0" }}>
+                <p style={{ fontSize: 11, color: C.muted, margin: "2px 0 0 0" }}>
                   CRITICAL: Exposed credentials were found in plain text. Exclude these files or revoke/mask the keys immediately.
                 </p>
               </div>
@@ -73,32 +158,31 @@ export function Insights() {
               {secrets.map((sec, idx) => (
                 <div 
                   key={idx}
-                  className="p-4 rounded border flex flex-col md:flex-row md:items-center justify-between gap-4"
-                  style={{ background: "#ffffff02", borderColor: C.border }}
+                  className="p-4 rounded-lg border flex flex-col gap-2"
+                  style={{ background: C.surface, borderColor: C.border }}
                 >
-                  <div>
+                  <div className="flex items-center gap-3">
                     <span 
                       style={{ 
                         ...mono, 
-                        fontSize: 10, 
+                        fontSize: 9, 
                         background: "#ef44441e", 
                         color: "#ef4444", 
                         padding: "2px 6px", 
-                        borderRadius: 2,
-                        marginRight: 8
+                        borderRadius: 3
                       }}
                     >
                       {sec.kind.toUpperCase()}
                     </span>
-                    <span style={{ ...mono, fontSize: 12, color: C.text }}>
+                    <span style={{ ...mono, fontSize: 11, color: C.text }}>
                       {sec.filePath}:{sec.lineNumber}
                     </span>
-                    <div 
-                      className="mt-2 p-2 rounded text-xs bg-black/40 border border-white/[0.04]"
-                      style={{ ...mono, color: C.muted }}
-                    >
-                      {sec.snippet}
-                    </div>
+                  </div>
+                  <div 
+                    className="p-2 rounded text-xs bg-black/40 border border-white/[0.04]"
+                    style={{ ...mono, color: C.muted, overflowX: "auto" }}
+                  >
+                    {sec.snippet}
                   </div>
                 </div>
               ))}
@@ -107,7 +191,7 @@ export function Insights() {
         )}
       </div>
 
-      {/* Code Annotations / TODOs */}
+      {/* 3. Code Annotations / TODOs */}
       <div>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div style={{ ...mono, fontSize: 14, color: C.muted, letterSpacing: "0.08em" }}>
@@ -116,7 +200,7 @@ export function Insights() {
 
           <div className="flex items-center gap-3">
             {/* Search */}
-            <div className="flex items-center bg-[#ffffff03] border border-white/[0.08] rounded px-3 py-1.5" style={{ minWidth: 200 }}>
+            <div className="flex items-center bg-[#ffffff03] border border-white/[0.06] rounded px-3 py-1.5" style={{ minWidth: 200 }}>
               <Search size={14} style={{ color: C.muted, marginRight: 8 }} />
               <input
                 type="text"
@@ -135,7 +219,7 @@ export function Insights() {
             </div>
 
             {/* Filter Kind */}
-            <div className="flex items-center bg-[#ffffff03] border border-white/[0.08] rounded px-3 py-1.5">
+            <div className="flex items-center bg-[#ffffff03] border border-white/[0.06] rounded px-3 py-1.5">
               <Filter size={14} style={{ color: C.muted, marginRight: 8 }} />
               <select
                 value={filterKind}
@@ -150,7 +234,7 @@ export function Insights() {
                 }}
               >
                 {annotationKinds.map((k) => (
-                  <option key={k} value={k} style={{ background: C.bg, color: C.text }}>
+                  <option key={k} value={k} style={{ background: C.surface, color: C.text }}>
                     {k}
                   </option>
                 ))}
@@ -169,8 +253,8 @@ export function Insights() {
         ) : (
           <div className="grid gap-3">
             {filteredAnnotations.map((ann, idx) => {
-              let tagColor = "#a3e635";
-              let tagBg = "#a3e63515";
+              let tagColor = "#22c55e";
+              let tagBg = "#22c55e15";
               const k = ann.kind.toUpperCase();
               
               if (k === "FIXME" || k === "BUG") {
@@ -187,10 +271,10 @@ export function Insights() {
               return (
                 <div 
                   key={idx}
-                  className="p-4 rounded border flex flex-col md:flex-row md:items-start justify-between gap-3"
-                  style={{ background: "#ffffff02", borderColor: C.border }}
+                  className="p-4 rounded border flex flex-col justify-between gap-3"
+                  style={{ background: C.surface, borderColor: C.border }}
                 >
-                  <div style={{ flex: 1 }}>
+                  <div>
                     <div className="flex items-center gap-3 mb-2 flex-wrap">
                       <span 
                         style={{ 
@@ -200,12 +284,12 @@ export function Insights() {
                           color: tagColor, 
                           background: tagBg, 
                           padding: "2px 6px", 
-                          borderRadius: 2 
+                          borderRadius: 3 
                         }}
                       >
                         {k}
                       </span>
-                      <span style={{ ...mono, fontSize: 12, color: C.text, fontWeight: 500 }}>
+                      <span style={{ ...mono, fontSize: 11, color: C.text, fontWeight: 500 }}>
                         {ann.filePath}:{ann.lineNumber}
                       </span>
                     </div>

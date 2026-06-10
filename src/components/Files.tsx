@@ -11,6 +11,20 @@ export interface TreeNode {
   children?: TreeNode[];
 }
 
+function getContrastColor(hexColor: string): string {
+  if (!hexColor || hexColor === "transparent") return "#ffffff";
+  let hex = hexColor.trim().replace("#", "");
+  if (hex.length === 3) {
+    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  }
+  if (hex.length !== 6) return "#ffffff";
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 128 ? "#121114" : "#ffffff";
+}
+
 // Helper to build a file tree from a flat file list
 function buildTree(files: FileInfo[]): TreeNode[] {
   const rootNodes: TreeNode[] = [];
@@ -280,13 +294,13 @@ export function Files() {
                   padding: 6,
                   textAlign: "left",
                   overflow: "hidden",
-                  color: "#0008",
+                  color: getContrastColor(LANG_COLORS[r.item.lang] || C.muted),
                   ...mono,
                   fontSize: 10,
                 }}
                 title={`${r.item.name} · ${r.item.loc} loc`}
               >
-                <div style={{ color: "#fff", mixBlendMode: "difference" }} className="truncate">
+                <div className="truncate font-semibold">
                   {r.item.name}
                 </div>
               </button>

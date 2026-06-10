@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.1.0] — 2026-06-09
+
+### 🚀 Living Architecture & C4 Model Visualization: v2.1.0
+
+This release introduces the **Living Architecture Engine (v2.1.0)**, porting advanced modular dependency metrics, structure validation, and C4 Model analysis capabilities from ArchPulse. It also features a fully interactive Graph layout toggle, collapsible metadata sidepanels, full-width circular dependency logs, and normalized Windows-to-Unix paths in all exports.
+
+#### 🕸️ Living Architecture Engine & C4 Model (Graph Tab)
+- **C4 Model Architecture Levels**: Added a premium-styled view mode selector for C4 hierarchy levels:
+  - `System`: View the codebase as a single monolithic block.
+  - `Container`: View grouped items at the root directory level.
+  - `Component`: View grouped items at the immediate parent folder level.
+  - `File`: View the detailed fine-grained structure at the file level.
+- **Hierarchical Layout Algorithm**: Implemented a Bellman-Ford topological layout engine that calculates dependency levels and automatically stacks files vertically from parent callers to child helpers, centering rows and wrapping nodes dynamically when a layer has more than 5 nodes.
+- **Card-Style Graph Nodes**: Replaced simple circles with rich rectangular Card nodes in Hierarchical mode. Cards feature dynamic directory-based HSL colored borders, SVG file/folder icons, and subtext detailing `Language` and `Lines of Code (LOC)`.
+- **Cubic Bezier Connection Paths**: Configured smooth S-curve edges connecting the bottom of caller nodes directly to the top of dependency nodes.
+- **Layout Style Toggle Control**: Added a segmented control toolbar to switch between `HIERARCHICAL` (top-down dependency hierarchy) and `CLUSTER` (force-directed radial view) layouts.
+- **Interactive Blast Radius & Navigation**: Highlights transitive upstream and downstream dependencies recursively on node click with BFS, fading unrelated nodes, while calculating the Blast Radius project impact percentage. Includes direct clicking from side lists to jump and center focus onto target nodes.
+- **Expanded Zoom & View Reset**: Nosedived minimum zoom levels to `0.05` for massive codebase overviews and raised maximum zoom levels to `5.0`. Added a new Reset View button (compass icon) to immediately reset scale and translation vectors to defaults.
+- **Collapsible Detail Panel**: Equipped the selected file info card with Collapse/Expand (`Minimize2`/`Maximize2`) actions to shrink the panel into a compact bar, alongside a Close (`X`) action to clear selection.
+
+#### 🫀 Codebase Health & Dependency Loops (Health Tab)
+- **Full-Width Circular Dependency Log**: Redesigned the Circular Dependency Warning section in the Health tab from a split side-by-side format into a unified vertical stack (`flex-col`), giving cycle path logs 100% viewport width.
+- **Refined Cycle Path View**: Set log monospace text size to `11px`, added borders between cycle lines, and split path elements cleanly using cross-platform slash regexes.
+
+#### 📁 Normalized Exports & Asset Icons
+- **Unix Path Normalization**: Normalized all exported paths to Unix slashes `/` during Mermaid, Draw.io, and Structurizr exports, resolving key lookup issues in Bellman-Ford layering and correcting overlapping boxes or infinite connector lines in Diagrams.net.
+- **Config Asset Classification**: Mapped the `"config"` subcategory to the `Boxes` icon in the Assets tab, properly representing Unity `.prefab`, `.unity`, Godot `.tscn`, `.import`, and Unreal `.uproject` files.
+
+---
+
 ## [2.0.0] — 2026-06-09
 
 ### 🚀 Asset Intelligence Engine & Customization: v2.0.0

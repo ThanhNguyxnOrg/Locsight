@@ -38,5 +38,7 @@ pub struct ProjectSummary {
     pub top_contributors: Vec<Contributor>,
     pub tech_stack: Vec<crate::engine::techstack::TechStackItem>,
     pub asset_report: Option<AssetReport>,
+    pub architecture_report: Option<crate::engine::architecture::ArchitectureAnalysisReport>,
+    pub change_coupling: Vec<crate::engine::git::ChangeCoupling>,
 }
 

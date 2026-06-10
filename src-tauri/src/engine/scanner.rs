@@ -17,6 +17,7 @@ use super::git;
 use super::config;
 use super::techstack;
 use super::assets;
+use super::architecture;
 
 
 #[derive(Clone, Copy)]
@@ -689,11 +690,14 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
 
     let git_stats = git::analyze_git(root);
     let git_available = git_stats.is_some();
-    let (file_churn, top_contributors) = git_stats.unwrap_or_else(|| (Vec::new(), Vec::new()));
+    let (file_churn, top_contributors, change_coupling) = git_stats.unwrap_or_else(|| (Vec::new(), Vec::new(), Vec::new()));
 
     let tech_stack = techstack::detect_tech_stack(root);
 
     let asset_report = assets::scan_assets(&assets_to_scan, root, &files_to_scan);
+
+    let file_paths: Vec<String> = file_infos.iter().map(|f| f.path.clone()).collect();
+    let arch_report = architecture::analyze_architecture(&file_paths, &edges, root);
 
     let scan_duration_ms = start_time.elapsed().as_millis() as u64;
 
@@ -725,6 +729,8 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         top_contributors,
         tech_stack,
         asset_report: Some(asset_report),
+        architecture_report: Some(arch_report),
+        change_coupling,
     })
 }
 

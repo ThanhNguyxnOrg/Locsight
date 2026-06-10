@@ -148,6 +148,8 @@ fn create_dummy_summary() -> ProjectSummary {
         top_contributors: vec![],
         tech_stack: vec![],
         asset_report: Some(asset_report),
+        architecture_report: None,
+        change_coupling: vec![],
     }
 }
 

@@ -9,6 +9,7 @@ use commands::{
     read_locignore,
     write_locignore,
     read_gitignore,
+    write_text_file,
 };
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -35,7 +36,8 @@ pub fn run() {
             export_report,
             read_locignore,
             write_locignore,
-            read_gitignore
+            read_gitignore,
+            write_text_file
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

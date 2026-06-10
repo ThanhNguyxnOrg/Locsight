@@ -164,6 +164,8 @@ export function Assets() {
         return FolderArchive;
       case "database":
         return Database;
+      case "config":
+        return Boxes;
       default:
         return FileText;
     }

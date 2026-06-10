@@ -10,3 +10,4 @@ pub mod git;
 pub mod config;
 pub mod techstack;
 pub mod assets;
+pub mod architecture;

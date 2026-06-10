@@ -77,6 +77,36 @@ export interface ProjectSummary {
   topContributors: Contributor[];
   techStack: TechStackItem[];
   assetReport?: AssetReport;
+  architectureReport?: ArchitectureAnalysisReport;
+  changeCoupling?: ChangeCoupling[];
+}
+
+export interface ChangeCoupling {
+  fileA: string;
+  fileB: string;
+  couplingDegree: number;
+  sharedCommits: number;
+}
+
+export interface ComponentCoupling {
+  afferent: number;
+  efferent: number;
+  instability: number;
+}
+
+export interface RuleViolation {
+  source: string;
+  target: string;
+  ruleName: string;
+  description: string;
+  severity: string;
+}
+
+export interface ArchitectureAnalysisReport {
+  caCeMetrics: Record<string, ComponentCoupling>;
+  circularDependencies: string[][];
+  ruleViolations: RuleViolation[];
+  clusters: Record<string, string>;
 }
 
 export interface TechStackItem {

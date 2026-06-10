@@ -1,7 +1,7 @@
 import { C, mono } from "./tokens";
 import { Card } from "./Card";
 import { useAnalysis } from "../hooks/useAnalysis";
-import { GitBranch, User, Flame, AlertTriangle } from "lucide-react";
+import { GitBranch, User, Flame, AlertTriangle, Link2, ArrowRight } from "lucide-react";
 
 function fmt(n: number) {
   return n.toLocaleString("en-US");
@@ -12,7 +12,7 @@ export function Git() {
 
   if (!summary) return null;
 
-  const { gitAvailable, fileChurn, topContributors, files } = summary;
+  const { gitAvailable, fileChurn, topContributors, files, changeCoupling = [] } = summary;
 
   if (!gitAvailable) {
     return (
@@ -27,7 +27,6 @@ export function Git() {
   }
 
   // Calculate hotspot candidates: Churn * Complexity
-  // Map files for quick lookup
   const fileMap = new Map(files.map(f => [f.path, f]));
   
   const hotspots = fileChurn
@@ -49,11 +48,11 @@ export function Git() {
   const totalCommits = topContributors.reduce((acc, c) => acc + c.commits, 0);
 
   return (
-    <div className="px-10 py-8 h-full overflow-y-auto">
+    <div className="px-10 py-8 h-full overflow-y-auto" style={{ background: C.bg }}>
       {/* Title */}
       <div className="mb-8">
         <h2 style={{ ...mono, fontSize: 24, fontWeight: 500, color: C.text, margin: 0 }}>GIT CHURN & HOTSPOTS</h2>
-        <p style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>Repository history analysis and refactoring hotspots</p>
+        <p style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>Repository history analysis, refactoring hotspots, and temporal change coupling</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3 mb-8">
@@ -71,7 +70,7 @@ export function Git() {
         </Card>
       </div>
 
-      <div className="grid gap-8" style={{ gridTemplateColumns: "1.8fr 1.2fr" }}>
+      <div className="grid gap-8 mb-8" style={{ gridTemplateColumns: "1.8fr 1.2fr" }}>
         {/* Refactoring Hotspots */}
         <div>
           <div style={{ ...mono, fontSize: 14, color: C.muted, letterSpacing: "0.08em", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
@@ -92,7 +91,7 @@ export function Git() {
                 <div 
                   key={idx}
                   className="p-4 rounded border flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
-                  style={{ background: "#ffffff02", borderColor: C.border }}
+                  style={{ background: C.surface, borderColor: C.border }}
                 >
                   <div className="truncate flex-1 max-w-lg">
                     <div className="flex items-center gap-2 mb-1">
@@ -137,7 +136,7 @@ export function Git() {
 
           <div 
             className="p-5 rounded border"
-            style={{ background: "#ffffff02", borderColor: C.border }}
+            style={{ background: C.surface, borderColor: C.border }}
           >
             {topContributors.length === 0 ? (
               <p style={{ fontSize: 12, color: C.muted, margin: 0 }}>No contributor info found.</p>
@@ -163,6 +162,80 @@ export function Git() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Temporal Change Coupling (Hidden Dependencies) */}
+      <div>
+        <div style={{ ...mono, fontSize: 14, color: C.muted, letterSpacing: "0.08em", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+          <Link2 size={16} style={{ color: C.accent }} />
+          TEMPORAL CHANGE COUPLING (HIDDEN DEPENDENCIES)
+        </div>
+
+        {changeCoupling.length === 0 ? (
+          <div 
+            className="p-8 rounded border text-center text-sm"
+            style={{ background: "#ffffff02", borderColor: C.border, color: C.muted }}
+          >
+            No significant change coupling detected in recent commit history.
+          </div>
+        ) : (
+          <div className="grid gap-3">
+            <div 
+              className="p-4 rounded-lg border mb-4"
+              style={{ background: "#38bdf805", borderColor: "#38bdf81a", fontSize: 12, color: C.muted, lineHeight: 1.5 }}
+            >
+              These file pairs <strong>do not directly import each other</strong> but are modified together in commits at least 25% of the time. This indicates a <strong>hidden dependency</strong> (logical coupling). Consider refactoring them into a single module or separating their shared concerns.
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {changeCoupling.map((cc, idx) => {
+                const degreePct = cc.couplingDegree * 100;
+                let degreeColor = "#38bdf8"; // blue
+                if (degreePct > 70) degreeColor = "#ef4444"; // red
+                else if (degreePct > 45) degreeColor = "#f59e0b"; // yellow
+
+                return (
+                  <div 
+                    key={idx}
+                    className="p-4 rounded border flex flex-col justify-between gap-3"
+                    style={{ background: C.surface, borderColor: C.border }}
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 mb-1 flex-wrap" style={{ ...mono, fontSize: 11, fontWeight: 600 }}>
+                        <span className="bg-white/[0.03] px-2 py-0.5 rounded truncate max-w-[150px]" title={cc.fileA}>
+                          {cc.fileA.split("/").pop()}
+                        </span>
+                        <ArrowRight size={12} color={C.muted} />
+                        <span className="bg-white/[0.03] px-2 py-0.5 rounded truncate max-w-[150px]" title={cc.fileB}>
+                          {cc.fileB.split("/").pop()}
+                        </span>
+                      </div>
+                      <div className="truncate text-zinc-500" style={{ ...mono, fontSize: 9 }}>
+                        {cc.fileA} <br/> {cc.fileB}
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-white/[0.04] flex items-center justify-between">
+                      <div className="flex-1 mr-4">
+                        <div className="flex justify-between items-baseline mb-1" style={{ ...mono, fontSize: 9, color: C.muted }}>
+                          <span>COUPLING</span>
+                          <span style={{ color: degreeColor, fontWeight: 600 }}>{degreePct.toFixed(0)}%</span>
+                        </div>
+                        <div style={{ height: 3, background: C.border, borderRadius: 1.5, overflow: "hidden" }}>
+                          <div style={{ height: "100%", width: `${degreePct}%`, background: degreeColor, borderRadius: 1.5 }} />
+                        </div>
+                      </div>
+                      
+                      <div style={{ ...mono, fontSize: 10, color: C.muted }} className="text-right whitespace-nowrap">
+                        <strong>{cc.sharedCommits}</strong> shared commits
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

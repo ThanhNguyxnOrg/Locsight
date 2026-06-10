@@ -183,3 +183,4 @@ fn test_gdscript_line_counting() {
     assert_eq!(comments, 1);
     assert_eq!(blanks, 1);
 }
+
