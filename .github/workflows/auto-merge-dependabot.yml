@@ -25,7 +25,7 @@ jobs:
         id: metadata
         uses: dependabot/fetch-metadata@v2
         with:
-          github-token: ${{ secrets.PAT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Determine merge strategy
         id: strategy
@@ -58,7 +58,7 @@ jobs:
         run: gh pr review "$PR_URL" --approve --body "✅ Auto-approved — ${{ steps.strategy.outputs.reason }}"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable auto-merge
         if: steps.strategy.outputs.should_merge == 'true'
@@ -73,7 +73,7 @@ jobs:
         run: gh pr edit "$PR_URL" --add-label "needs-review"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment review needed
         if: steps.strategy.outputs.should_merge == 'false'
@@ -86,4 +86,4 @@ jobs:
           > ${{ steps.strategy.outputs.reason }}"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
