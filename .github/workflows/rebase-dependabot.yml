@@ -47,4 +47,4 @@ jobs:
 
           echo "✅ Rebase commands sent to all open Dependabot PRs."
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
