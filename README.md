@@ -89,9 +89,26 @@ CI/CD     →  GitHub Actions · Dependabot · Auto-merge
 | [📜 Code of Conduct](CODE_OF_CONDUCT.md) | Community standards |
 | [⚖️ License](LICENSE) | MIT License |
 
-## 📸 Screenshots
+## 📸 Screenshots & Navigation
 
-> _Coming soon — build the app and explore!_
+<p align="center">
+  <img src="assets/screenshot.png" width="900" alt="Locsight Dashboard Preview" />
+</p>
+
+Locsight provides an intuitive, high-performance dark user interface tailored for instant codebase insights.
+
+| Screen | Shortcut | Description |
+|:---|:---:|:---|
+| **🏠 Welcome** | `Ctrl/Cmd + 1` | Folder picker, recent project history, and custom `.locignore` rule preset setup |
+| **📊 Dashboard** | `Ctrl/Cmd + 2` | High-level LOC overview, language distribution, complexity distribution histogram, and COCOMO II simulator |
+| **📁 Files & Treemap** | `Ctrl/Cmd + 3` | Interactive directory tree and squarified treemap sized by physical code volume |
+| **📦 Asset Intelligence** | `Ctrl/Cmd + 4` | Media (images, audio, video), 3D assets, CAD drawing tracking, SHA-256 duplicate detection, and orphan asset analysis |
+| **🕸️ Dependency Graph** | `Ctrl/Cmd + 5` | Radial / cluster module coupling graph, cyclomatic instability ($I = C_e / (C_a + C_e)$), and circular dependency detection |
+| **🫀 Health Score** | `Ctrl/Cmd + 6` | DRYness gauge (ULOC vs LOC), comment density, semantic role breakdown, and letter grading (A+ → F) |
+| **🔐 Insights & Secrets** | `Ctrl/Cmd + 7` | Exposed secrets detection (AWS, GitHub, Google API, private keys) with Shannon entropy scoring, plus searchable TODO/FIXME annotations tracker |
+| **🔥 Git Analytics** | `Ctrl/Cmd + 8` | Hotspot analysis ($Churn \times Complexity$), change coupling matrix, and author contribution breakdown |
+| **📄 Export Center** | `Ctrl/Cmd + 9` | Generate comprehensive reports in **Markdown, JSON, CSV, and HTML** with granular category filters |
+| **⚡ Open Folder** | `Ctrl/Cmd + Shift + O` | Quick project picker shortcut from any screen |
 
 ---
 

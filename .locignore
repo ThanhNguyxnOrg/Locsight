@@ -1,0 +1,75 @@
+# ==============================================================================
+# Locsight Ignore Rules (.locignore)
+# ==============================================================================
+# Syntax follows standard gitignore conventions.
+# Use this file to exclude third-party dependencies, generated bundles,
+# test fixtures, and secret files from code statistics and analysis.
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Package Managers & Third-Party Dependencies
+# ------------------------------------------------------------------------------
+node_modules/
+vendor/
+target/
+Pods/
+.venv/
+env/
+venv/
+__pycache__/
+.pnpm-store/
+
+# ------------------------------------------------------------------------------
+# 2. Build Artifacts & Distribution Bundles
+# ------------------------------------------------------------------------------
+dist/
+build/
+out/
+.next/
+.nuxt/
+.svelte-kit/
+.output/
+bin/
+obj/
+*.min.js
+*.min.css
+*.bundle.js
+*.map
+
+# ------------------------------------------------------------------------------
+# 3. Cache, Logs & Coverage Reports
+# ------------------------------------------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.cache/
+.parcel-cache/
+.turbo/
+coverage/
+.nyc_output/
+*.lcov
+
+# ------------------------------------------------------------------------------
+# 4. IDE, OS & Editor Artifacts
+# ------------------------------------------------------------------------------
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.DS_Store
+Thumbs.db
+.gemini/
+
+# ------------------------------------------------------------------------------
+# 5. Environment & Sensitive Key Files
+# ------------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+*.pfx

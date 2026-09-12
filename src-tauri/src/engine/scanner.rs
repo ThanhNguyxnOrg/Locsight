@@ -488,6 +488,71 @@ fn should_ignore(path: &Path, root: &Path, matcher: &IgnoreMatcher) -> bool {
     matcher.is_ignored(&path_str)
 }
 
+struct TargetDepMeta {
+    stem: String,
+    name: String,
+    relative: String,
+    is_common: bool,
+}
+
+const COMMON_STEMS: &[&str] = &[
+    "index", "types", "type", "test", "tests", "spec", "utils", "util",
+    "mod", "main", "lib", "config", "setup", "app", "common", "constants",
+    "constant", "helper", "helpers", "base", "core", "model", "models",
+    "schema", "schemas", "router", "routes", "route", "view", "views",
+    "handler", "handlers", "service", "services", "controller", "controllers",
+    "component", "components", "context", "state", "store", "api", "auth",
+];
+
+fn is_dependency_referenced(content: &str, target: &TargetDepMeta) -> bool {
+    if target.stem.len() <= 2 {
+        return false;
+    }
+
+    // Direct match of full filename (e.g. "foo.rs" or "foo.ts")
+    if content.contains(&target.name) {
+        return true;
+    }
+
+    let rel_clean = target.relative.replace('\\', "/");
+    // Direct match of relative path or path without extension
+    if content.contains(&rel_clean) {
+        return true;
+    }
+    if let Some((without_ext, _)) = rel_clean.rsplit_once('.') {
+        if without_ext.len() > 3 && content.contains(without_ext) {
+            return true;
+        }
+    }
+
+    if target.is_common {
+        // For generic stems like 'index', 'test', 'utils', require structured import prefix or module path
+        let stem = &target.stem;
+        content.contains(&format!("./{}", stem))
+            || content.contains(&format!("../{}", stem))
+            || content.contains(&format!("/{}", stem))
+            || content.contains(&format!("::{}", stem))
+            || content.contains(&format!("\"{}\"", stem))
+            || content.contains(&format!("'{}'", stem))
+    } else {
+        // For distinct stems, check if stem appears enclosed or as structured token
+        let stem = &target.stem;
+        if stem.len() > 3 && content.contains(stem) {
+            content.contains(&format!("\"{}\"", stem))
+                || content.contains(&format!("'{}'", stem))
+                || content.contains(&format!("`{}`", stem))
+                || content.contains(&format!("/{}", stem))
+                || content.contains(&format!("::{}", stem))
+                || content.contains(&format!(" {} ", stem))
+                || content.contains(&format!("{}(", stem))
+                || content.contains(&format!("{}>", stem))
+                || content.contains(&format!("<{}", stem))
+        } else {
+            false
+        }
+    }
+}
+
 pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String> {
     let start_time = Instant::now();
     let root = Path::new(root_path);
@@ -524,12 +589,20 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         }
     }
 
-    let target_stems: Vec<(String, String)> = files_to_scan
+    let target_metas: Vec<TargetDepMeta> = files_to_scan
         .iter()
         .filter_map(|p| {
             let stem = p.file_stem()?.to_string_lossy().to_string();
+            let name = p.file_name()?.to_string_lossy().to_string();
             let relative = p.strip_prefix(root).ok()?.to_string_lossy().to_string();
-            Some((stem, relative))
+            let stem_lower = stem.to_lowercase();
+            let is_common = COMMON_STEMS.contains(&stem_lower.as_str());
+            Some(TargetDepMeta {
+                stem,
+                name,
+                relative,
+                is_common,
+            })
         })
         .collect();
 
@@ -557,10 +630,10 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
             let complexity = analyze_complexity(&content, &extension);
 
             let mut file_edges = Vec::new();
-            for (stem, rel_target) in &target_stems {
-                if rel_target != &relative_path && stem.len() > 3 {
-                    if content.contains(stem) {
-                        file_edges.push((relative_path.clone(), rel_target.clone()));
+            for target in &target_metas {
+                if target.relative != relative_path {
+                    if is_dependency_referenced(&content, target) {
+                        file_edges.push((relative_path.clone(), target.relative.clone()));
                     }
                 }
             }

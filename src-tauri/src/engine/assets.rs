@@ -115,8 +115,16 @@ fn detect_asset_edges(assets: &[AssetInfo], root: &Path) -> Vec<(String, String)
             if let Ok(content) = std::fs::read_to_string(&abs_path) {
                 let mut local_edges = Vec::new();
                 for child in assets {
-                    if parent.path != child.path && child.name.len() > 3 {
-                        if content.contains(&child.name) {
+                    if parent.path != child.path {
+                        let matched = if child.name.len() > 3 {
+                            content.contains(&child.name) || content.contains(&child.path)
+                        } else {
+                            content.contains(&format!("\"{}\"", child.name))
+                                || content.contains(&format!("'{}'", child.name))
+                                || content.contains(&format!("/{}", child.name))
+                                || content.contains(&child.name)
+                        };
+                        if matched {
                             local_edges.push((parent.path.clone(), child.path.clone()));
                         }
                     }
@@ -139,13 +147,63 @@ fn detect_orphans(
     use std::sync::Mutex;
     
     let detected_indices = Mutex::new(HashSet::new());
+
+    // Pre-calculate search tokens for each asset
+    let search_tokens: Vec<(String, String, Option<String>)> = assets
+        .iter()
+        .map(|asset| {
+            let stem = Path::new(&asset.name)
+                .file_stem()
+                .and_then(|s| s.to_str())
+                .unwrap_or("")
+                .to_string();
+            let stem_token = if stem.len() >= 3 && stem != asset.name {
+                Some(stem)
+            } else {
+                None
+            };
+            (asset.name.clone(), asset.path.clone(), stem_token)
+        })
+        .collect();
     
     // 1. Scan code files for references
     code_paths.par_iter().for_each(|code_path| {
         if let Ok(content) = std::fs::read_to_string(code_path) {
             let mut local_detected = Vec::new();
-            for (idx, asset) in assets.iter().enumerate() {
-                if asset.name.len() > 3 && content.contains(&asset.name) {
+            for (idx, (name, rel_path, stem_opt)) in search_tokens.iter().enumerate() {
+                let mut matched = false;
+
+                if name.len() > 3 {
+                    if content.contains(name) || content.contains(rel_path) {
+                        matched = true;
+                    }
+                } else {
+                    // For short names (e.g. "ui.svg", "bg.png"), match exact quotes or path segments
+                    if content.contains(&format!("\"{}\"", name))
+                        || content.contains(&format!("'{}'", name))
+                        || content.contains(&format!("/{}", name))
+                        || content.contains(name)
+                    {
+                        matched = true;
+                    }
+                }
+
+                // Also check if module imports asset without extension (e.g. import logo from "./logo")
+                if !matched {
+                    if let Some(stem) = stem_opt {
+                        if content.contains(&format!("\"/{}\"", stem))
+                            || content.contains(&format!("'/{}'", stem))
+                            || content.contains(&format!("\"./{}\"", stem))
+                            || content.contains(&format!("'./{}'", stem))
+                            || content.contains(&format!("\"{}\"", stem))
+                            || content.contains(&format!("'{}'", stem))
+                        {
+                            matched = true;
+                        }
+                    }
+                }
+
+                if matched {
                     local_detected.push(idx);
                 }
             }

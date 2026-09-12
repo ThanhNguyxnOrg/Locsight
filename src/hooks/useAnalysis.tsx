@@ -53,13 +53,16 @@ interface AnalysisContextType {
 
 const AnalysisContext = createContext<AnalysisContextType | undefined>(undefined);
 
+import { mockProjectSummary, mockCocomoResult } from "../mockData";
+
 export function AnalysisProvider({ children }: { children: React.ReactNode }) {
-  const [summary, setSummary] = useState<ProjectSummary | null>(null);
+  const isDemo = typeof window !== "undefined" && (window.location.search.includes("demo=true") || !(window as any).__TAURI_INTERNALS__);
+  const [summary, setSummary] = useState<ProjectSummary | null>(() => isDemo ? mockProjectSummary : null);
   const [loading, setLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [cocomoRate, setCocomoRate] = useState<number>(2400); // Default multiplier ($2,400)
-  const [cocomo, setCocomo] = useState<CocomoResult | null>(null);
+  const [cocomo, setCocomo] = useState<CocomoResult | null>(() => isDemo ? mockCocomoResult : null);
   const [recentProjects, setRecentProjects] = useState<RecentProject[]>([]);
 
   // Global visibility/export settings
@@ -128,14 +131,38 @@ export function AnalysisProvider({ children }: { children: React.ReactNode }) {
       setCocomo(null);
       return;
     }
+
+    const calculateFallback = () => {
+      const kloc = summary.totalLoc / 1000.0;
+      if (kloc <= 0) {
+        setCocomo({ effortPersonMonths: 0, developmentTimeMonths: 0, estimatedCostUsd: 0, teamSize: 0 });
+        return;
+      }
+      const effort = 2.4 * Math.pow(kloc, 1.05);
+      const devTime = 2.5 * Math.pow(effort, 0.38);
+      const teamSize = devTime > 0 ? effort / devTime : 0;
+      const cost = effort * (cocomoRate * 1000.0);
+      setCocomo({
+        effortPersonMonths: Math.round(effort * 10) / 10,
+        developmentTimeMonths: Math.round(devTime * 10) / 10,
+        estimatedCostUsd: Math.round(cost),
+        teamSize: Math.round(teamSize * 10) / 10,
+      });
+    };
     
+    // Check if running inside Tauri
+    if (typeof window === "undefined" || !(window as any).__TAURI_INTERNALS__) {
+      calculateFallback();
+      return;
+    }
+
     // Invoke the Rust COCOMO estimation command
     invoke<CocomoResult>("get_cocomo_estimate", {
       loc: summary.totalLoc,
       monthlyRateUsd: cocomoRate * 1000.0,
     })
       .then((res) => setCocomo(res))
-      .catch((err) => console.error("Failed to calculate COCOMO estimate:", err));
+      .catch(() => calculateFallback());
   }, [summary, cocomoRate]);
 
   // Perform codebase scan on path

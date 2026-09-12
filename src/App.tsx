@@ -13,7 +13,14 @@ import { Assets } from "./components/Assets";
 import { useAnalysis } from "./hooks/useAnalysis";
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>("welcome");
+  const [screen, setScreen] = useState<Screen>(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const s = params.get("screen") as Screen;
+      if (s) return s;
+    }
+    return "welcome";
+  });
   const { summary, loading, progress, error, selectFolderAndScan, pendingFolder } = useAnalysis();
 
   // Route automatically to dashboard upon successful directory scan
