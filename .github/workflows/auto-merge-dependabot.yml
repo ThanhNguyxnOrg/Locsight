@@ -1,4 +1,4 @@
-# Auto-Merge Dependabot PRs
+﻿# Auto-Merge Dependabot PRs
 # ─────────────────────────────────────────────────────────────
 # Logic:
 #   • minor/patch + dev deps + actions → Auto approve + merge
@@ -71,7 +71,7 @@ jobs:
       - name: Enable auto-merge
         if: steps.strategy.outputs.should_merge == 'true'
         run: |
-          BODY=$(printf "🤖 Verified and auto-merged by ThanhNguyxnAgent\n\nCo-authored-by: ThanhNguyxnAgent[bot] <4125740+thanhnguyxnagent[bot]@users.noreply.github.com>\nSigned-off-by: ThanhNguyxnAgent[bot] <4125740+thanhnguyxnagent[bot]@users.noreply.github.com>")
+          BODY=$(printf "🤖 Verified and auto-merged by ThanhNguyxnAgent\n\nCo-authored-by: ThanhNguyxnAgent[bot] <296222857+thanhnguyxnagent[bot]@users.noreply.github.com>\nSigned-off-by: ThanhNguyxnAgent[bot] <296222857+thanhnguyxnagent[bot]@users.noreply.github.com>")
           gh pr merge "$PR_URL" --auto --squash --body "$BODY"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
@@ -97,3 +97,4 @@ jobs:
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

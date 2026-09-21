@@ -1,4 +1,4 @@
-name: Release
+﻿name: Release
 
 on:
   push:
@@ -91,7 +91,7 @@ jobs:
           
           # Configure Git
           git config user.name "ThanhNguyxnAgent[bot]"
-          git config user.email "4125740+thanhnguyxnagent[bot]@users.noreply.github.com"
+          git config user.email "296222857+thanhnguyxnagent[bot]@users.noreply.github.com"
           
           # Commit changes
           git add package.json src-tauri/tauri.conf.json src-tauri/Cargo.toml
@@ -229,3 +229,4 @@ jobs:
             } else {
               console.log('No matching draft release found.');
             }
+
