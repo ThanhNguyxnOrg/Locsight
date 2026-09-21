@@ -7,8 +7,8 @@ on:
 jobs:
   # ── Job 1: Parse version, extract changelog, create tag + draft release ──
   create-release:
-    # Only run if commit message starts with "release: v"
-    if: "startsWith(github.event.head_commit.message, 'release: v')"
+    # Only run if commit message starts with "release: v" and not triggered by dependabot
+    if: "startsWith(github.event.head_commit.message, 'release: v') && github.actor != 'dependabot[bot]'"
     runs-on: ubuntu-latest
     permissions:
       contents: write
