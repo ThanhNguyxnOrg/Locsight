@@ -26,41 +26,41 @@ Locsight is a high-performance, desktop-native (Tauri v2 + Rust) codebase health
 
 ---
 
-## 3. Top High-Value Capabilities to Incorporate into Locsight
+## 3. High-Value Capabilities Identified for Locsight
 
-Dựa trên nghiên cứu các công cụ trên, dưới đây là 3 năng lực cốt lõi có giá trị thực tế cao nhất, hoàn toàn ăn khớp và nâng tầm bản sắc của Locsight:
+Based on our ecosystem benchmark, three core capabilities offer maximum real-world utility while honoring Locsight's identity:
 
-### 🌟 Tính năng 1: Blast Radius & Impact Inspector *(Học từ GitNexus)*
-- **Bản chất**: Khi lập trình viên hoặc AI muốn sửa một file (ví dụ: `scanner.rs` hay `types/index.ts`), câu hỏi lớn nhất là: **"Nếu tôi sửa file này, những file nào sẽ bị ảnh hưởng (Break downstream)?"**
-- **Cơ chế triển khai trong Locsight**:
-  - Locsight đã có sẵn đồ thị liên kết `edges` trong `architecture.rs` ($C_a, C_e$).
-  - Khi người dùng click chọn bất kỳ file nào trong Files, Graph hay Dashboard, giao diện mở ra một drawer/panel **"Impact & Blast Radius Inspector"**:
-    - **Upstream Dependents (Ai phụ thuộc vào file này?)**: Danh sách các file trực tiếp và gián tiếp import file này kèm cấp độ rủi ro (Low / Medium / Critical).
-    - **Temporal Co-Changes**: Các file thường xuyên phải sửa cùng nhau trong lịch sử Git (từ `change_coupling`).
-    - **Visual Subgraph**: Trích xuất riêng cụm đồ thị liên quan đến file đó thay vì bắt người dùng nhìn toàn bộ mạng lưới hàng ngàn file.
+### 🌟 Capability 1: Blast Radius & Impact Inspector *(Learned from GitNexus)*
+- **Problem**: When a developer or AI agent edits a core module (e.g., `scanner.rs` or `types/index.ts`), the critical question is: **"If I touch this file, what else breaks downstream?"**
+- **Locsight Implementation**:
+  - Locsight already tracks dependency `edges` in `architecture.rs` ($C_a, C_e$).
+  - When clicking any file in Files, Graph, or Dashboard, open an **"Impact & Blast Radius Inspector"** panel:
+    - **Upstream Dependents (Who relies on this file?)**: Direct and transitive consumers mapped with risk tiers (Low / Medium / Critical).
+    - **Temporal Co-Changes**: Files historically modified together (from `change_coupling`).
+    - **Visual Subgraph**: Isolated focus subgraph highlighting only connected entities instead of the entire global hairball.
 
-### 🌟 Tính năng 2: Refactoring Hotspot Matrix (Churn × Complexity) *(Học từ CodeScene)*
-- **Bản chất**: CodeScene trở thành công ty phân tích code hàng đầu thế giới nhờ luận điểm: *"Hầu hết technical debt không quan trọng — chỉ những file vừa phức tạp vừa bị sửa đổi liên tục mới là ổ phát sinh lỗi (Hotspot)."*
-- **Cơ chế triển khai trong Locsight**:
-  - Locsight hiện đã tính `complexity` trong `complexity.rs` và `file_churn` trong `git.rs`. Nhưng hai chỉ số này đang đứng riêng lẻ!
-  - Kết hợp hai chỉ số thành **Hotspot Score**:  
+### 🌟 Capability 2: Refactoring Hotspots Matrix (Churn × Complexity) *(Learned from CodeScene)*
+- **Problem**: CodeScene established modern behavioral code analysis on a proven principle: *"Not all technical debt matters equally — files that are both highly complex AND constantly changed generate 80% of bugs and maintenance costs."*
+- **Locsight Implementation**:
+  - Locsight already calculates `complexity` in `complexity.rs` and `file_churn` in `git.rs`. Currently, these metrics are isolated in separate tabs.
+  - Combine them into a **Hotspot Score**:  
     $$\text{Hotspot Score} = \text{Complexity} \times \ln(\text{Commits} + 1)$$
-  - Trực quan hóa thành **Ma trận 2D (Risk Quadrant)** trong tab Health hoặc tab Architecture:
-    - 🔴 **Hotspots**: Churn cao, Complexity cao $\rightarrow$ Ưu tiên tái cấu trúc số 1.
-    - 🟡 **Complex Legacy**: Complexity cao, Churn thấp $\rightarrow$ Để yên, không đụng vào.
-    - 🟢 **Active Clean**: Churn cao, Complexity thấp $\rightarrow$ Khu vực phát triển lành mạnh.
+  - Visualize as a **2D Risk Quadrant Scatter Plot**:
+    - 🔴 **Hotspots**: High Churn, High Complexity $\rightarrow$ **Priority #1 for Refactoring**.
+    - 🟡 **Complex Legacy**: High Complexity, Low Churn $\rightarrow$ Leave alone unless bugs emerge.
+    - 🟢 **Active Clean**: High Churn, Low Complexity $\rightarrow$ Healthy, agile development.
 
-### 🌟 Tính năng 3: Locsight Native MCP Server *(Học từ GitNexus)*
-- **Bản chất**: GitNexus thu hút hàng chục ngàn lập trình viên vì hỗ trợ **Model Context Protocol (MCP)**. Các AI Agent (Cursor, Claude Code, Antigravity) có thể gọi trực tiếp vào công cụ để hỏi thông tin kiến trúc trước khi sinh code.
-- **Cơ chế triển khai trong Locsight**:
-  - Vì Locsight viết bằng Rust/Tauri, Locsight có thể cung cấp cờ CLI `--mcp` hoặc khởi chạy một Local stdio/SSE MCP server.
-  - Cung cấp các tool cho AI:
-    - `get_project_summary`: Lấy thông tin tổng quan LOC, công nghệ, health score.
-    - `get_file_impact(path)`: Trả về Blast Radius để AI biết sửa file này thì cần cẩn thận file nào.
-    - `get_hotspots`: Trả về danh sách các file nợ kỹ thuật nghiêm trọng nhất.
+### 🌟 Capability 3: Locsight Native MCP Server *(Learned from GitNexus)*
+- **Problem**: GitNexus earned massive developer adoption by implementing the **Model Context Protocol (MCP)**, allowing AI coding assistants (Cursor, Claude Code, Antigravity) to query codebase architecture directly before writing code.
+- **Locsight Implementation**:
+  - Provide a CLI flag (`locsight --mcp`) or a local background MCP server interface via Tauri.
+  - Expose core diagnostic tools to AI agents:
+    - `get_project_summary`: High-level metrics, tech stack, health scores.
+    - `get_file_impact(path)`: Upstream/downstream blast radius before making edits.
+    - `get_hotspots`: Top technical debt risk areas to prioritize.
 
 ---
 
-## 4. Kết luận & Đề xuất hành động
+## 4. Conclusion & Strategic Next Steps
 
-Locsight sở hữu lợi thế áp đảo về tốc độ native (Rust + Tauri) và tính riêng tư 100% offline. Bằng cách bổ sung **Blast Radius (Impact Analysis)** và **Hotspot Matrix (Churn × Complexity)**, Locsight sẽ biến từ một công cụ "đo đếm dòng code thuần túy" thành một **Đài quan sát kiến trúc & hỗ trợ ra quyết định tái cấu trúc mã nguồn (Code Intelligence & Refactoring Decision System)** thực thụ.
+Locsight possesses an architectural advantage in raw scanning speed (Rust + Tauri v2) and 100% offline local privacy. By integrating **Blast Radius (Impact Analysis)** and the **Hotspots Matrix (Churn × Complexity)**, Locsight evolves from a static metrics counter into an indispensable **Codebase Observatory and Refactoring Decision System**.
