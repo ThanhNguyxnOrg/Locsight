@@ -4,18 +4,22 @@ const path = require('path');
 function walk(dir) {
   let results = [];
   if (!fs.existsSync(dir)) return results;
-  const list = fs.readdirSync(dir);
-  list.forEach((file) => {
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
-    if (stat && stat.isDirectory()) {
-      if (file === 'bundle') {
-        results.push(filePath);
-      } else {
-        results = results.concat(walk(filePath));
-      }
-    }
-  });
+  try {
+    const list = fs.readdirSync(dir);
+    list.forEach((file) => {
+      const filePath = path.join(dir, file);
+      try {
+        const stat = fs.statSync(filePath);
+        if (stat && stat.isDirectory()) {
+          if (file === 'bundle') {
+            results.push(filePath);
+          } else {
+            results = results.concat(walk(filePath));
+          }
+        }
+      } catch (e) {}
+    });
+  } catch (e) {}
   return results;
 }
 
@@ -33,23 +37,40 @@ if (fs.existsSync(targetDir)) {
 }
 
 function renameFilesInDir(dir) {
-  const list = fs.readdirSync(dir);
+  let list;
+  try {
+    list = fs.readdirSync(dir);
+  } catch (e) {
+    return;
+  }
+
   list.forEach((file) => {
     const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
+    let stat;
+    try {
+      stat = fs.statSync(filePath);
+    } catch (e) {
+      return;
+    }
+
     if (stat && stat.isDirectory()) {
       renameFilesInDir(filePath);
     } else {
-      // Matches version strings like _1.1.0_ or -1.1.0- or _1.0.0-
-      const versionRegex = /([_-])\d+\.\d+\.\d+([_-])/;
+      // Matches version strings like _2.1.0_, -2.1.0-, _2.1.0-1_, -2.1.0.exe, _2.1.0.msi
+      const versionRegex = /([_-])\d+\.\d+\.\d+(?:-\d+)?([._-])/;
       if (versionRegex.test(file)) {
-        const newFile = file.replace(versionRegex, '$1');
-        const newPath = path.join(dir, newFile);
-        console.log(`[rename-artifacts] Renaming: ${file} -> ${newFile}`);
-        try {
-          fs.renameSync(filePath, newPath);
-        } catch (e) {
-          console.error(`[rename-artifacts] Failed to rename ${file}: ${e.message}`);
+        const newFile = file.replace(versionRegex, (match, p1, p2) => (p2 === '.' ? '.' : p1));
+        if (newFile !== file) {
+          const newPath = path.join(dir, newFile);
+          console.log(`[rename-artifacts] Renaming: ${file} -> ${newFile}`);
+          try {
+            if (fs.existsSync(newPath) && newPath !== filePath) {
+              fs.unlinkSync(newPath);
+            }
+            fs.renameSync(filePath, newPath);
+          } catch (e) {
+            console.error(`[rename-artifacts] Failed to rename ${file}: ${e.message}`);
+          }
         }
       }
     }

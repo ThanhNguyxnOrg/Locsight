@@ -18,7 +18,14 @@ pub struct CustomConfig {
 }
 
 pub fn load_custom_config(root: &Path) -> CustomConfig {
-    let config_path = root.join(".analyzer.json");
+    let locsight_path = root.join(".locsight.json");
+    let analyzer_path = root.join(".analyzer.json");
+    let config_path = if locsight_path.exists() {
+        locsight_path
+    } else {
+        analyzer_path
+    };
+
     if config_path.exists() {
         if let Ok(content) = fs::read_to_string(config_path) {
             if let Ok(config) = serde_json::from_str::<CustomConfig>(&content) {
