@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::Write;
+use std::path::Path;
 use crate::models::{ProjectSummary, LanguageStats};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -48,7 +49,7 @@ pub async fn export_report(
     let mut active_files = Vec::new();
     if options.include_code {
         for f in summary.files {
-            if let Some(ext) = f.path.split('.').last() {
+            if let Some(ext) = Path::new(&f.path).extension().and_then(|s| s.to_str()) {
                 let ext_lower = ext.to_lowercase();
                 if is_ext_excluded(&ext_lower) {
                     continue;
@@ -89,7 +90,7 @@ pub async fn export_report(
             if d.files.is_empty() {
                 return false;
             }
-            if let Some(ext) = d.files[0].split('.').last() {
+            if let Some(ext) = Path::new(&d.files[0]).extension().and_then(|s| s.to_str()) {
                 let ext_lower = ext.to_lowercase();
                 if is_ext_excluded(&ext_lower) {
                     return false;
@@ -99,7 +100,7 @@ pub async fn export_report(
         });
 
         ar.optimization_hints.retain(|h| {
-            if let Some(ext) = h.path.split('.').last() {
+            if let Some(ext) = Path::new(&h.path).extension().and_then(|s| s.to_str()) {
                 let ext_lower = ext.to_lowercase();
                 if is_ext_excluded(&ext_lower) {
                     return false;

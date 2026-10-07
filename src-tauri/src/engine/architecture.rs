@@ -76,12 +76,18 @@ pub fn detect_circular_dependencies(
         path: &mut Vec<&'a str>,
         cycles: &mut Vec<Vec<String>>,
     ) {
+        if cycles.len() >= 100 {
+            return;
+        }
         visited.insert(node);
         recursion_stack.insert(node);
         path.push(node);
 
         if let Some(neighbors) = adjacency.get(node) {
             for &neighbor in neighbors {
+                if cycles.len() >= 100 {
+                    break;
+                }
                 if !visited.contains(neighbor) {
                     dfs(neighbor, adjacency, visited, recursion_stack, path, cycles);
                 } else if recursion_stack.contains(neighbor) {
@@ -100,6 +106,9 @@ pub fn detect_circular_dependencies(
     }
 
     for file in files {
+        if cycles.len() >= 100 {
+            break;
+        }
         if !visited.contains(file.as_str()) {
             dfs(file.as_str(), &adjacency, &mut visited, &mut recursion_stack, &mut path, &mut cycles);
         }

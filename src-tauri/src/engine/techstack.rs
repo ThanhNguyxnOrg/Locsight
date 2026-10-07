@@ -166,9 +166,26 @@ pub fn detect_tech_stack(root: &Path) -> Vec<TechStackItem> {
         if let Ok(content) = fs::read_to_string(&go_mod_path) {
             items.push(new_item("Go".to_string(), "".to_string(), "Environment".to_string()));
             
+            let mut in_require_block = false;
             for line in content.lines() {
                 let trimmed = line.trim();
-                if trimmed.starts_with("require") {
+                if trimmed.starts_with("require (") {
+                    in_require_block = true;
+                    continue;
+                }
+                if in_require_block {
+                    if trimmed == ")" {
+                        in_require_block = false;
+                        continue;
+                    }
+                    let parts: Vec<&str> = trimmed.split_whitespace().collect();
+                    if parts.len() >= 2 {
+                        let full_path = parts[0];
+                        let version = parts[1];
+                        let dep_name = full_path.split('/').last().unwrap_or(full_path);
+                        add_if_known(&mut items, &known_tech, dep_name, version);
+                    }
+                } else if trimmed.starts_with("require") {
                     let parts: Vec<&str> = trimmed.split_whitespace().collect();
                     if parts.len() >= 3 {
                         let full_path = parts[1];
@@ -199,6 +216,9 @@ pub fn detect_tech_stack(root: &Path) -> Vec<TechStackItem> {
                     let dep_name = trimmed[..idx].trim();
                     let version = trimmed[idx..].trim_start_matches(split_chars).trim();
                     add_if_known(&mut items, &known_tech, dep_name, version);
+                } else {
+                    let dep_name = trimmed.trim();
+                    add_if_known(&mut items, &known_tech, dep_name, "");
                 }
             }
         }

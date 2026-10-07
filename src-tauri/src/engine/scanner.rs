@@ -273,7 +273,10 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
     }
 }
 
-fn get_file_language_config(path: &Path, custom_cfg: &config::CustomConfig) -> Option<(LanguageConfig, String)> {
+fn get_file_language_config(
+    path: &Path,
+    custom_lang_map: &HashMap<String, LanguageConfig>,
+) -> Option<(LanguageConfig, String)> {
     if let Some(filename) = path.file_name().and_then(|s| s.to_str()) {
         let filename_lower = filename.to_lowercase();
         if let Some(&(_, ext)) = GENERATED_FILENAME_MAPPINGS.iter().find(|&&(fname, _)| fname == filename_lower.as_str()) {
@@ -285,10 +288,8 @@ fn get_file_language_config(path: &Path, custom_cfg: &config::CustomConfig) -> O
 
     if let Some(ext) = path.extension().and_then(|s| s.to_str()) {
         let ext_lower = ext.to_lowercase();
-        if let Some(ref custom_langs) = custom_cfg.custom_languages {
-            if let Some(mapping) = custom_langs.iter().find(|m| m.extension.to_lowercase() == ext_lower) {
-                return Some((make_static_config(mapping), ext_lower));
-            }
+        if let Some(cfg) = custom_lang_map.get(&ext_lower) {
+            return Some((*cfg, ext_lower));
         }
         let resolved_ext = resolve_conflicts(path, &ext_lower);
         get_language_config(&resolved_ext).map(|cfg| (cfg, resolved_ext))
@@ -338,7 +339,7 @@ pub fn count_lines(content: &str, config: &LanguageConfig) -> (u64, u64, u64, Ve
             if !start.is_empty() && trimmed.starts_with(start) {
                 comments += 1;
                 is_ml_start = true;
-                if !end.is_empty() && !trimmed.ends_with(end) {
+                if !end.is_empty() && !trimmed[start.len()..].contains(end) {
                     in_multiline = true;
                     active_ml_end = end;
                 }
@@ -385,12 +386,8 @@ fn parse_gitignore_rules(root: &Path) -> Vec<String> {
         if let Ok(content) = fs::read_to_string(gitignore_path) {
             for line in content.lines() {
                 let trimmed = line.trim();
-                if trimmed.is_empty() || trimmed.starts_with('#') {
-                    continue;
-                }
-                let cleaned = trimmed.trim_start_matches('/').trim_end_matches('/');
-                if !cleaned.is_empty() {
-                    rules.push(cleaned.to_string());
+                if !trimmed.is_empty() && !trimmed.starts_with('#') {
+                    rules.push(trimmed.to_string());
                 }
             }
         }
@@ -401,12 +398,8 @@ fn parse_gitignore_rules(root: &Path) -> Vec<String> {
         if let Ok(content) = fs::read_to_string(locignore_path) {
             for line in content.lines() {
                 let trimmed = line.trim();
-                if trimmed.is_empty() || trimmed.starts_with('#') {
-                    continue;
-                }
-                let cleaned = trimmed.trim_start_matches('/').trim_end_matches('/');
-                if !cleaned.is_empty() {
-                    rules.push(cleaned.to_string());
+                if !trimmed.is_empty() && !trimmed.starts_with('#') {
+                    rules.push(trimmed.to_string());
                 }
             }
         }
@@ -433,15 +426,20 @@ impl IgnoreMatcher {
             
             let is_negated = r.starts_with('!');
             if is_negated {
-                r = r[1..].to_string();
+                r = r[1..].trim().to_string();
             }
-            
-            let has_slash = r.contains('/');
-            let r_clean = r.trim_start_matches('/').trim_end_matches('/');
-            
+
+            let is_rooted = r.starts_with('/');
+            let r_unrooted = r.trim_start_matches('/');
+            let r_clean = r_unrooted.trim_end_matches('/');
+            if r_clean.is_empty() {
+                continue;
+            }
+
+            let has_slash = r_clean.contains('/');
             let builder = if is_negated { &mut allow_builder } else { &mut ignore_builder };
-            
-            if !has_slash {
+
+            if !is_rooted && !has_slash {
                 if let Ok(glob) = Glob::new(r_clean) {
                     builder.add(glob);
                 }
@@ -483,6 +481,9 @@ fn should_ignore(path: &Path, root: &Path, matcher: &IgnoreMatcher) -> bool {
         Ok(p) => p,
         Err(_) => path,
     };
+    if relative_path.as_os_str().is_empty() {
+        return false;
+    }
 
     let path_str = relative_path.to_string_lossy().replace('\\', "/");
     matcher.is_ignored(&path_str)
@@ -561,6 +562,12 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
     }
 
     let custom_cfg = config::load_custom_config(root);
+    let mut custom_lang_map: HashMap<String, LanguageConfig> = HashMap::new();
+    if let Some(ref custom_langs) = custom_cfg.custom_languages {
+        for mapping in custom_langs {
+            custom_lang_map.insert(mapping.extension.to_lowercase(), make_static_config(mapping));
+        }
+    }
 
     let mut ignore_rules = parse_gitignore_rules(root);
     if let Some(ref custom_excludes) = custom_cfg.exclude_patterns {
@@ -574,16 +581,21 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
     let mut files_to_scan = Vec::new();
     let mut assets_to_scan = Vec::new();
 
-    for entry in WalkDir::new(root).into_iter().filter_map(|e| e.ok()) {
+    let walker = WalkDir::new(root).into_iter().filter_entry(|entry| {
+        if entry.path() == root {
+            return true;
+        }
+        !should_ignore(entry.path(), root, &matcher)
+    });
+
+    for entry in walker.filter_map(|e| e.ok()) {
         let path = entry.path();
         if path.is_file() {
-            if !should_ignore(path, root, &matcher) {
-                if get_file_language_config(path, &custom_cfg).is_some() {
-                    files_to_scan.push(path.to_path_buf());
-                } else if let Some(ext) = path.extension().and_then(|e| e.to_str()) {
-                    if assets::get_asset_config(ext).is_some() {
-                        assets_to_scan.push(path.to_path_buf());
-                    }
+            if get_file_language_config(path, &custom_lang_map).is_some() {
+                files_to_scan.push(path.to_path_buf());
+            } else if let Some(ext) = path.extension().and_then(|e| e.to_str()) {
+                if assets::get_asset_config(ext).is_some() {
+                    assets_to_scan.push(path.to_path_buf());
                 }
             }
         }
@@ -594,7 +606,7 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
         .filter_map(|p| {
             let stem = p.file_stem()?.to_string_lossy().to_string();
             let name = p.file_name()?.to_string_lossy().to_string();
-            let relative = p.strip_prefix(root).ok()?.to_string_lossy().to_string();
+            let relative = p.strip_prefix(root).ok()?.to_string_lossy().replace('\\', "/");
             let stem_lower = stem.to_lowercase();
             let is_common = COMMON_STEMS.contains(&stem_lower.as_str());
             Some(TargetDepMeta {
@@ -610,9 +622,9 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
     let results: Vec<(FileInfo, Vec<(String, String)>, Vec<u64>, Vec<Annotation>, Vec<SecretFinding>)> = files_to_scan
         .par_iter()
         .filter_map(|path| {
-            let relative_path = path.strip_prefix(root).ok()?.to_string_lossy().to_string();
+            let relative_path = path.strip_prefix(root).ok()?.to_string_lossy().replace('\\', "/");
             let name = path.file_name()?.to_string_lossy().to_string();
-            let (config, extension) = get_file_language_config(path, &custom_cfg)?;
+            let (config, extension) = get_file_language_config(path, &custom_lang_map)?;
 
             let content = match fs::read_to_string(path) {
                 Ok(c) => c,
@@ -745,7 +757,7 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
                     Path::new(&abs_path)
                         .strip_prefix(root)
                         .ok()
-                        .map(|p| p.to_string_lossy().to_string())
+                        .map(|p| p.to_string_lossy().replace('\\', "/"))
                 })
                 .collect()
         })
@@ -914,6 +926,27 @@ mod tests {
         assert_eq!(ext, "matlab");
         
         let _ = std::fs::remove_file(&m_path);
+    }
+
+    #[test]
+    fn test_count_lines_multiline_inline() {
+        let content = "/* inline comment */ let x = 1;\nlet y = 2;\n";
+        let config = get_language_config("rs").unwrap();
+        let (code, comments, blanks, _) = count_lines(content, &config);
+        assert_eq!(comments, 1);
+        assert_eq!(code, 1);
+        assert_eq!(blanks, 0);
+    }
+
+    #[test]
+    fn test_ignore_matcher_trailing_slash() {
+        let rules = vec!["build/".to_string(), "/root_only".to_string()];
+        let matcher = IgnoreMatcher::new(&rules);
+        assert!(matcher.is_ignored("build/foo.js"));
+        assert!(matcher.is_ignored("src/build/foo.js"));
+        assert!(!matcher.is_ignored("build.rs"));
+        assert!(matcher.is_ignored("root_only/bar.txt"));
+        assert!(!matcher.is_ignored("sub/root_only/bar.txt"));
     }
 }
 

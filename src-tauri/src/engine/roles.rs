@@ -11,16 +11,29 @@ pub struct RoleStats {
 
 pub fn classify_role(relative_path: &str) -> &'static str {
     let lower_path = relative_path.to_lowercase().replace('\\', "/");
+    let parts: Vec<&str> = lower_path.split('/').collect();
+    let file_name = parts.last().copied().unwrap_or("");
+    let is_test_dir = parts[..parts.len().saturating_sub(1)]
+        .iter()
+        .any(|&p| p == "test" || p == "tests" || p == "__tests__" || p == "spec" || p == "specs");
     
     // Test
-    if lower_path.contains("test") 
-        || lower_path.contains("spec") 
-        || lower_path.contains("__tests__") 
-        || lower_path.ends_with("_test.go") 
-        || lower_path.ends_with(".test.ts") 
-        || lower_path.ends_with(".spec.ts")
-        || lower_path.ends_with(".test.js") 
-        || lower_path.ends_with(".spec.js")
+    if is_test_dir
+        || file_name.starts_with("test_")
+        || file_name.starts_with("test.")
+        || file_name.ends_with("_test.go")
+        || file_name.ends_with("_test.rs")
+        || file_name.ends_with("_test.py")
+        || file_name.ends_with(".test.ts")
+        || file_name.ends_with(".spec.ts")
+        || file_name.ends_with(".test.tsx")
+        || file_name.ends_with(".spec.tsx")
+        || file_name.ends_with(".test.js")
+        || file_name.ends_with(".spec.js")
+        || file_name.ends_with(".test.jsx")
+        || file_name.ends_with(".spec.jsx")
+        || file_name.ends_with("test.java")
+        || file_name.ends_with("tests.java")
     {
         return "test";
     }
@@ -101,4 +114,22 @@ pub fn calculate_role_distribution(files: &[crate::models::FileInfo]) -> HashMap
     }
 
     distribution
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_classify_role() {
+        assert_eq!(classify_role("src/components/latest.tsx"), "core");
+        assert_eq!(classify_role("src/contest/math.rs"), "core");
+        assert_eq!(classify_role("tests/unit_test.rs"), "test");
+        assert_eq!(classify_role("src/__tests__/app.test.tsx"), "test");
+        assert_eq!(classify_role("src/engine/scanner_test.go"), "test");
+        assert_eq!(classify_role("README.md"), "docs");
+        assert_eq!(classify_role(".github/workflows/ci.yml"), "infra");
+        assert_eq!(classify_role("scripts/build.sh"), "scripts");
+        assert_eq!(classify_role("config/settings.json"), "config");
+    }
 }

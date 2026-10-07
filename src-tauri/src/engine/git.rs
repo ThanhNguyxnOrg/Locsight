@@ -47,9 +47,9 @@ pub fn analyze_git(root: &Path) -> Option<(Vec<FileChurn>, Vec<Contributor>, Vec
         return None;
     }
 
-    // 1. Get file churn: count commit frequencies per file path
+    // 1. Get file churn: count commit frequencies per file path (capped to recent 1000 commits)
     let mut churn_cmd = Command::new("git");
-    churn_cmd.args(&["log", "--name-only", "--pretty=format:"]).current_dir(root);
+    churn_cmd.args(&["log", "-n", "1000", "--name-only", "--pretty=format:"]).current_dir(root);
     configure_command(&mut churn_cmd);
     
     let churn_output = churn_cmd.output().ok()?;
@@ -70,9 +70,9 @@ pub fn analyze_git(root: &Path) -> Option<(Vec<FileChurn>, Vec<Contributor>, Vec
         .collect();
     file_churn.sort_by(|a, b| b.commits.cmp(&a.commits));
 
-    // 2. Get top contributors
+    // 2. Get top contributors (capped to recent 1000 commits)
     let mut author_cmd = Command::new("git");
-    author_cmd.args(&["log", "--format=%aN", "--no-merges"]).current_dir(root);
+    author_cmd.args(&["log", "-n", "1000", "--format=%aN", "--no-merges"]).current_dir(root);
     configure_command(&mut author_cmd);
     
     let author_output = author_cmd.output().ok()?;
@@ -92,10 +92,10 @@ pub fn analyze_git(root: &Path) -> Option<(Vec<FileChurn>, Vec<Contributor>, Vec
         .collect();
     contributors.sort_by(|a, b| b.commits.cmp(&a.commits));
 
-    // 3. Get change coupling (files modified together in commits)
+    // 3. Get change coupling (files modified together in commits, capped to recent 1000 commits)
     let mut change_coupling = Vec::new();
     let mut co_cmd = Command::new("git");
-    co_cmd.args(&["log", "--name-only", "--pretty=format:C:%H"]).current_dir(root);
+    co_cmd.args(&["log", "-n", "1000", "--name-only", "--pretty=format:C:%H"]).current_dir(root);
     configure_command(&mut co_cmd);
     
     if let Ok(co_output) = co_cmd.output() {
