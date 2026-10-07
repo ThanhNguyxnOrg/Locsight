@@ -91,7 +91,8 @@ function flatten(nodes: TreeNode[], depth = 0): { node: TreeNode; depth: number 
 type Rect = { x: number; y: number; w: number; h: number; item: FileInfo };
 
 function squarify(items: FileInfo[], W: number, H: number): Rect[] {
-  if (items.length === 0) return [];
+  if (items.length === 0 || W <= 0 || H <= 0) return [];
+  const getWeight = (it: FileInfo) => Math.max(1, it.loc);
   const rects: Rect[] = [];
   let x = 0,
     y = 0,
@@ -100,26 +101,28 @@ function squarify(items: FileInfo[], W: number, H: number): Rect[] {
   let i = 0;
   while (i < items.length) {
     const remaining = items.slice(i);
-    const remTotal = remaining.reduce((s, it) => s + it.loc, 0);
+    const remTotal = remaining.reduce((s, it) => s + getWeight(it), 0);
+    if (remTotal <= 0) break;
     const horizontal = remW >= remH;
     const stripSize = horizontal ? remH : remW;
     let count = 1;
     while (count < remaining.length) {
-      const sum = remaining.slice(0, count + 1).reduce((s, it) => s + it.loc, 0);
+      const sum = remaining.slice(0, count + 1).reduce((s, it) => s + getWeight(it), 0);
       const newRatio = compareRatio(remaining.slice(0, count + 1), stripSize, sum, remTotal, remW, remH);
-      const oldSum = remaining.slice(0, count).reduce((s, it) => s + it.loc, 0);
+      const oldSum = remaining.slice(0, count).reduce((s, it) => s + getWeight(it), 0);
       const oldRatio = compareRatio(remaining.slice(0, count), stripSize, oldSum, remTotal, remW, remH);
       if (newRatio > oldRatio) break;
       count++;
     }
     const row = remaining.slice(0, count);
-    const rowSum = row.reduce((s, it) => s + it.loc, 0);
+    const rowSum = row.reduce((s, it) => s + getWeight(it), 0);
+    if (rowSum <= 0) break;
     const stripLen = horizontal
       ? (rowSum / remTotal) * remW
       : (rowSum / remTotal) * remH;
     let cursor = horizontal ? y : x;
     for (const it of row) {
-      const share = it.loc / rowSum;
+      const share = getWeight(it) / rowSum;
       if (horizontal) {
         const h = share * remH;
         rects.push({ x, y: cursor, w: stripLen, h, item: it });
@@ -150,13 +153,16 @@ function compareRatio(
   W: number,
   H: number,
 ) {
-  if (row.length === 0) return Infinity;
+  if (row.length === 0 || total <= 0 || stripSize <= 0) return Infinity;
+  const getWeight = (it: FileInfo) => Math.max(1, it.loc);
   const area = (rowSum / total) * W * H;
   const len = area / stripSize;
+  if (len <= 0) return Infinity;
   let worst = 0;
   for (const it of row) {
-    const a = (it.loc / total) * W * H;
+    const a = (getWeight(it) / total) * W * H;
     const side = a / len;
+    if (side <= 0) continue;
     worst = Math.max(worst, len / side, side / len);
   }
   return worst;

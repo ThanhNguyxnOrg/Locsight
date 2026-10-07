@@ -48,6 +48,12 @@ export function Dashboard() {
   const allActiveFiles = useMemo(() => {
     const list: any[] = [];
 
+    const getPathExt = (filePath: string): string => {
+      const base = filePath.split(/[\\/]/).pop() || "";
+      const dot = base.lastIndexOf(".");
+      return dot >= 0 ? base.slice(dot + 1).toLowerCase() : "";
+    };
+
     const getAssetCategory = (ext: string): string | null => {
       const extLower = ext.toLowerCase();
       const multimediaExts = ["png", "jpg", "jpeg", "gif", "webp", "svg", "bmp", "ico", "psd", "tiff", "tif", "ai", "heic", "heif", "mp4", "m4v", "mov", "avi", "mkv", "webm", "flv", "mp3", "wav", "ogg", "ogv", "oga", "flac", "aac", "m4a"];
@@ -77,7 +83,7 @@ export function Dashboard() {
     // 1. Add files from code scan
     if (showCode) {
       summary.files.forEach(f => {
-        const ext = f.path.split('.').pop() || "";
+        const ext = getPathExt(f.path);
         const cat = getAssetCategory(ext);
         if (cat === "multimedia" && !showMultimedia) return;
         if (cat === "game_3d" && !showGame) return;
@@ -227,7 +233,9 @@ export function Dashboard() {
     };
 
     const isPathExcluded = (p: string) => {
-      const ext = p.split('.').pop() || "";
+      const base = p.split(/[\\/]/).pop() || "";
+      const dot = base.lastIndexOf(".");
+      const ext = dot >= 0 ? base.slice(dot + 1).toLowerCase() : "";
       const cat = getAssetCategory(ext);
       if (cat === "multimedia" && !showMultimedia) return true;
       if (cat === "game_3d" && !showGame) return true;
