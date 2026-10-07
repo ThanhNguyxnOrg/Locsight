@@ -115,9 +115,15 @@ pub fn detect_tech_stack(root: &Path) -> Vec<TechStackItem> {
     }
     
     // 2. Rust (Cargo.toml)
-    let cargo_toml_path = root.join("Cargo.toml");
-    if cargo_toml_path.exists() {
-        if let Ok(content) = fs::read_to_string(&cargo_toml_path) {
+    let cargo_toml_path = if root.join("Cargo.toml").exists() {
+        Some(root.join("Cargo.toml"))
+    } else if root.join("src-tauri/Cargo.toml").exists() {
+        Some(root.join("src-tauri/Cargo.toml"))
+    } else {
+        None
+    };
+    if let Some(cargo_path) = cargo_toml_path {
+        if let Ok(content) = fs::read_to_string(&cargo_path) {
             items.push(new_item("Rust".to_string(), "".to_string(), "Environment".to_string()));
             
             let mut in_deps = false;

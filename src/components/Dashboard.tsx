@@ -156,7 +156,7 @@ export function Dashboard() {
     if (kloc > 0) {
       effort = 2.4 * Math.pow(kloc, 1.05);
       devTime = 2.5 * Math.pow(effort, 0.38);
-      cost = effort * (cocomoRate * 1000.0);
+      cost = effort * cocomoRate;
     }
 
     return {
@@ -665,7 +665,7 @@ export function Dashboard() {
                     outline: "none",
                   }}
                 />
-                <span style={{ ...mono, fontSize: 11, color: C.muted }}>× 1000</span>
+                <span style={{ ...mono, fontSize: 11, color: C.muted }}>USD</span>
               </div>
             </Card>
 

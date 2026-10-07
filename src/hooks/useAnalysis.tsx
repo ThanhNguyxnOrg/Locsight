@@ -141,7 +141,7 @@ export function AnalysisProvider({ children }: { children: React.ReactNode }) {
       const effort = 2.4 * Math.pow(kloc, 1.05);
       const devTime = 2.5 * Math.pow(effort, 0.38);
       const teamSize = devTime > 0 ? effort / devTime : 0;
-      const cost = effort * (cocomoRate * 1000.0);
+      const cost = effort * cocomoRate;
       setCocomo({
         effortPersonMonths: Math.round(effort * 10) / 10,
         developmentTimeMonths: Math.round(devTime * 10) / 10,
@@ -159,7 +159,7 @@ export function AnalysisProvider({ children }: { children: React.ReactNode }) {
     // Invoke the Rust COCOMO estimation command
     invoke<CocomoResult>("get_cocomo_estimate", {
       loc: summary.totalLoc,
-      monthlyRateUsd: cocomoRate * 1000.0,
+      monthlyRateUsd: cocomoRate,
     })
       .then((res) => setCocomo(res))
       .catch(() => calculateFallback());
