@@ -626,15 +626,17 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
             let name = path.file_name()?.to_string_lossy().to_string();
             let (config, extension) = get_file_language_config(path, &custom_lang_map)?;
 
-            let content = match fs::read_to_string(path) {
-                Ok(c) => c,
+            let (content, size_bytes) = match fs::read_to_string(path) {
+                Ok(c) => {
+                    let len = c.len() as u64;
+                    (c, len)
+                }
                 Err(_) => {
                     let bytes = fs::read(path).ok()?;
-                    String::from_utf8_lossy(&bytes).into_owned()
+                    let len = bytes.len() as u64;
+                    (String::from_utf8_lossy(&bytes).into_owned(), len)
                 }
             };
-
-            let size_bytes = fs::metadata(path).ok()?.len();
             
             // Core line counting logic
             let (code, comments, blanks, line_hashes) = count_lines(&content, &config);

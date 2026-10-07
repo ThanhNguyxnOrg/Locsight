@@ -45,6 +45,19 @@ pub fn analyze_complexity(content: &str, extension: &str) -> f64 {
 
         let line_to_check = if in_quote { trimmed } else { &clean_line };
 
+        if line_to_check.starts_with("let ")
+            || line_to_check.starts_with("const ")
+            || line_to_check.starts_with("var ")
+        {
+            if line_to_check.contains("&&") {
+                complexity += 1.0;
+            }
+            if line_to_check.contains("||") {
+                complexity += 1.0;
+            }
+            continue;
+        }
+
         // Handle "else if" and "elsif" first by replacing them with a single marker
         // so "if " won't double-count the same statement
         let normalized = line_to_check
@@ -53,7 +66,7 @@ pub fn analyze_complexity(content: &str, extension: &str) -> f64 {
 
         let branch_keywords = [
             "__locsight_branch__", "if ", "while ", "for ", "catch ", "except ", "match ", 
-            "case ", "&&", "||", " and ", " or ", "unless", "when", "guard", "switch"
+            "case ", "&&", "||", " and ", " or ", "unless ", "when ", "guard ", "switch "
         ];
 
         for kw in &branch_keywords {
@@ -92,6 +105,19 @@ mod tests {
         let code = r#"
             fn log() {
                 println!("if you see this, and or while do not count");
+            }
+        "#;
+        let c = analyze_complexity(code, "rs");
+        assert_eq!(c, 1.0);
+    }
+
+    #[test]
+    fn test_variable_declaration_no_false_positive() {
+        let code = r#"
+            fn run() {
+                let guard = lock();
+                let whenever = true;
+                const switch_state = 1;
             }
         "#;
         let c = analyze_complexity(code, "rs");
