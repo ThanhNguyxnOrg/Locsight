@@ -115,28 +115,24 @@ pub fn detect_circular_dependencies(
     }
 
     // De-duplicate cycles that are identical (just shifted starts)
+    let mut seen_canonical = HashSet::new();
     let mut unique_cycles: Vec<Vec<String>> = Vec::new();
+
     for cycle in cycles {
-        let mut is_dup = false;
-        for existing in &unique_cycles {
-            if existing.len() == cycle.len() {
-                // Check if they are cyclic shifts of each other
-                let mut shifted = existing.clone();
-                for _ in 0..existing.len() {
-                    // Rotate
-                    shifted.rotate_left(1);
-                    if shifted == cycle {
-                        is_dup = true;
-                        break;
-                    }
-                }
-            }
-            if is_dup {
-                break;
-            }
+        if cycle.len() <= 2 {
+            continue;
         }
-        if !is_dup {
-            unique_cycles.push(cycle);
+        // cycle is [A, B, C, A]; remove the duplicate trailing node for rotation
+        let nodes = &cycle[..cycle.len() - 1];
+        if let Some((min_idx, _)) = nodes.iter().enumerate().min_by_key(|&(_, val)| val) {
+            let mut canonical: Vec<String> = nodes[min_idx..].iter().cloned().collect();
+            canonical.extend(nodes[..min_idx].iter().cloned());
+            
+            if seen_canonical.insert(canonical.clone()) {
+                let first = canonical[0].clone();
+                canonical.push(first);
+                unique_cycles.push(canonical);
+            }
         }
     }
 
@@ -315,6 +311,25 @@ mod tests {
         let cycles = detect_circular_dependencies(&files, &edges);
         assert_eq!(cycles.len(), 1);
         assert_eq!(cycles[0], vec!["a.ts", "b.ts", "c.ts", "a.ts"]);
+    }
+
+    #[test]
+    fn test_circular_dependencies_shifted_start_dedup() {
+        let files = vec![
+            "z.ts".to_string(),
+            "m.ts".to_string(),
+            "a.ts".to_string(),
+        ];
+        // z -> m -> a -> z
+        let edges = vec![
+            ("z.ts".to_string(), "m.ts".to_string()),
+            ("m.ts".to_string(), "a.ts".to_string()),
+            ("a.ts".to_string(), "z.ts".to_string()),
+        ];
+        let cycles = detect_circular_dependencies(&files, &edges);
+        assert_eq!(cycles.len(), 1);
+        // Canonical start is smallest element "a.ts"
+        assert_eq!(cycles[0], vec!["a.ts", "z.ts", "m.ts", "a.ts"]);
     }
 
     #[test]

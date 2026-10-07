@@ -116,3 +116,17 @@ This research report documents the systematic audit and resolution of runtime bu
 - **Primary Source:** [src-tauri/src/engine/techstack.rs](file:///d:/Code/Locsight/src-tauri/src/engine/techstack.rs#L115-L130)
 - **Mechanism:** Scanning the root directory of Tauri applications failed to detect Rust or backend dependencies because `Cargo.toml` resides in `src-tauri/Cargo.toml` rather than the workspace root.
 - **Resolution:** Extended tech stack engine to inspect `src-tauri/Cargo.toml` when root `Cargo.toml` is absent.
+
+---
+
+### Finding 15: Shifted Cycle De-duplication Failure in Architecture Engine
+- **Primary Source:** [src-tauri/src/engine/architecture.rs](file:///d:/Code/Locsight/src-tauri/src/engine/architecture.rs#L115-L144)
+- **Mechanism:** Closed cycle paths recorded in `detect_circular_dependencies` have the starting node appended at the end (e.g. `[A, B, C, A]`). De-duplication attempted rotation by calling `shifted.rotate_left(1)`, which produced `[B, C, A, A]` instead of the valid cyclic permutation `[B, C, A, B]`. As a result, cyclic shifts of the same underlying cycle never matched and were erroneously reported as separate duplicates.
+- **Resolution:** Implemented canonical cycle rotation over `&cycle[..cycle.len() - 1]` to align the lexicographically minimum node at index 0, followed by closing with the first node and tracking in `HashSet`.
+
+---
+
+### Finding 16: Duplicate Group Size Filtering Inconsistency in Scanner
+- **Primary Source:** [src-tauri/src/engine/scanner.rs](file:///d:/Code/Locsight/src-tauri/src/engine/scanner.rs#L750-L770)
+- **Mechanism:** After relative path transformation via `filter_map`, groups could theoretically shrink below 2 elements, and `duplicates` count retained the raw count rather than the actual number of relative duplicate files.
+- **Resolution:** Added `.filter(|g| g.len() > 1)` to `relative_duplicate_groups` and re-summed `duplicates` dynamically from filtered groups.

@@ -749,9 +749,9 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
     languages.sort_by(|a, b| (b.code + b.comments + b.blanks).cmp(&(a.code + a.comments + a.blanks)));
 
     // Duplicate detection
-    let (duplicates, duplicate_groups) = find_duplicates(&file_paths_list);
+    let (_raw_duplicates, duplicate_groups) = find_duplicates(&file_paths_list);
 
-    let relative_duplicate_groups = duplicate_groups
+    let relative_duplicate_groups: Vec<Vec<String>> = duplicate_groups
         .into_iter()
         .map(|group| {
             group
@@ -764,7 +764,10 @@ pub fn scan_project_directory(root_path: &str) -> Result<ProjectSummary, String>
                 })
                 .collect()
         })
+        .filter(|group: &Vec<String>| group.len() > 1)
         .collect();
+
+    let duplicates: u32 = relative_duplicate_groups.iter().map(|group| group.len() as u32).sum();
 
     let average_complexity = if !file_infos.is_empty() {
         total_complexity / file_infos.len() as f64
