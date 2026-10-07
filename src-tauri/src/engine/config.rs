@@ -47,14 +47,14 @@ mod tests {
 
     #[test]
     fn test_custom_config_camel_and_snake_case() {
-        let json_camel = r#"{
+        let json_camel = r##"{
             "excludePatterns": ["foo/*"],
             "customLanguages": [{
                 "extension": "myext",
                 "name": "MyLang",
                 "singleLineComments": ["//"]
             }]
-        }"#;
+        }"##;
         let cfg1: CustomConfig = serde_json::from_str(json_camel).unwrap();
         assert_eq!(cfg1.exclude_patterns.unwrap(), vec!["foo/*"]);
         let lang1 = &cfg1.custom_languages.unwrap()[0];
@@ -62,7 +62,7 @@ mod tests {
         assert_eq!(lang1.single_line_comments, vec!["//"]);
         assert!(lang1.multi_line_comments.is_empty());
 
-        let json_snake = r#"{
+        let json_snake = r##"{
             "exclude_patterns": ["bar/*"],
             "custom_languages": [{
                 "extension": "xyz",
@@ -70,7 +70,7 @@ mod tests {
                 "single_line_comments": ["#"],
                 "multi_line_comments": [["/*", "*/"]]
             }]
-        }"#;
+        }"##;
         let cfg2: CustomConfig = serde_json::from_str(json_snake).unwrap();
         assert_eq!(cfg2.exclude_patterns.unwrap(), vec!["bar/*"]);
         let lang2 = &cfg2.custom_languages.unwrap()[0];
