@@ -459,10 +459,14 @@ pub fn detect_tech_stack(root: &Path) -> Vec<TechStackItem> {
         items.push(new_item("Blender".to_string(), "".to_string(), "3D Design".to_string()));
     }
 
-    // De-duplicate items by name
+    // De-duplicate items by name, preserving version if available
     let mut unique_items: Vec<TechStackItem> = Vec::new();
     for item in items {
-        if !unique_items.iter().any(|x| x.name == item.name) {
+        if let Some(existing) = unique_items.iter_mut().find(|x| x.name == item.name) {
+            if existing.version.is_empty() && !item.version.is_empty() {
+                existing.version = item.version;
+            }
+        } else {
             unique_items.push(item);
         }
     }

@@ -95,7 +95,7 @@ pub fn analyze_git(root: &Path) -> Option<(Vec<FileChurn>, Vec<Contributor>, Vec
     // 3. Get change coupling (files modified together in commits, capped to recent 1000 commits)
     let mut change_coupling = Vec::new();
     let mut co_cmd = Command::new("git");
-    co_cmd.args(&["log", "-n", "1000", "--name-only", "--pretty=format:C:%H"]).current_dir(root);
+    co_cmd.args(&["log", "-n", "1000", "--name-only", "--pretty=format:COMMIT_ID:%H"]).current_dir(root);
     configure_command(&mut co_cmd);
     
     if let Ok(co_output) = co_cmd.output() {
@@ -105,7 +105,7 @@ pub fn analyze_git(root: &Path) -> Option<(Vec<FileChurn>, Vec<Contributor>, Vec
         
         for line in co_str.lines() {
             let trimmed = line.trim();
-            if trimmed.starts_with("C:") {
+            if trimmed.starts_with("COMMIT_ID:") {
                 if !current_commit.is_empty() {
                     commits.push(current_commit);
                     current_commit = HashSet::new();

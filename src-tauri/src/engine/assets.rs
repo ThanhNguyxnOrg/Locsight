@@ -115,8 +115,18 @@ fn detect_asset_edges(assets: &[AssetInfo], root: &Path) -> Vec<(String, String)
         if ext == "tscn" || ext == "tres" || ext == "meta" || ext == "dxf" || ext == "gdns" || ext == "gdnlib" 
            || ext == "prefab" || ext == "unity" || ext == "asset" || ext == "import" || ext == "uproject" {
             let abs_path = root.join(&parent.path);
-            if let Ok(content) = std::fs::read_to_string(&abs_path) {
-                let mut local_edges = Vec::new();
+            let content_str = match std::fs::read_to_string(&abs_path) {
+                Ok(c) => c,
+                Err(_) => {
+                    if let Ok(bytes) = std::fs::read(&abs_path) {
+                        String::from_utf8_lossy(&bytes).into_owned()
+                    } else {
+                        return;
+                    }
+                }
+            };
+            let content = &content_str;
+            let mut local_edges = Vec::new();
                 for child in assets {
                     if parent.path != child.path {
                         let matched = if child.name.len() > 3 {
@@ -171,8 +181,18 @@ fn detect_orphans(
     
     // 1. Scan code files for references
     code_paths.par_iter().for_each(|code_path| {
-        if let Ok(content) = std::fs::read_to_string(code_path) {
-            let mut local_detected = Vec::new();
+        let content_str = match std::fs::read_to_string(code_path) {
+            Ok(c) => c,
+            Err(_) => {
+                if let Ok(bytes) = std::fs::read(code_path) {
+                    String::from_utf8_lossy(&bytes).into_owned()
+                } else {
+                    return;
+                }
+            }
+        };
+        let content = &content_str;
+        let mut local_detected = Vec::new();
             for (idx, (name, rel_path, stem_opt)) in search_tokens.iter().enumerate() {
                 let mut matched = false;
 
@@ -348,7 +368,7 @@ pub fn scan_assets(asset_paths: &[PathBuf], root: &Path, code_paths: &[PathBuf])
         }
         
         // Suggest WebP conversion for PNG
-        if asset.extension == "png" && asset.size > 500 * 1024 {
+        if asset.extension == "png" && asset.size > 500 * 1024 && asset.size <= 5 * 1024 * 1024 {
             let savings = (asset.size as f64 * 0.7) as u64;
             optimization_hints.push(OptimizationHint {
                 path: asset.path.clone(),

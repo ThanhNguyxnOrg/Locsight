@@ -70,9 +70,35 @@ pub fn calculate_entropy(s: &str) -> f64 {
     entropy
 }
 
+fn truncate_around(line: &str, target: &str) -> String {
+    if line.len() <= 200 {
+        return line.to_string();
+    }
+    if let Some(pos) = line.find(target) {
+        let mut start = pos.saturating_sub(40);
+        while start > 0 && !line.is_char_boundary(start) {
+            start -= 1;
+        }
+        let mut end = (pos + target.len() + 40).min(line.len());
+        while end < line.len() && !line.is_char_boundary(end) {
+            end += 1;
+        }
+        let prefix = if start > 0 { "..." } else { "" };
+        let suffix = if end < line.len() { "..." } else { "" };
+        format!("{}{}{}", prefix, &line[start..end], suffix)
+    } else {
+        let mut limit = 200;
+        while limit > 0 && !line.is_char_boundary(limit) {
+            limit -= 1;
+        }
+        format!("{}...", &line[..limit])
+    }
+}
+
 fn mask_secret(line: &str, secret: &str) -> String {
     if secret.len() <= 6 {
-        return line.replace(secret, "******");
+        let replaced = line.replace(secret, "******");
+        return truncate_around(&replaced, "******");
     }
     let mut prefix_end = 4.min(secret.len());
     while prefix_end > 0 && !secret.is_char_boundary(prefix_end) {
@@ -87,7 +113,8 @@ fn mask_secret(line: &str, secret: &str) -> String {
     let suffix = &secret[suffix_start..];
 
     let masked = format!("{}...{}", prefix, suffix);
-    line.replace(secret, &masked)
+    let replaced = line.replace(secret, &masked);
+    truncate_around(&replaced, &masked)
 }
 
 pub fn scan_secrets(content: &str, relative_path: &str) -> Vec<SecretFinding> {
