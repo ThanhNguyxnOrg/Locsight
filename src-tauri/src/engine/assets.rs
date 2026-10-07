@@ -60,6 +60,9 @@ fn get_jpeg_dimensions(path: &Path) -> Option<(u32, u32)> {
             break;
         }
         let length = u16::from_be_bytes(len_bytes) as i64;
+        if length < 2 {
+            break;
+        }
         
         if marker_type == 0xC0 || marker_type == 0xC2 {
             let mut sof_data = [0u8; 5];
@@ -248,7 +251,7 @@ pub fn scan_assets(asset_paths: &[PathBuf], root: &Path, code_paths: &[PathBuf])
     let asset_infos: Vec<AssetInfo> = asset_paths
         .par_iter()
         .filter_map(|path| {
-            let relative_path = path.strip_prefix(root).ok()?.to_string_lossy().to_string();
+            let relative_path = path.strip_prefix(root).ok()?.to_string_lossy().replace('\\', "/");
             let name = path.file_name()?.to_string_lossy().to_string();
             let extension = path.extension()?.to_string_lossy().to_string().to_lowercase();
             
