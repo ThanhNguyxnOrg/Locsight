@@ -30,7 +30,11 @@ pub fn scan_annotations(content: &str, relative_path: &str) -> Vec<Annotation> {
             let message = caps.get(2).unwrap().as_str().trim().to_string();
             
             let message_truncated = if message.len() > 120 {
-                format!("{}...", &message[..120])
+                let mut limit = 120;
+                while limit > 0 && !message.is_char_boundary(limit) {
+                    limit -= 1;
+                }
+                format!("{}...", &message[..limit])
             } else {
                 message
             };

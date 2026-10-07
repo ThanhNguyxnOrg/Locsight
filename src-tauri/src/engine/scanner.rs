@@ -108,12 +108,23 @@ pub fn detect_shebang_with_ext(path: &Path) -> Option<(LanguageConfig, String)> 
     }
 }
 
+#[inline]
+fn safe_sample(s: &str, max_bytes: usize) -> &str {
+    if max_bytes >= s.len() {
+        return s;
+    }
+    let mut limit = max_bytes;
+    while limit > 0 && !s.is_char_boundary(limit) {
+        limit -= 1;
+    }
+    &s[..limit]
+}
+
 pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
     match ext {
         "m" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains("#import") || sample.contains("@interface") || sample.contains("@implementation") || sample.contains("@protocol") || sample.contains("@end") || sample.contains("NSLog(") {
                     "m".to_string()
                 } else if sample.contains("#{") || sample.contains("pkg load") {
@@ -129,8 +140,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "v" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains("Require Import") || sample.contains("Theorem") || sample.contains("Proof") || sample.contains("Qed.") || sample.contains("Lemma") {
                     "coq".to_string()
                 } else if sample.contains("fn ") || sample.contains("struct ") || sample.contains("import ") {
@@ -144,8 +154,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "cl" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains(';') || sample.contains("(defun ") || sample.contains("(defparameter ") || sample.contains("(let ") {
                     "commonlisp".to_string()
                 } else {
@@ -157,8 +166,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "h" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains("#import") || sample.contains("@class") || sample.contains("@interface") || sample.contains("@protocol") {
                     "m".to_string()
                 } else if sample.contains("template<") || sample.contains("template <") || sample.contains("class ") || sample.contains("namespace ") {
@@ -172,8 +180,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "inc" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains("<?php") {
                     "php".to_string()
                 } else if sample.contains("#include") || sample.contains("public ") || sample.contains("native ") {
@@ -187,8 +194,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "pro" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains("QT +=") || sample.contains("TEMPLATE =") || sample.contains("TARGET =") {
                     "pro".to_string()
                 } else if sample.contains(":-") {
@@ -202,8 +208,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "pp" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains("class {") || sample.contains("define ") || sample.contains("node ") {
                     "pp".to_string()
                 } else {
@@ -215,8 +220,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "pl" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains(":-") || sample.contains("consult(") {
                     "pl".to_string()
                 } else {
@@ -228,8 +232,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "r" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.to_lowercase().contains("rebol") {
                     "r".to_string()
                 } else {
@@ -241,8 +244,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "mod" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.starts_with("module ") {
                     "mod".to_string()
                 } else if sample.contains("IMPLEMENTATION MODULE") || sample.contains("DEFINITION MODULE") || sample.contains("MODULE ") {
@@ -256,8 +258,7 @@ pub fn resolve_conflicts(path: &Path, ext: &str) -> String {
         }
         "fs" => {
             if let Ok(content) = fs::read_to_string(path) {
-                let limit = content.len().min(1000);
-                let sample = &content[..limit];
+                let sample = safe_sample(&content, 1000);
                 if sample.contains("open ") || sample.contains("let ") {
                     "fs".to_string()
                 } else if sample.contains(": ") || sample.contains(" ;") {

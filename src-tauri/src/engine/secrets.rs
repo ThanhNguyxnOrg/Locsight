@@ -74,8 +74,18 @@ fn mask_secret(line: &str, secret: &str) -> String {
     if secret.len() <= 6 {
         return line.replace(secret, "******");
     }
-    let prefix = &secret[..4];
-    let suffix = &secret[secret.len() - 4..];
+    let mut prefix_end = 4.min(secret.len());
+    while prefix_end > 0 && !secret.is_char_boundary(prefix_end) {
+        prefix_end -= 1;
+    }
+    let prefix = &secret[..prefix_end];
+
+    let mut suffix_start = secret.len().saturating_sub(4);
+    while suffix_start < secret.len() && !secret.is_char_boundary(suffix_start) {
+        suffix_start += 1;
+    }
+    let suffix = &secret[suffix_start..];
+
     let masked = format!("{}...{}", prefix, suffix);
     line.replace(secret, &masked)
 }
