@@ -88,3 +88,31 @@ This research report documents the systematic audit and resolution of runtime bu
 - **Primary Source:** [src-tauri/src/engine/architecture.rs](file:///d:/Code/Locsight/src-tauri/src/engine/architecture.rs#L70-L105)
 - **Mechanism:** Dense dependency graphs with complex circular cross-references could cause long DFS exploration times.
 - **Resolution:** Added a defense-in-depth cycle count cap (`cycles.len() >= 100`) to guarantee deterministic scan completion times.
+
+---
+
+### Finding 11: Raw String Literal Delimiter Collisions in Tests
+- **Primary Source:** [src-tauri/src/engine/config.rs](file:///d:/Code/Locsight/src-tauri/src/engine/config.rs#L50-L75)
+- **Mechanism:** Unit tests used `r#"{ ... }"#` raw string literals containing single-line comment definition `["#"]`. The closing `"#` sequence inside JSON prematurely terminated Rust's raw string literal, resulting in compiler syntax errors.
+- **Resolution:** Migrated test JSON blocks to double-hash raw string literals `r##"{ ... }"##`.
+
+---
+
+### Finding 12: Multi-byte UTF-8 Slicing Panic in Conflict Resolution & Annotations
+- **Primary Source:** [src-tauri/src/engine/scanner.rs](file:///d:/Code/Locsight/src-tauri/src/engine/scanner.rs#L108-L270), [annotations.rs](file:///d:/Code/Locsight/src-tauri/src/engine/annotations.rs#L30-L40), [secrets.rs](file:///d:/Code/Locsight/src-tauri/src/engine/secrets.rs#L73-L85)
+- **Mechanism:** Slicing arbitrary text by byte offset (`&content[..limit]`, `&message[..120]`, `&secret[..4]`) panics with `byte index is not a char boundary` if the cutoff index splits a multi-byte Unicode codepoint (Vietnamese, CJK characters, emojis, accented comments).
+- **Resolution:** Introduced zero-allocation `safe_sample` and `is_char_boundary` verification routines to step backwards/forwards to valid Unicode scalar boundaries before slicing.
+
+---
+
+### Finding 13: 1000x Inflation in COCOMO Cost Estimation
+- **Primary Source:** [src/hooks/useAnalysis.tsx](file:///d:/Code/Locsight/src/hooks/useAnalysis.tsx#L140-L165), [src/components/Dashboard.tsx](file:///d:/Code/Locsight/src/components/Dashboard.tsx#L155-L165)
+- **Mechanism:** The COCOMO formula calculates effort in person-months, multiplied by monthly engineer salary in USD (defaulted to $2,400). However, frontend state calculations and FFI invocation multiplied `cocomoRate` by `1000.0`, resulting in a $2.4 Million/month baseline and an artificial 1,000x cost estimate.
+- **Resolution:** Corrected calculation to `effort * cocomoRate` across both Tauri IPC and offline fallback paths, and updated UI unit labels to USD.
+
+---
+
+### Finding 14: Subdirectory `src-tauri/Cargo.toml` Detection in Tech Stack Analyzer
+- **Primary Source:** [src-tauri/src/engine/techstack.rs](file:///d:/Code/Locsight/src-tauri/src/engine/techstack.rs#L115-L130)
+- **Mechanism:** Scanning the root directory of Tauri applications failed to detect Rust or backend dependencies because `Cargo.toml` resides in `src-tauri/Cargo.toml` rather than the workspace root.
+- **Resolution:** Extended tech stack engine to inspect `src-tauri/Cargo.toml` when root `Cargo.toml` is absent.
