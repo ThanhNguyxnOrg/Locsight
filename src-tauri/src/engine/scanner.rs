@@ -861,7 +861,9 @@ mod tests {
     #[test]
     fn test_shebang_detection() {
         use std::io::Write;
-        let dir = std::env::temp_dir();
+        // nosemgrep: rust.lang.security.temp-dir.temp-dir
+        let dir = std::env::temp_dir().join(format!("locsight_scanner_shebang_test_{}", std::process::id()));
+        let _ = std::fs::create_dir_all(&dir);
         let py_path = dir.join("test_script_py");
         {
             let mut file = std::fs::File::create(&py_path).unwrap();
@@ -871,7 +873,6 @@ mod tests {
         let (config, ext) = detect_shebang_with_ext(&py_path).unwrap();
         assert_eq!(config.name, "Python");
         assert_eq!(ext, "py");
-        let _ = std::fs::remove_file(&py_path);
 
         let sh_path = dir.join("test_script_sh");
         {
@@ -882,7 +883,6 @@ mod tests {
         let (config_sh, ext_sh) = detect_shebang_with_ext(&sh_path).unwrap();
         assert_eq!(config_sh.name, "Shell");
         assert_eq!(ext_sh, "sh");
-        let _ = std::fs::remove_file(&sh_path);
 
         // Test Rscript shebang (v1.2.0 addition)
         let r_path = dir.join("test_script_r");
@@ -894,13 +894,16 @@ mod tests {
         let (config_r, ext_r) = detect_shebang_with_ext(&r_path).unwrap();
         assert_eq!(config_r.name, "R");
         assert_eq!(ext_r, "r");
-        let _ = std::fs::remove_file(&r_path);
+
+        let _ = std::fs::remove_dir_all(&dir);
     }
 
     #[test]
     fn test_conflict_resolution_octave() {
         use std::io::Write;
-        let dir = std::env::temp_dir();
+        // nosemgrep: rust.lang.security.temp-dir.temp-dir
+        let dir = std::env::temp_dir().join(format!("locsight_scanner_conflict_test_{}", std::process::id()));
+        let _ = std::fs::create_dir_all(&dir);
         let m_path = dir.join("test_script.m");
         
         // 1. Objective-C
@@ -927,7 +930,7 @@ mod tests {
         let ext = resolve_conflicts(&m_path, "m");
         assert_eq!(ext, "matlab");
         
-        let _ = std::fs::remove_file(&m_path);
+        let _ = std::fs::remove_dir_all(&dir);
     }
 
     #[test]

@@ -320,7 +320,9 @@ mod tests {
     #[test]
     fn test_rule_violations() {
         use std::io::Write;
-        let dir = std::env::temp_dir();
+        // nosemgrep: rust.lang.security.temp-dir.temp-dir
+        let dir = std::env::temp_dir().join(format!("locsight_arch_test_{}", std::process::id()));
+        let _ = fs::create_dir_all(&dir);
         let rules_path = dir.join(".locsight.rules.json");
         
         // Write mock rules configuration
@@ -353,6 +355,6 @@ mod tests {
         assert_eq!(violations[0].source, "src/ui/Button.tsx");
         assert_eq!(violations[0].target, "src/db/connection.ts");
 
-        let _ = fs::remove_file(&rules_path);
+        let _ = fs::remove_dir_all(&dir);
     }
 }

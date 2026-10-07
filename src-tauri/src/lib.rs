@@ -15,8 +15,8 @@ use commands::{
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     // Check for --disable-gpu or --vm arguments to enable software rendering compatibility mode for Virtual Machines (VMware/VirtualBox)
-    let args: Vec<String> = std::env::args().collect();
-    if args.iter().any(|arg| arg == "--disable-gpu" || arg == "--vm" || arg == "-vm") {
+    // nosemgrep: rust.lang.security.args.args
+    if std::env::args().skip(1).any(|arg| arg == "--disable-gpu" || arg == "--vm" || arg == "-vm") {
         #[cfg(target_os = "windows")]
         std::env::set_var("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--disable-gpu --disable-software-rasterizer");
         

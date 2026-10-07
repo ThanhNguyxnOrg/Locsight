@@ -471,7 +471,8 @@ mod tests {
 
     #[test]
     fn test_detect_tech_stack_files() {
-        let dir = std::env::temp_dir().join("locsight_techstack_test");
+        // nosemgrep: rust.lang.security.temp-dir.temp-dir
+        let dir = std::env::temp_dir().join(format!("locsight_techstack_test_{}", std::process::id()));
         let _ = std::fs::create_dir_all(&dir);
 
         // Create test files
