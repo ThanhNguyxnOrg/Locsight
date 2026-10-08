@@ -41,6 +41,7 @@ export interface SecretFinding {
 
 export interface FileChurn {
   filePath: string;
+  path?: string;
   commits: number;
 }
 
@@ -170,5 +171,14 @@ export interface AssetReport {
   orphans: OrphanAsset[];
   optimizationHints: OptimizationHint[];
   edges: [string, string][];
+}
+
+export interface HotspotEntry {
+  path: string;
+  name: string;
+  complexity: number;
+  commits: number;
+  hotspotScore: number; // complexity * ln(commits + 1)
+  quadrant: "hotspot" | "complex-legacy" | "active-clean" | "stable";
 }
 
