@@ -63,10 +63,10 @@ This document synthesizes deep research into world-class developer tools and rep
 ## 🗓️ Phased Execution Roadmap
 
 ```
-[Phase 1: Visual & Hotspot Quick Wins]
-  ├── 1.1 Export Mermaid.js / SVG / PNG (Graph Canvas)
-  ├── 1.2 Heatmap Overlay (Complexity & Churn on Graph)
-  └── 2.1 Refactoring Hotspots Matrix (Churn × Complexity Dashboard)
+[Phase 1: Visual & Hotspot Quick Wins] ✅ Shipped in v2.2.0
+  ├── 1.1 Export Mermaid.js / SVG / PNG (Graph Canvas) [COMPLETED]
+  ├── 1.2 Heatmap Overlay (Complexity & Churn on Graph) [COMPLETED]
+  └── 2.1 Refactoring Hotspots Matrix (Churn × Complexity Dashboard) [COMPLETED]
 
 [Phase 2: Deep Architecture & Hygiene]
   ├── 1.3 Dependency Path Finder

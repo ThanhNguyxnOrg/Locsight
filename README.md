@@ -31,11 +31,11 @@ A blazing-fast ⚡ desktop app that scans, visualizes, and grades your codebase 
 | 🔐 **Secrets Scanner** | Detects exposed AWS keys, GitHub tokens, JWT, private keys — auto-masked |
 | 📝 **Annotations** | Searchable TODO / FIXME / HACK / BUG tracker with filters |
 | 💡 **Insights** | Analyzes code issues, security bugs, and refactoring recommendations |
-| 🔥 **Git Hotspots** | Finds high-risk files where complexity × churn is dangerous |
-| 🌳 **Treemap** | Interactive squarified treemap sized by LOC |
-| 🕸️ **Dep Graph** | Circular module coupling graph with zoom, search, and filters |
+| 🔥 **Refactoring Hotspots** | 2D Risk Matrix ($Complexity \times Churn$) with 4-quadrant classification & ranked priority targets |
+| 🕸️ **Living Dep Graph** | C4 model hierarchy, heatmaps (Complexity/Churn/Hotspots), SVG/PNG/Mermaid export |
+| 🌳 **Treemap** | Interactive squarified treemap sized by physical code volume |
 | 📁 **<!-- STAT_LANGS_COUNT -->546+<!-- /STAT_LANGS_COUNT --> Languages** | From Rust to COBOL, Solidity to GDScript — with shebang detection |
-| 📄 **Export** | JSON · CSV · Markdown · HTML reports |
+| 📄 **Export Center** | JSON · CSV · Markdown · HTML reports + SVG/PNG/Mermaid graph diagrams |
 
 ## 🚀 Quick Start
 
@@ -103,11 +103,12 @@ Locsight provides an intuitive, high-performance dark user interface tailored fo
 | **📊 Dashboard** | `Ctrl/Cmd + 2` | High-level LOC overview, language distribution, complexity distribution histogram, and COCOMO II simulator |
 | **📁 Files & Treemap** | `Ctrl/Cmd + 3` | Interactive directory tree and squarified treemap sized by physical code volume |
 | **📦 Asset Intelligence** | `Ctrl/Cmd + 4` | Media (images, audio, video), 3D assets, CAD drawing tracking, SHA-256 duplicate detection, and orphan asset analysis |
-| **🕸️ Dependency Graph** | `Ctrl/Cmd + 5` | Radial / cluster module coupling graph, cyclomatic instability ($I = C_e / (C_a + C_e)$), and circular dependency detection |
-| **🫀 Health Score** | `Ctrl/Cmd + 6` | DRYness gauge (ULOC vs LOC), comment density, semantic role breakdown, and letter grading (A+ → F) |
-| **🔐 Insights & Secrets** | `Ctrl/Cmd + 7` | Exposed secrets detection (AWS, GitHub, Google API, private keys) with Shannon entropy scoring, plus searchable TODO/FIXME annotations tracker |
-| **🔥 Git Analytics** | `Ctrl/Cmd + 8` | Hotspot analysis ($Churn \times Complexity$), change coupling matrix, and author contribution breakdown |
-| **📄 Export Center** | `Ctrl/Cmd + 9` | Generate comprehensive reports in **Markdown, JSON, CSV, and HTML** with granular category filters |
+| **🕸️ Dependency Graph** | `Ctrl/Cmd + 5` | C4 model hierarchy, dynamic heatmaps, blast radius tracing, and SVG/PNG/Mermaid export |
+| **🔥 Refactoring Hotspots** | `Ctrl/Cmd + 6` | 2D Risk Matrix ($Complexity \times Churn$), 4-quadrant classification, and top refactoring targets |
+| **🫀 Health Score** | `Ctrl/Cmd + 7` | DRYness gauge (ULOC vs LOC), comment density, semantic role breakdown, and letter grading (A+ → F) |
+| **🔐 Insights & Secrets** | `Ctrl/Cmd + 8` | Exposed secrets detection (AWS, GitHub, Google API, private keys) with Shannon entropy scoring, plus searchable TODO/FIXME annotations tracker |
+| **📈 Git Analytics** | `Ctrl/Cmd + 9` | File churn, change coupling matrix, and author contribution breakdown |
+| **📄 Export Center** | `Ctrl/Cmd + 0` | Generate comprehensive reports in **Markdown, JSON, CSV, and HTML** with granular category filters |
 | **⚡ Open Folder** | `Ctrl/Cmd + Shift + O` | Quick project picker shortcut from any screen |
 
 ---

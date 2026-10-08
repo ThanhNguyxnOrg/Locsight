@@ -1,6 +1,6 @@
 [package]
 name = "locsight"
-version = "2.1.0"
+version = "2.2.0"
 description = "Locsight Codebase Analyzer Backend"
 authors = ["you"]
 edition = "2021"

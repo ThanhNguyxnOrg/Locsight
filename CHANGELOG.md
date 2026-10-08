@@ -6,6 +6,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [2.2.0] — 2026-10-08
+
+### 🌋 Codebase Observatory & Refactoring Decision System: v2.2.0
+
+This release elevates Locsight from a static metrics counter into a comprehensive **Codebase Observatory & Refactoring Decision System**, introducing 2D Refactoring Hotspot analysis ($Complexity \times Churn$ matrix), multi-mode dynamic Graph Heatmaps, and one-click architectural exports (SVG, 2x Retina PNG, and Mermaid.js diagram copy).
+
+#### 🔥 Refactoring Hotspots Matrix (Hotspots Tab)
+- **2D Risk Scatter Matrix**: Correlates file cyclomatic complexity with git commit churn ($Score = Complexity \times \ln(Commits + 1)$) on an interactive Recharts scatter plot with quadrant reference medians.
+- **Four-Quadrant Classification**: Automatically categorizes every repository file into one of four actionable tiers:
+  - `Hotspot - Refactor Priority #1` (Critical red): High complexity, high churn — primary sources of regression bugs.
+  - `Complex Legacy - Monitor` (Orange): High complexity, low churn — stable legacy modules to handle with care.
+  - `Active & Clean` (Green): Low complexity, high churn — healthy codebase components undergoing active feature work.
+  - `Stable & Simple` (Muted gray): Low complexity, low churn — reliable foundations.
+- **Interactive Quadrant Filter Chips**: Filter files dynamically by quadrant state with instant counters and color-coded status badges.
+- **Top 25 Refactoring Targets Table**: Ranked action table showing file path, complexity count, commit churn, exact hotspot score, and quadrant classification badge.
+- **Git History Guard**: Informative fallback notification for non-git directories explaining how to enable churn tracking.
+
+#### 🕸️ Graph Heatmap Overlay & Thermal Visualization (Graph Tab)
+- **Multi-Mode Heatmap Toggle**: Switch node color representations seamlessly between:
+  - `Default`: Language-based aesthetic styling.
+  - `Complexity`: Continuous gradient from low to critical cyclomatic complexity.
+  - `Churn`: Thermal scale indicating commit frequency and editing volatility.
+  - `Hotspot`: Combined risk thermal score highlighting architectural trouble zones.
+- **Full Hierarchy & Cluster Compatibility**: Heatmap colors applied across both Hierarchical card borders/accents and Cluster radial nodes.
+- **Visual Thermal Legend**: Bottom-docked color scale indicator providing immediate visual grounding for active heatmap modes.
+
+#### 📸 Architectural Visual Export & Mermaid Sharing (Graph Tab)
+- **One-Click SVG Vector Export**: Download high-fidelity SVG graphics directly from the live graph canvas for publication in technical whitepapers and documentation.
+- **2x Retina PNG Export**: High-resolution raster export rendered on an off-screen canvas with theme background preservation.
+- **Mermaid.js Flowchart Clipboard Shortcut**: One-click "Mermaid" button that serializes all visible dependency edges into Markdown-ready Mermaid syntax with instant visual copy feedback (`Copied!`).
+
+#### ⚡ Navigation & UI Polish
+- **Dedicated Sidebar Navigation Tab**: Added new **Hotspots** navigation item with Flame icon and keyboard shortcut (`Ctrl/Cmd + 6`).
+- **Shortcut Rebalancing**: Shifted subsequent tabs to accommodate Hotspots (`Health`: `7`, `Insights`: `8`, `Git`: `9`, `Export`: `0`).
+- **Version Alignment**: Updated active version stamps to `v2.2.0` across application shell, welcome banner, and project metadata.
+
+---
+
 ## [2.1.0] — 2026-06-09
 
 ### 🚀 Living Architecture & C4 Model Visualization: v2.1.0

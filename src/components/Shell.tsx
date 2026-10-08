@@ -455,7 +455,7 @@ export function Shell({
               padding: "8px 0",
             }}
           >
-            v2.0.0
+            v2.2.0
           </div>
         </nav>
 

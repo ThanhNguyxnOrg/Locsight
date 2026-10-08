@@ -104,9 +104,10 @@ flowchart LR
 | 🫀 **Health** | `components/Health.tsx` | DRYness gauge, comment density, semantic roles, health score |
 | 🔐 **Insights** | `components/Insights.tsx` | Secrets alerts + searchable annotation browser |
 | 🔥 **Git** | `components/Git.tsx` | Churn hotspots, contributor breakdown |
+| 🔥 **Hotspots** | `components/Hotspots.tsx` | Refactoring Hotspots scatter matrix (Complexity × Churn) & priority table |
 | 📁 **Files** | `components/Files.tsx` | File tree + squarified treemap |
 | 📦 **Assets** | `components/Assets.tsx` | Category dashboard, search/filters, duplicate assets list, relations network list, optimization panel |
-| 🕸️ **Graph** | `components/Graph.tsx` | Circular dependency coupling graph |
+| 🕸️ **Graph** | `components/Graph.tsx` | C4 model hierarchy, heatmaps, and circular dependency coupling graph |
 | 📄 **Export** | `components/Export.tsx` | Multi-format report generator |
 
 ---
@@ -121,6 +122,7 @@ graph TD
     Shell --> Health["Health.tsx"]
     Shell --> Insights["Insights.tsx"]
     Shell --> Git["Git.tsx"]
+    Shell --> Hotspots["Hotspots.tsx"]
     Shell --> Files["Files.tsx"]
     Shell --> Assets["Assets.tsx"]
     Shell --> Graph["Graph.tsx"]
@@ -165,7 +167,10 @@ classDiagram
         +bool git_available
         +Vec~FileChurn~ file_churn
         +Vec~Contributor~ top_contributors
+        +Vec~TechStackItem~ tech_stack
         +Option~AssetReport~ asset_report
+        +Option~ArchitectureAnalysisReport~ architecture_report
+        +Vec~ChangeCoupling~ change_coupling
     }
 
     class AssetReport {
@@ -219,11 +224,21 @@ classDiagram
         +u32 commits
     }
 
+    class HotspotEntry {
+        +String path
+        +String name
+        +f64 complexity
+        +u32 commits
+        +f64 hotspot_score
+        +String quadrant
+    }
+
     ProjectSummary --> RoleStats
     ProjectSummary --> Annotation
     ProjectSummary --> SecretFinding
     ProjectSummary --> FileChurn
     ProjectSummary --> Contributor
     ProjectSummary --> AssetReport
+    ProjectSummary --> HotspotEntry
     AssetReport --> AssetInfo
 ```

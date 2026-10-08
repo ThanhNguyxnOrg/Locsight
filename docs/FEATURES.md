@@ -81,7 +81,22 @@ Features:
 
 ---
 
-## 🔥 Git Churn & Hotspot Analysis
+## 🔥 Refactoring Hotspots (Hotspots Tab)
+
+Dedicated interactive observatory correlating file complexity with git commit churn:
+
+- 📊 **2D Risk Scatter Matrix** — Interactive Recharts scatter plot plotting McCabe Complexity against Git Churn, with reference median dividing lines.
+- 🎯 **Four Risk Quadrants**:
+  - `Hotspot - Refactor Priority #1` (Critical red): High complexity, high churn — primary sources of regressions.
+  - `Complex Legacy - Monitor` (Orange): High complexity, low churn — handle with care.
+  - `Active & Clean` (Green): Low complexity, high churn — active and healthy components.
+  - `Stable & Simple` (Gray): Low complexity, low churn — solid foundations.
+- 🏷️ **Quadrant Filters** — Instant toggle chips to focus on specific risk categories.
+- 📋 **Top 25 Action Targets** — Ranked table with exact hotspot score ($Complexity \times \ln(Commits + 1)$) and quadrant badges.
+
+---
+
+## 📈 Git Churn & Author Analytics
 
 When a `.git` repository is detected, Locsight queries commit history to identify:
 
@@ -118,12 +133,15 @@ Interactive visualization where each rectangle's area represents Lines of Code. 
 
 ## 🕸️ Dependency Graph
 
-Circular layout graph showing `import`/`require`/`use` coupling between files:
+Circular and hierarchical C4 architecture graph showing `import`/`require`/`use` coupling between files:
 
 - 🔍 **Search** — Find files in the graph
 - 🏷️ **Filter** — Show only specific languages
-- 🔎 **Zoom** — Mouse wheel zoom + pan
-- 📋 **Detail Card** — Click a node to see incoming/outgoing edges
+- 🔎 **Zoom & Reset** — Mouse wheel zoom (0.05x - 5.0x), drag pan, and instant compass reset
+- 🌡️ **Heatmap Overlays** — Toggle between Default, Complexity, Churn, and Hotspot thermal modes
+- 📸 **Visual Export** — One-click high-res SVG and 2x Retina PNG download directly from canvas
+- 📋 **Mermaid Diagram Copy** — Copy full `flowchart TD` architecture syntax to clipboard in 1 click
+- 📋 **Detail Card** — Click a node to inspect incoming imports, outgoing dependents, and blast radius %
 
 ---
 
