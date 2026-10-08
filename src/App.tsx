@@ -10,6 +10,7 @@ import { Git } from "./components/Git";
 import { Export } from "./components/Export";
 import { Settings } from "./components/Settings";
 import { Assets } from "./components/Assets";
+import { Hotspots } from "./components/Hotspots";
 import { useAnalysis } from "./hooks/useAnalysis";
 
 export default function App() {
@@ -57,13 +58,14 @@ export default function App() {
         return;
       }
       
-      // 2. Tab Navigation: Ctrl/Cmd + 1-9
+      // 2. Tab Navigation: Ctrl/Cmd + 1-9, 0
       if ((e.ctrlKey || e.metaKey) && !e.shiftKey) {
-        const numKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        const numKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
         if (numKeys.includes(e.key)) {
           e.preventDefault();
-          const targetScreens: Screen[] = ["welcome", "dashboard", "files", "assets", "graph", "health", "insights", "git", "export"];
-          const targetScreen = targetScreens[Number(e.key) - 1];
+          const targetScreens: Screen[] = ["welcome", "dashboard", "files", "assets", "graph", "hotspots", "health", "insights", "git", "export"];
+          const idx = e.key === "0" ? 9 : Number(e.key) - 1;
+          const targetScreen = targetScreens[idx];
           
           if (targetScreen === "welcome" || summary) {
             setScreen(targetScreen);
@@ -100,6 +102,7 @@ export default function App() {
       {screen === "files" && <Files />}
       {screen === "assets" && <Assets />}
       {screen === "graph" && <Graph />}
+      {screen === "hotspots" && <Hotspots />}
       {screen === "health" && <Health />}
       {screen === "insights" && <Insights />}
       {screen === "git" && <Git />}
