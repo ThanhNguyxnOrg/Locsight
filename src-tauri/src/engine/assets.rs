@@ -145,7 +145,6 @@ fn detect_asset_edges(assets: &[AssetInfo], root: &Path) -> Vec<(String, String)
                 if !local_edges.is_empty() {
                     edges.lock().unwrap().extend(local_edges);
                 }
-            }
         }
     });
 
@@ -237,7 +236,6 @@ fn detect_orphans(
                     guard.insert(idx);
                 }
             }
-        }
     });
     
     let mut detected = detected_indices.into_inner().unwrap();
