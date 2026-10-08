@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { C, mono } from "./tokens";
+import { C, mono, getHeatmapColor } from "./tokens";
 import { ZoomIn, ZoomOut, Search, Network, FileCode, Folder, Compass, Minimize2, Maximize2, X } from "lucide-react";
 import { useAnalysis } from "../hooks/useAnalysis";
 
@@ -220,6 +220,150 @@ export function Graph() {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const activeNodeId = hoveredNodeId || selectedNodeId;
   const [isPanelCollapsed, setIsPanelCollapsed] = useState(false);
+
+  type HeatmapMode = "default" | "complexity" | "churn" | "hotspot";
+  const [heatmapMode, setHeatmapMode] = useState<HeatmapMode>("default");
+  const [copiedMermaid, setCopiedMermaid] = useState(false);
+
+  // Build churn lookup from summary (supporting both filePath and path)
+  const churnMap = useMemo(() => {
+    const map = new Map<string, number>();
+    if (!summary?.fileChurn) return map;
+    for (const fc of summary.fileChurn) {
+      const p = fc.filePath || fc.path;
+      if (p) map.set(p, fc.commits);
+    }
+    return map;
+  }, [summary]);
+
+  // Compute max values for normalization
+  const maxComplexity = useMemo(() => {
+    if (!summary?.files?.length) return 1;
+    return Math.max(1, ...summary.files.map((f) => f.complexity || 0));
+  }, [summary]);
+
+  const maxChurn = useMemo(() => {
+    if (!summary?.fileChurn?.length) return 1;
+    return Math.max(1, ...summary.fileChurn.map((fc) => fc.commits || 0));
+  }, [summary]);
+
+  // Heatmap color resolver
+  const getNodeColor = (filePath: string, defaultColor: string): string => {
+    if (heatmapMode === "default") return defaultColor;
+    if (!summary?.files) return defaultColor;
+
+    const file = summary.files.find((f) => f.path === filePath);
+    if (!file) return defaultColor;
+
+    if (heatmapMode === "complexity") {
+      return getHeatmapColor(file.complexity || 0, maxComplexity);
+    }
+    if (heatmapMode === "churn") {
+      const commits = churnMap.get(filePath) || 0;
+      return getHeatmapColor(commits, maxChurn);
+    }
+    if (heatmapMode === "hotspot") {
+      const commits = churnMap.get(filePath) || 0;
+      const score = (file.complexity || 0) * Math.log(commits + 1);
+      const maxScore = maxComplexity * Math.log(maxChurn + 1);
+      return getHeatmapColor(score, maxScore);
+    }
+    return defaultColor;
+  };
+
+  const exportGraphSVG = () => {
+    const svgEl = document.querySelector("#locsight-graph-canvas svg") as SVGSVGElement | null;
+    if (!svgEl) return;
+
+    const clone = svgEl.cloneNode(true) as SVGSVGElement;
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    const svgData = new XMLSerializer().serializeToString(clone);
+    const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "locsight-architecture.svg";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportGraphPNG = () => {
+    const svgEl = document.querySelector("#locsight-graph-canvas svg") as SVGSVGElement | null;
+    if (!svgEl) return;
+
+    const clone = svgEl.cloneNode(true) as SVGSVGElement;
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    const svgData = new XMLSerializer().serializeToString(clone);
+    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = (img.width || 900) * 2;
+      canvas.height = (img.height || 560) * 2;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.fillStyle = C.bg;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.scale(2, 2);
+        ctx.drawImage(img, 0, 0);
+
+        canvas.toBlob((blob) => {
+          if (!blob) return;
+          const pngUrl = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = pngUrl;
+          a.download = "locsight-architecture.png";
+          a.click();
+          URL.revokeObjectURL(pngUrl);
+        }, "image/png");
+      }
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+  };
+
+  const copyMermaidToClipboard = async () => {
+    if (!summary?.edges) return;
+
+    const sanitizeId = (path: string) =>
+      path.replace(/[^a-zA-Z0-9_]/g, "_").replace(/^_+/, "n_");
+
+    const lines = ["flowchart TD"];
+
+    const nodeSet = new Set<string>();
+    for (const [from, to] of summary.edges) {
+      nodeSet.add(from);
+      nodeSet.add(to);
+    }
+
+    for (const node of nodeSet) {
+      const basename = node.split("/").pop() || node;
+      lines.push(`  ${sanitizeId(node)}["${basename.replace(/"/g, '\\"')}"]`);
+    }
+
+    for (const [from, to] of summary.edges) {
+      lines.push(`  ${sanitizeId(from)} --> ${sanitizeId(to)}`);
+    }
+
+    const mermaidCode = lines.join("\n");
+
+    try {
+      await navigator.clipboard.writeText(mermaidCode);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = mermaidCode;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+
+    setCopiedMermaid(true);
+    setTimeout(() => setCopiedMermaid(false), 2000);
+  };
 
   // States for Node Dragging
   const [nodePositions, setNodePositions] = useState<Record<string, { x: number, y: number }>>({});
@@ -672,7 +816,7 @@ export function Graph() {
   }
 
   return (
-    <div style={{ height: "100%", position: "relative", background: C.bg, overflow: "hidden" }}>
+    <div id="locsight-graph-canvas" style={{ height: "100%", position: "relative", background: C.bg, overflow: "hidden" }}>
       {/* SVG Canvas */}
       <svg
         width="100%"
@@ -774,6 +918,7 @@ export function Graph() {
             const isSelected = n.id === selectedNodeId;
             const isHovered = n.id === hoveredNodeId;
             const isActive = n.id === activeNodeId;
+            const nodeColor = getNodeColor(n.id, n.color);
             
             const isDirectImport = relations.imports.includes(n.id);
             const isDirectDependent = relations.dependents.includes(n.id);
@@ -846,7 +991,7 @@ export function Graph() {
                     rx={6}
                     ry={6}
                     fill={C.surface}
-                    stroke={strokeColor === "transparent" ? n.color : strokeColor}
+                    stroke={strokeColor === "transparent" ? nodeColor : strokeColor}
                     strokeWidth={isSelected ? 2.5 : isHovered ? 2 : 1.5}
                     filter="url(#card-shadow)"
                     style={{ transition: "stroke 200ms, stroke-width 200ms" }}
@@ -855,7 +1000,7 @@ export function Graph() {
                   {/* Left accent color strip */}
                   <path
                     d={`M ${rectX + 1.5} ${rectY + 6} L ${rectX + 1.5} ${rectY + H - 6}`}
-                    stroke={n.color}
+                    stroke={nodeColor}
                     strokeWidth={3}
                     strokeLinecap="round"
                   />
@@ -868,7 +1013,7 @@ export function Graph() {
                     height={14}
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke={n.color}
+                    stroke={nodeColor}
                     strokeWidth={2}
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -916,7 +1061,7 @@ export function Graph() {
                     cx={pos.x}
                     cy={pos.y}
                     r={r}
-                    fill={n.color}
+                    fill={nodeColor}
                     stroke={strokeColor}
                     strokeWidth={isSelected ? 3 : isHovered ? 2.5 : 2}
                     opacity={opacity}
@@ -937,6 +1082,40 @@ export function Graph() {
           })}
         </g>
       </svg>
+
+      {/* Heatmap Legend */}
+      {heatmapMode !== "default" && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "6px 12px",
+            background: C.surface,
+            borderRadius: 6,
+            fontSize: 11,
+            color: C.text,
+            ...mono,
+            border: `1px solid ${C.border}`,
+            position: "absolute",
+            bottom: 16,
+            left: 20,
+            zIndex: 10,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+          }}
+        >
+          <span style={{ color: C.muted, fontSize: 10 }}>Low</span>
+          <div style={{ display: "flex", gap: 3 }}>
+            {["#22c55e", "#eab308", "#f97316", "#ef4444"].map((c) => (
+              <div key={c} style={{ width: 16, height: 8, borderRadius: 2, background: c }} />
+            ))}
+          </div>
+          <span style={{ color: C.muted, fontSize: 10 }}>High</span>
+          <span style={{ color: C.accent, fontSize: 10, marginLeft: 4, textTransform: "capitalize" }}>
+            ({heatmapMode})
+          </span>
+        </div>
+      )}
 
       {/* Toolbar Segmented Controls */}
       <div
@@ -1004,6 +1183,32 @@ export function Graph() {
             </div>
           </>
         )}
+
+        <div style={{ width: 1, height: 16, background: C.border, margin: "0 4px" }} />
+        {/* Heatmap Mode Toggle */}
+        <div className="flex items-center gap-1">
+          {(["default", "complexity", "churn", "hotspot"] as HeatmapMode[]).map((mode) => (
+            <button
+              key={mode}
+              onClick={() => setHeatmapMode(mode)}
+              style={{
+                ...mono,
+                fontSize: 10,
+                fontWeight: 600,
+                textTransform: "uppercase",
+                padding: "4px 8px",
+                border: "none",
+                borderRadius: 4,
+                cursor: "pointer",
+                background: heatmapMode === mode ? C.accent : "transparent",
+                color: heatmapMode === mode ? "#121114" : C.muted,
+                transition: "all 150ms ease",
+              }}
+            >
+              {mode}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Navigation Controls */}
@@ -1034,6 +1239,61 @@ export function Graph() {
           title="Reset View"
         >
           <Compass size={14} color={C.muted} />
+        </button>
+        <div style={{ width: 1, height: 18, background: C.border }} />
+
+        {/* Graph Export Controls (SVG, PNG, Mermaid) */}
+        <button
+          onClick={exportGraphSVG}
+          title="Export SVG"
+          style={{
+            ...mono,
+            padding: "3px 7px",
+            fontSize: 10,
+            fontWeight: 600,
+            borderRadius: 4,
+            border: `1px solid ${C.border}`,
+            background: C.bg,
+            color: C.text,
+            cursor: "pointer",
+          }}
+        >
+          SVG
+        </button>
+        <button
+          onClick={exportGraphPNG}
+          title="Export PNG"
+          style={{
+            ...mono,
+            padding: "3px 7px",
+            fontSize: 10,
+            fontWeight: 600,
+            borderRadius: 4,
+            border: `1px solid ${C.border}`,
+            background: C.bg,
+            color: C.text,
+            cursor: "pointer",
+          }}
+        >
+          PNG
+        </button>
+        <button
+          onClick={copyMermaidToClipboard}
+          title="Copy Mermaid diagram to clipboard"
+          style={{
+            ...mono,
+            padding: "3px 7px",
+            fontSize: 10,
+            fontWeight: 600,
+            borderRadius: 4,
+            border: `1px solid ${copiedMermaid ? C.accent : C.border}`,
+            background: copiedMermaid ? `${C.accent}22` : C.bg,
+            color: copiedMermaid ? C.accent : C.text,
+            cursor: "pointer",
+            transition: "all 150ms ease",
+          }}
+        >
+          {copiedMermaid ? "Copied!" : "Mermaid"}
         </button>
         <div style={{ width: 1, height: 18, background: C.border }} />
         
