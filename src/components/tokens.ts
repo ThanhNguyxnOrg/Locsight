@@ -5,6 +5,11 @@ export const C = {
   text: "#e8e6f0",
   muted: "#7c7a8a",
   accent: "#f59e0b",
+  surface1: "#1c1b22",
+  surface2: "#24232c",
+  fg1: "#e8e6f0",
+  fg2: "#b0adc0",
+  fg3: "#7c7a8a",
 };
 
 export const LANG_COLORS: Record<string, string> = {
@@ -150,3 +155,19 @@ export const TECH_CATEGORY_COLORS: Record<string, { bg: string; text: string; bo
 export const mono = { fontFamily: "'JetBrains Mono', monospace" };
 export const sans = { fontFamily: "'Inter', sans-serif" };
 
+export const HEATMAP_COLORS = {
+  low: "#22c55e",      // green-500
+  mid: "#eab308",      // yellow-500
+  high: "#f97316",     // orange-500
+  critical: "#ef4444", // red-500
+};
+
+/** Returns a stepped color from green-yellow-orange-red based on value/max ratio. */
+export function getHeatmapColor(value: number, max: number): string {
+  if (max <= 0) return HEATMAP_COLORS.low;
+  const ratio = Math.min(value / max, 1);
+  if (ratio < 0.25) return HEATMAP_COLORS.low;
+  if (ratio < 0.50) return HEATMAP_COLORS.mid;
+  if (ratio < 0.75) return HEATMAP_COLORS.high;
+  return HEATMAP_COLORS.critical;
+}
