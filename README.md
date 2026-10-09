@@ -47,7 +47,14 @@ Locsight is a pre-compiled desktop app. **You do not need to clone the code or i
    - **macOS**: Drag the `.dmg` application to your `/Applications` directory.
    - **Linux**: Install the `.deb` package or execute the `.AppImage`.
 
-> 💡 For detailed setup guides, security bypass instructions (SmartScreen/Gatekeeper), system dependency packages, and graphics hardware troubleshooting for **Virtual Machines (blank screen fix)**, please consult the [Full Installation Guide](docs/INSTALLATION.md).
+> [!TIP]
+> **First-time Launch Notice (Unsigned App Warnings):**
+> Locsight is a community open-source project:
+> - **Windows (SmartScreen)**: Click **"More info"** ➔ **"Run anyway"**.
+> - **macOS (Gatekeeper)**: Run in Terminal: `xattr -cr /Applications/Locsight.app` (or Right-click ➔ **Open**).
+> - **Linux (AppImage)**: Run `chmod +x Locsight_*.AppImage` before launching.
+> For full setup, system dependencies, and VM troubleshooting, see the [Full Installation Guide](docs/INSTALLATION.md).
+
 
 ## 🛠️ Development Setup
 

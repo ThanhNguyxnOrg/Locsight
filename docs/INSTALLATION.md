@@ -96,8 +96,8 @@ sudo pacman -S webkit2gtk-4.1 gtk3 libsoup3
 ### 3. Running AppImage
 If using the AppImage, grant execution permissions before launching:
 ```bash
-chmod +x Locsight_2.0.0_amd64.AppImage
-./Locsight_2.0.0_amd64.AppImage
+chmod +x Locsight_*_amd64.AppImage
+./Locsight_*_amd64.AppImage
 ```
 
 > [!NOTE]

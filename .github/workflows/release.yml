@@ -74,6 +74,14 @@ jobs:
             echo "| 🍎 macOS | Intel (x64) | \`.dmg\` |"
             echo "| 🐧 Linux | x64 | \`.deb\` / \`.AppImage\` |"
             echo "| 🐧 Linux | ARM64 | \`.deb\` / \`.AppImage\` |"
+            echo ""
+            echo "### 🛡️ First-time Launch Notice"
+            echo ""
+            echo "Locsight is an open-source community app. If your OS displays an unrecognized publisher warning:"
+            echo "- 🪟 **Windows**: Click **More info** ➔ **Run anyway**."
+            echo "- 🍎 **macOS**: Run \`xattr -cr /Applications/Locsight.app\` in Terminal (or Right-click ➔ **Open**)."
+            echo "- 🐧 **Linux**: Run \`chmod +x Locsight_*.AppImage\`."
+            echo "- 📖 Full setup & VM troubleshooting: [Installation Guide](https://github.com/ThanhNguyxnOrg/Locsight/blob/main/docs/INSTALLATION.md)"
           } > release_body.md
 
       - name: Bump version in config files
