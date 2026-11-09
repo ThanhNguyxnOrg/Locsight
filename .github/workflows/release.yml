@@ -1,14 +1,13 @@
 name: Release
 
 on:
-  push:
-    branches: [main]
+  create
 
 jobs:
-  # ── Job 1: Parse version, extract changelog, create tag + draft release ──
+  # ── Resolve the centrally created release tag ──
   create-release:
-    # Only run if commit message starts with "release: v" and not triggered by dependabot
-    if: "startsWith(github.event.head_commit.message, 'release: v') && github.actor != 'dependabot[bot]'"
+    # The central controller creates the tag and draft; resolve its version only.
+    if: github.event.ref_type == 'tag' && startsWith(github.event.ref, 'v')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,116 +15,20 @@ jobs:
       tag: ${{ steps.version.outputs.tag }}
       version: ${{ steps.version.outputs.version }}
     steps:
-      - name: Generate GitHub App Token
-        id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          app-id: ${{ secrets.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
-
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          token: ${{ steps.app-token.outputs.token }}
-
-      - name: Parse version from commit message
+      - name: Resolve central release tag
         id: version
+        env:
+          TAG: ${{ github.ref_name }}
         run: |
-          MSG="${{ github.event.head_commit.message }}"
-          # Get the first line of the commit message
-          FIRST_LINE=$(echo "$MSG" | head -n 1)
-          if [[ "$FIRST_LINE" =~ ^release:\ v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
-            VERSION="${BASH_REMATCH[1]}"
-            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-            echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
-            echo "Parsed version: $VERSION"
-          else
-            echo "::error::Commit message first line '$FIRST_LINE' does not match 'release: vX.Y.Z'"
+          VERSION="${TAG#v}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.]+)?$ ]]; then
+            echo "::error::Invalid centrally created release tag: $TAG"
             exit 1
           fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Extract changelog section
-        id: changelog
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          # Use awk to extract the changelog section for the specific version
-          BODY=$(awk -v ver="$VERSION" '
-            /^## \[/ { if (found) exit; if (index($0, "[" ver "]")) found=1; next }
-            found { print }
-          ' CHANGELOG.md)
-          
-          if [ -z "$BODY" ]; then
-            BODY="Release v${VERSION} — see CHANGELOG.md for details."
-            echo "No changelog section found in CHANGELOG.md for [$VERSION]. Using fallback."
-          fi
-          
-          {
-            echo "$BODY"
-            echo ""
-            echo "---"
-            echo ""
-            echo "### 📦 Downloads"
-            echo ""
-            echo "| Platform | Architecture | Setup Installer / Binary |"
-            echo "|----------|-------------|-------------------------|"
-            echo "| 🪟 Windows | x64 | \`.msi\` / \`.exe\` (NSIS) |"
-            echo "| 🪟 Windows | ARM64 | \`.msi\` / \`.exe\` (NSIS) |"
-            echo "| 🍎 macOS | Apple Silicon (ARM64) | \`.dmg\` |"
-            echo "| 🍎 macOS | Intel (x64) | \`.dmg\` |"
-            echo "| 🐧 Linux | x64 | \`.deb\` / \`.AppImage\` |"
-            echo "| 🐧 Linux | ARM64 | \`.deb\` / \`.AppImage\` |"
-            echo ""
-            echo "### 🛡️ First-time Launch Notice"
-            echo ""
-            echo "Locsight is an open-source community app. If your OS displays an unrecognized publisher warning:"
-            echo "- 🪟 **Windows**: Click **More info** ➔ **Run anyway**."
-            echo "- 🍎 **macOS**: Run \`xattr -cr /Applications/Locsight.app\` in Terminal (or Right-click ➔ **Open**)."
-            echo "- 🐧 **Linux**: Run \`chmod +x Locsight_*.AppImage\`."
-            echo "- 📖 Full setup & VM troubleshooting: [Installation Guide](https://github.com/ThanhNguyxnOrg/Locsight/blob/main/docs/INSTALLATION.md)"
-          } > release_body.md
-
-      - name: Bump version in config files
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          
-          # Update package.json
-          jq '.version = "'$VERSION'"' package.json > temp.json && mv temp.json package.json
-          
-          # Update src-tauri/tauri.conf.json
-          jq '.version = "'$VERSION'"' src-tauri/tauri.conf.json > temp.json && mv temp.json src-tauri/tauri.conf.json
-          
-          # Update src-tauri/Cargo.toml
-          sed -i 's/^version = ".*"/version = "'$VERSION'"/' src-tauri/Cargo.toml
-          
-          # Configure Git
-          git config user.name "ThanhNguyxnAgent[bot]"
-          git config user.email "296222857+thanhnguyxnagent[bot]@users.noreply.github.com"
-          
-          # Commit changes
-          git add package.json src-tauri/tauri.conf.json src-tauri/Cargo.toml
-          git commit -m "ci: bump version to v$VERSION [skip ci]" || echo "No changes to commit"
-          
-          # Push changes back to main branch
-          git push origin HEAD:main || echo "Warning: Could not push to main branch directly, continuing with tagging."
-          
-          # Tag the version-bumped commit
-          git tag -a "${{ steps.version.outputs.tag }}" -m "Release ${{ steps.version.outputs.tag }}"
-          git push origin "${{ steps.version.outputs.tag }}"
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-
-      - name: Create draft release
-        uses: softprops/action-gh-release@v3
-        with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          name: "🚀 Locsight ${{ steps.version.outputs.tag }}"
-          body_path: release_body.md
-          draft: true
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-  # ── Job 2: Build on 6 targets and upload artifacts to release ──
+  # ── Build on 6 targets; Tauri uploads into the central draft release ──
   build-tauri:
     needs: create-release
     permissions:
@@ -201,42 +104,3 @@ jobs:
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
-
-  # ── Job 3: Publish release after all builds succeed ──
-  publish-release:
-    needs: [create-release, build-tauri]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Generate GitHub App Token
-        id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          app-id: ${{ secrets.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
-
-      - name: Publish release
-        uses: actions/github-script@v9
-        with:
-          github-token: ${{ steps.app-token.outputs.token }}
-          script: |
-            const { data: releases } = await github.rest.repos.listReleases({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            });
-            const draft = releases.find(
-              r => r.tag_name === '${{ needs.create-release.outputs.tag }}' && r.draft
-            );
-            if (draft) {
-              await github.rest.repos.updateRelease({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                release_id: draft.id,
-                draft: false,
-              });
-              console.log(`Successfully published release: ${draft.name}`);
-            } else {
-              console.log('No matching draft release found.');
-            }
-
