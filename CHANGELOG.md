@@ -235,3 +235,9 @@ This release marks the initial stable launch of **Locsight** (formerly Codebase 
 
 - publish Locsight assets as ThanhNguyxnAgent ([fed698f](https://github.com/ThanhNguyxnOrg/Locsight/commit/fed698f564c712261e5550a377acfc7b377d27fa))
 
+## [2.2.2] - 2026-11-10
+
+### Bug Fixes and Performance
+
+- scope shared Agent token to Locsight ([372597f](https://github.com/ThanhNguyxnOrg/Locsight/commit/372597f5d726f8e4c63532c6c8d71cd2c89d637d))
+
