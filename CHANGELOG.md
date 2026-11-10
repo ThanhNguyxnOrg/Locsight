@@ -228,3 +228,10 @@ This release marks the initial stable launch of **Locsight** (formerly Codebase 
   - `x86_64-unknown-linux-gnu` (Linux DEB/AppImage x64)
   - `aarch64-unknown-linux-gnu` (Linux DEB/AppImage ARM64)
 - **Automatic Changelog Extraction**: Automatically compiles release notes from `CHANGELOG.md` upon pushing `release: v*` tags.
+
+## [2.2.1] - 2026-11-10
+
+### Bug Fixes and Performance
+
+- publish Locsight assets as ThanhNguyxnAgent ([fed698f](https://github.com/ThanhNguyxnOrg/Locsight/commit/fed698f564c712261e5550a377acfc7b377d27fa))
+
