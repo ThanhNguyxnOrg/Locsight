@@ -61,6 +61,15 @@ jobs:
         with:
           ref: ${{ needs.create-release.outputs.tag }}
 
+      - name: Create ThanhNguyxnAgent token
+        id: agent
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510
+        with:
+          client-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          permission-contents: write
+
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
@@ -97,7 +106,7 @@ jobs:
       - name: Build and upload
         uses: tauri-apps/tauri-action@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.agent.outputs.token }}
         with:
           tagName: ${{ needs.create-release.outputs.tag }}
           releaseName: "🚀 Locsight ${{ needs.create-release.outputs.tag }}"
