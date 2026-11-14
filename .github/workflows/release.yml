@@ -44,7 +44,7 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
-  # ── Build on 6 targets; Tauri uploads into the central draft release ──
+  # ── Build on 6 targets; the central publisher owns all release uploads ──
   build-tauri:
     needs: create-release
     permissions:
@@ -83,15 +83,6 @@ jobs:
         with:
           ref: ${{ needs.create-release.outputs.tag }}
           persist-credentials: false
-
-      - name: Mint repository-scoped ThanhNguyxnAgent token
-        id: agent
-        uses: ThanhNguyxnOrg/.github/.github/actions/agent-token@da9d02544f60aeec92f8c851846ee3a587044beb
-        with:
-          profile: content
-          client-id: ${{ secrets.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
-
 
       - name: Setup Node
         uses: actions/setup-node@v7
