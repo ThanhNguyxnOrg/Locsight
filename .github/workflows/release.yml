@@ -126,15 +126,9 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci
 
-      - name: Build and upload
+      - name: Build platform package
         uses: tauri-apps/tauri-action@v1
-        env:
-          GITHUB_TOKEN: ${{ steps.agent.outputs.token }}
         with:
-          tagName: ${{ needs.create-release.outputs.tag }}
-          releaseName: "🚀 Locsight ${{ needs.create-release.outputs.tag }}"
-          releaseDraft: true
-          prerelease: false
           args: ${{ matrix.args }}
 
       - name: Stage exact release assets for central publisher
