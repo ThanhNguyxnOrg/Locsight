@@ -129,7 +129,7 @@ jobs:
         run: node .github/scripts/stage-release-assets.mjs
 
       - name: Upload target asset bundle
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: release-assets-locsight-${{ matrix.variant }}
           path: dist/release/*
