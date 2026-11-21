@@ -48,7 +48,13 @@ if (!expected) {
   throw new Error(`Unsupported Locsight release target: ${variant}`);
 }
 
-const root = path.resolve('src-tauri/target/release/bundle');
+// Only variants built with --target have a target triple in their bundle path.
+const targetByVariant = {
+  'windows-arm64': 'aarch64-pc-windows-msvc',
+  'macos-arm64': 'aarch64-apple-darwin',
+  'macos-x64': 'x86_64-apple-darwin',
+};
+const root = path.resolve('src-tauri/target', targetByVariant[variant] ?? '', 'release/bundle');
 const destination = path.resolve('dist/release');
 if (!fs.existsSync(root)) {
   throw new Error(`Tauri bundle directory not found: ${root}`);
@@ -65,7 +71,9 @@ function listFiles(directory) {
 fs.mkdirSync(destination, { recursive: true });
 const candidates = listFiles(root);
 for (const name of expected) {
-  const matches = candidates.filter((candidate) => path.basename(candidate) === name);
+  // tauri-action packages Locsight.app.tar.gz without its release version or arch.
+  const sourceNames = name.endsWith('.app.tar.gz') ? [name, 'Locsight.app.tar.gz'] : [name];
+  const matches = candidates.filter((candidate) => sourceNames.includes(path.basename(candidate)));
   if (matches.length !== 1) {
     throw new Error(
       `Expected exactly one ${name} in Tauri bundles, found ${matches.length}`,
