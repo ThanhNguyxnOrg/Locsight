@@ -241,3 +241,9 @@ This release marks the initial stable launch of **Locsight** (formerly Codebase 
 
 - scope shared Agent token to Locsight ([372597f](https://github.com/ThanhNguyxnOrg/Locsight/commit/372597f5d726f8e4c63532c6c8d71cd2c89d637d))
 
+## [2.2.3] - 2026-11-21
+
+### Bug Fixes and Performance
+
+- stage release assets from the selected Tauri target (#107) ([5db8d9d](https://github.com/ThanhNguyxnOrg/Locsight/commit/5db8d9d08ff4c8e149797dd90c7dcdd85d87ee09))
+
