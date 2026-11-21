@@ -128,20 +128,16 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
-      day: monday
-      time: "02:00"
-      timezone: Asia/Ho_Chi_Minh
-    open-pull-requests-limit: 5
+      interval: monthly
+    open-pull-requests-limit: 1
     commit-message:
-      prefix: "ci(actions):"
+      prefix: chore
+      include: scope
     labels:
       - dependencies
       - github-actions
     groups:
-      actions-all:
-        patterns:
-          - "*"
-        update-types:
-          - minor
-          - patch
+      github-actions:
+        patterns: ["*"]
+    cooldown:
+      default-days: 7
