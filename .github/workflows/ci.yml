@@ -25,6 +25,7 @@ jobs:
       cache_dependency_path: package-lock.json
       prepare_command: npm ci
       validation_command: node scripts/validate-languages.cjs && node --check .github/scripts/stage-release-assets.mjs
+      test_command: node --test .github/scripts/stage-release-assets.test.mjs
 
   build-tauri:
     needs: verify
